@@ -195,6 +195,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		case "administrador":
 			JOptionPane.showMessageDialog(null, "Has accedido como administrador");
 			System.out.println("hola soy");
+			System.out.println("Ioritz");
 			break;
 		
 		
