@@ -53,15 +53,13 @@ public class BasesDeDatos
 	 * Debe haberse inicializado la conexión correctamente.
 	 */
 	public static void crearTablaBD() {
-//		if (statement==null) return;//para que alguien no nos llame antes de initBD
-//		try {
-//			statement.executeUpdate("create table fichero_multimedia " +
-//				"(fichero string, error boolean, titulo string" +
-//				", cantante string, comentarios string)");
-//		} catch (SQLException e) {
-//			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-//			// e.printStackTrace();  
-//		}
+	if (statement==null) return;//para que alguien no nos llame antes de initBD
+	try {
+			statement.executeUpdate("create table usuarios " + "(id string, contraseña string" +")");
+	} catch (SQLException e) {
+		// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+		// e.printStackTrace();  
+	}
 	}
 	
 	

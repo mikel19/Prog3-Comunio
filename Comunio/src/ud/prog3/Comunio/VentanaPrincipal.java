@@ -108,7 +108,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
 		
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(new Color(0,128,0));
 //		lCabecera.setBounds(0, 0, 832, 98);
 //		lIcono.setBounds(0, 150, 124, 124);
 		
@@ -147,47 +147,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		switch(e.getActionCommand())
 		{
 		case "usuario":
-			JFrame vUsuario=new JFrame();
-			JTextField id=new JTextField();
-			JTextField contraseña=new JTextField();
-			JLabel id2=new JLabel();
-			JLabel contraseña2=new JLabel();
-			JPanel contentPane=new JPanel();
-			contentPane.setLayout(null);
-			
-			id.setPreferredSize(getSize());
-			contraseña.setPreferredSize(getSize());
-			
-			
-			id.setText("");
-			contraseña.setText("");
-			id.setEnabled(true);
-			contraseña.setEnabled(true);
-			
-			
-			id2.setText("Introduzca el id");
-			contraseña2.setText("Introduzca contraseña");
-			
-			
-			vUsuario.setBounds(500, 200, 250,250 );
-			vUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			Usuario vUsuario=new Usuario();
 			vUsuario.setVisible(true);
-			vUsuario.setResizable(false);
-			vUsuario.setTitle("Sign Up - Usuario");
-			contentPane.setVisible(true);
-			
-			contentPane.add(id);
-			contentPane.add(id2);
-			contentPane.add(contraseña);
-			contentPane.add(contraseña2);
-			
-			id.setVisible(true);
-			id2.setVisible(true);
-			contraseña.setVisible(true);
-			contraseña2.setVisible(true);
-			
-			vUsuario.setContentPane(contentPane);
-			
+			BasesDeDatos.close();
 			break;
 			
 			
@@ -241,7 +203,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 	}
 	
 	
-	 
+	
 	   
-	 
+	
 }
