@@ -43,6 +43,7 @@ public class Usuario extends JFrame implements ActionListener
 	
 	public Usuario()
 	{
+		setResizable(false);
 		getContentPane().setBackground(new Color(0, 128, 0));
 		setBounds(400,300,500,400);
 		setTitle("Sign Up - Comunio");
@@ -50,26 +51,26 @@ public class Usuario extends JFrame implements ActionListener
 		
 		JLabel lContraseña = new JLabel("inserte el id del usuario");
 		lContraseña.setForeground(Color.WHITE);
-		lContraseña.setBounds(94, 248, 128, 14);
+		lContraseña.setBounds(10, 245, 128, 14);
 		getContentPane().add(lContraseña);
 		
 		id = new JTextField();
-		id.setBounds(112, 285, 86, 20);
+		id.setBounds(169, 242, 86, 20);
 		getContentPane().add(id);
 		id.setColumns(10);
 		
 		JLabel lblInserteLaContrasea = new JLabel("inserte la contrase\u00F1a");
 		lblInserteLaContrasea.setForeground(Color.WHITE);
-		lblInserteLaContrasea.setBounds(94, 316, 128, 14);
+		lblInserteLaContrasea.setBounds(10, 298, 128, 14);
 		getContentPane().add(lblInserteLaContrasea);
 		
 		contraseña = new JTextField();
-		contraseña.setBounds(112, 341, 86, 20);
+		contraseña.setBounds(169, 295, 86, 20);
 		getContentPane().add(contraseña);
 		contraseña.setColumns(10);
 		
 		btnAcceder = new JButton("ACCEDER");
-		btnAcceder.setBounds(307, 312, 115, 23);
+		btnAcceder.setBounds(307, 264, 115, 23);
 		getContentPane().add(btnAcceder);
 		btnAcceder.addActionListener(this);
 		btnAcceder.setActionCommand("acceder");
@@ -105,12 +106,12 @@ public class Usuario extends JFrame implements ActionListener
 		
 		lblqueIdQuieres = new JLabel("\u00BFQue id quieres tener?");
 		lblqueIdQuieres.setForeground(Color.WHITE);
-		lblqueIdQuieres.setBounds(35, 71, 124, 14);
+		lblqueIdQuieres.setBounds(10, 71, 149, 14);
 		getContentPane().add(lblqueIdQuieres);
 		
 		lblyQueContrasea = new JLabel("\u00BFY que contrase\u00F1a?");
 		lblyQueContrasea.setForeground(Color.WHITE);
-		lblyQueContrasea.setBounds(35, 116, 115, 14);
+		lblyQueContrasea.setBounds(10, 116, 140, 14);
 		getContentPane().add(lblyQueContrasea);
 		
 		btnRegistrar = new JButton("REGISTRAR");
@@ -119,9 +120,7 @@ public class Usuario extends JFrame implements ActionListener
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setActionCommand("registrar");
 		
-		setResizable(false);
-		
-		BasesDeDatos.initBD("UsuariosBD");
+		//BasesDeDatos.initBD("UsuariosBD");
 		BasesDeDatos.crearTablaBD();
 	
 	}
@@ -153,10 +152,13 @@ public class Usuario extends JFrame implements ActionListener
 				break;
 			}
 			
+			
 		case "cancelar":
 			
 			id.setText("");
 			contraseña.setText("");
+			nId.setText("");
+			nContraseña.setText("");
 			
 			
 			break;
@@ -200,7 +202,7 @@ public class Usuario extends JFrame implements ActionListener
 	public boolean chequearYaEnTabla( Statement st ) {
 		try {
 			String sentSQL = "select * from usuarios " +
-					"where (id = '" + nId.getText() + "')";
+					"where (id = '" + nId.getText() + "' and contraseña = '"+nContraseña.getText()+"')";
 			System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 			ResultSet rs = st.executeQuery( sentSQL );//resultado para la gestion de las bases de datos
 			if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe
@@ -216,7 +218,7 @@ public class Usuario extends JFrame implements ActionListener
 	public boolean chequearEnTabla( Statement st ) {
 		try {
 			String sentSQL = "select * from usuarios " +
-					"where (id = '" + id.getText() + "')";
+					"where (id = '" + id.getText() + "'and contraseña = '"+contraseña.getText()+"')";
 			System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 			ResultSet rs = st.executeQuery( sentSQL );//resultado para la gestion de las bases de datos
 			if (rs.next()) {  // Normalmente se recorre con un while, pero aquí solo hay que ver si ya existe

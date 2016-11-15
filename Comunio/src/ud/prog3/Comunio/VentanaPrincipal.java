@@ -137,7 +137,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		bAdministrador.setVisible(true);
 		
 		setContentPane(contentPane);
-		
+		BasesDeDatos.initBD("Base de datos");
 		
        
 	}
@@ -149,9 +149,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		case "usuario":
 			Usuario vUsuario=new Usuario();
 			vUsuario.setVisible(true);
-			BasesDeDatos.close();
 			break;
-			
 			
 			
 		case "administrador":
@@ -165,6 +163,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		
 		
 	}
+	
+	
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
@@ -178,6 +178,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
+		BasesDeDatos.close();
+		
 		
 	}
 	@Override
