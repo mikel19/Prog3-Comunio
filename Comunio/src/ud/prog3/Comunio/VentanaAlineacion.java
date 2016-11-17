@@ -1,7 +1,9 @@
 package ud.prog3.Comunio;
 
 import java.awt.EventQueue;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,12 +22,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 
 public class VentanaAlineacion extends JInternalFrame {
-	
+	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
 	JComboBox<Jugador> Portero;
 	JComboBox<Jugador> LI;
@@ -58,6 +61,12 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VentanaAlineacion() {
+	
+	
+	
+	
+		setMaximizable(true);
+
 		setClosable(true);
 		
 		JLabel campo=new JLabel();
@@ -86,6 +95,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		Portero.setToolTipText("Portero");
 		Portero.setBounds(207, 429, 28, 20);
 		getContentPane().add(Portero);
+		
 		
 		LI = new JComboBox<Jugador>();
 		LI.setToolTipText("LI");
@@ -145,6 +155,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblAlineacion.getWidth(), lblAlineacion.getHeight(), Image.SCALE_DEFAULT));
 		lblAlineacion.setIcon(icono);
 		
+		
 		JButton button = new JButton("4-4-2");		
 		button.setBounds(10, 31, 89, 23);
 		getContentPane().add(button);
@@ -167,7 +178,9 @@ public class VentanaAlineacion extends JInternalFrame {
 		});
 		button_1.setBounds(103, 31, 89, 23);
 		getContentPane().add(button_1);
-		
-		
+
+
+	
 	}
+	 
 }

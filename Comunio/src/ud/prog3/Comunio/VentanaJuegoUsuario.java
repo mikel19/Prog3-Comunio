@@ -51,9 +51,23 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		getContentPane().add(menuBar);
 		
 		mnNoticias = new JMenu("Noticias");
+		mnNoticias.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JInternalNoticias noti=new JInternalNoticias();
+				if(noti.isClosed()==true){
+					mntmLeerNoticias.setEnabled(true);
+				}
+				if(noti.isClosed()==false){
+					mntmLeerNoticias.setEnabled(false);
+					
+				}
+			}
+		});
 		menuBar.add(mnNoticias);
 		
 		mntmLeerNoticias = new JMenuItem("Escribir");
+	
 		
 	
 		mnNoticias.add(mntmLeerNoticias);
@@ -78,7 +92,9 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		menuBar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
+			
 				menuBar.setSize(getContentPane().getWidth(), 21);
+				
 			}
 		});
 		
@@ -94,6 +110,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 				Escritorio.setSize(getContentPane().getWidth(), getContentPane().getHeight());
 				
 			}
+		
 		});
 		
 		mntmVerAlineacin.addActionListener(new ActionListener() {
@@ -101,6 +118,20 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 				VentanaAlineacion alineacion=new VentanaAlineacion();
 				Escritorio.add(alineacion);
 				alineacion.setVisible(true);
+			}
+		});
+		
+		mntmLeerNoticias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		
+				
+				JInternalNoticias noti=new JInternalNoticias();
+					Escritorio.add(noti);
+					noti.setVisible(true);
+				
+			
+			
+				
 			}
 		});
 		
@@ -150,6 +181,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 	
 	}
+
 	public void actionPerformed(ActionEvent e) 
 	{
 		

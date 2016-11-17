@@ -17,11 +17,14 @@ import javax.swing.JButton;
 
 
 
+
+
 import java.awt.Font;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 public class Usuario extends JFrame implements ActionListener
 {
@@ -40,6 +43,8 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblqueIdQuieres;
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
+	Random  rnd = new Random();
+	
 	
 	public Usuario()
 	{
@@ -184,12 +189,15 @@ public class Usuario extends JFrame implements ActionListener
 						"'" + nContraseña.getText() +  "')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
+//				asignarjugadores(nId.getText());
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
 //				return true;
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 //				return false;
 			}
+			
+			
 			
 			
 			break;
@@ -214,6 +222,11 @@ public class Usuario extends JFrame implements ActionListener
 			e.printStackTrace();
 			return false;
 		}
+	}
+	public static void asignarjugadores(String ID){
+		
+//		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"'"+','+"Select nombre, equipo from jugadores where (posicion=portero"+"')" +"')";
+//		System.out.println(sentSQL);
 	}
 	public boolean chequearEnTabla( Statement st ) {
 		try {

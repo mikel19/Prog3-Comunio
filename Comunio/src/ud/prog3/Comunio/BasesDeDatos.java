@@ -61,6 +61,18 @@ public class BasesDeDatos
 		// e.printStackTrace();  
 	}
 	}
+	public static void crearTablaUsuarioJugadores(){
+		
+		if(statement==null) return;
+		try{
+			
+			statement.executeUpdate("create tabla UsuarioJugadores " + "(id string, nombrejugador string, equipojugador string" +")");
+		}catch(SQLException e){
+			
+		}
+		
+		
+	}
 	
 	
 	/** Cierra la conexión con la Base de Datos

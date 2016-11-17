@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 public class JInternalNoticias extends JInternalFrame {
 	private JTextField nombre;
 	private JTextField noticia;
-	JLabel lblNombreDeUsuario;
+	JLabel lblUsuario;
 	JLabel lblNoticia;
 
 	/**
@@ -36,6 +36,24 @@ public class JInternalNoticias extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public JInternalNoticias() {
+		addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				JInternalNoticias noti=new JInternalNoticias();
+//				if(noti.getWidth()!=515&&noti.getHeight()!=395){
+//					
+//					int x=noti.getWidth()/515;
+//					int b=noti.getHeight()/395;
+//					
+//					lblNoticia.setSize(lblNoticia.getWidth()*x, lblNoticia.getHeight()*b);
+//					
+//					
+//				}
+//			}
+			
+			
+		});
+	
 		setClosable(true);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(true);
@@ -44,9 +62,9 @@ public class JInternalNoticias extends JInternalFrame {
 		setBounds(100, 100, 515, 395);
 		getContentPane().setLayout(null);
 		
-		 lblNombreDeUsuario = new JLabel("Nombre de Usuario");
-		lblNombreDeUsuario.setBounds(29, 31, 116, 26);
-		getContentPane().add(lblNombreDeUsuario);
+		 lblUsuario = new JLabel("Nombre de Usuario");
+		lblUsuario.setBounds(29, 31, 116, 26);
+		getContentPane().add(lblUsuario);
 		
 		nombre = new JTextField();
 		nombre.setBounds(29, 68, 200, 26);
@@ -79,6 +97,9 @@ public class JInternalNoticias extends JInternalFrame {
 				
 			}
 		});
+		
+		
 
 	}
+
 }
