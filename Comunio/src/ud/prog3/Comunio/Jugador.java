@@ -7,6 +7,7 @@ public class Jugador
 	private int edad;
 	private int puntosJornada;
 	private int puntosTotales;
+	private String posicion;
 	
 	public Jugador()
 	{
@@ -15,7 +16,14 @@ public class Jugador
 		edad=0;
 		puntosJornada=0;
 		puntosTotales=0;
+		posicion="";
 		
+	}
+	public String getPosicion() {
+		return posicion;
+	}
+	public void setPosicion(String posicion) {
+		this.posicion = posicion;
 	}
 	public String getNombre() {
 		return nombre;
