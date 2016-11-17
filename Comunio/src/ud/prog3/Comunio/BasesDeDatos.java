@@ -90,7 +90,7 @@ public class BasesDeDatos
 	{
 		if (statement==null) return;//para que alguien no nos llame antes de initBD
 		try {
-				statement.executeUpdate("create table jugadores " + "(nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+				statement.executeUpdate("create table jugadores " + "(id string, nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
 		} catch (SQLException e) {
 			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 			// e.printStackTrace();  
