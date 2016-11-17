@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -86,7 +88,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		}
 		
 		
-	/**	 
+	/**
 		addWindowListener( new WindowAdapter()
         {
             public void windowResized(WindowEvent evt)
@@ -138,9 +140,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		
 		setContentPane(contentPane);
 		BasesDeDatos.initBD("Base de datos");
+		BasesDeDatos.crearTablaJugadores();
+		Jugador.inserccionJugadores();
 		
        
 	}
+	
 	public void actionPerformed(ActionEvent e) 
 	{
 		

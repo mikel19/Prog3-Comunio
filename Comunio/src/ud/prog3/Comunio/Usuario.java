@@ -121,7 +121,7 @@ public class Usuario extends JFrame implements ActionListener
 		btnRegistrar.setActionCommand("registrar");
 		
 		//BasesDeDatos.initBD("UsuariosBD");
-		BasesDeDatos.crearTablaBD();
+		BasesDeDatos.crearTablaUsuarios();
 	
 	}
 

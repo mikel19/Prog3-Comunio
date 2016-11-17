@@ -52,7 +52,7 @@ public class BasesDeDatos
 	/** Crea una tabla de catálogo multimedia en una base de datos, si no existía ya.
 	 * Debe haberse inicializado la conexión correctamente.
 	 */
-	public static void crearTablaBD() {
+	public static void crearTablaUsuarios() {
 	if (statement==null) return;//para que alguien no nos llame antes de initBD
 	try {
 			statement.executeUpdate("create table usuarios " + "(id string, contraseña string" +")");
@@ -73,4 +73,17 @@ public class BasesDeDatos
 			e.printStackTrace();
 		}
 	}
-}
+
+	public static void crearTablaJugadores() 
+	{
+		if (statement==null) return;//para que alguien no nos llame antes de initBD
+		try {
+				statement.executeUpdate("create table jugadores " + "(nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+		}
+		
+	}
+
