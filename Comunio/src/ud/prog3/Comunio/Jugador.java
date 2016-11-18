@@ -167,13 +167,13 @@ public class Jugador
 	//	}
 		
 		
-//		String sentSQL="drop table jugadores";
-//		try {
-//			st.executeUpdate(sentSQL);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		String sentSQL="drop table jugadores";
+		try {
+			st.executeUpdate(sentSQL);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //	//}
 		
 	

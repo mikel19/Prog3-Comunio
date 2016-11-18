@@ -1,16 +1,21 @@
 package ud.prog3.Comunio;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -21,8 +26,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JInternalFrame;
+
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JDesktopPane;
+
+
 
 public class VentanaJuegoUsuario extends JFrame implements ActionListener
 {
@@ -36,12 +47,13 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	JMenuItem mntmLeerNoticias;
 	JTextField noticia;
 	private JDesktopPane Escritorio;
+
 	public VentanaJuegoUsuario() {
 	
 		
 		
-	
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
+		setTitle("OFICINA DEL ENTRENADOR - Gestiona tu equipo");
 		setBounds(400,300,500,400);
 		getContentPane().setLayout(null);
 		
@@ -86,6 +98,8 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		Escritorio = new JDesktopPane();
 		Escritorio.setBounds(0, 23, 484, 339);
 		getContentPane().add(Escritorio);
+		
+		
 		
 		
 		
@@ -181,6 +195,10 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 	
 	}
+
+	
+		
+	
 
 	public void actionPerformed(ActionEvent e) 
 	{

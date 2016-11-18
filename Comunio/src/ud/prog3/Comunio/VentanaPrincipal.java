@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -51,6 +52,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 	{
 		 JLabel lIcono=new JLabel();
 		 JLabel lCabecera=new JLabel();
+		 JLabel lMourinho=new JLabel();
 		
 		 
 		 JPanel pBotonera;
@@ -61,12 +63,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		 JButton bUsuario=new JButton();
 		 JButton bAdministrador=new JButton();
 		
+		 setTitle("Comunio - Conviertete en el mejor entrenador!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 100, 845, 520);
 		// Creación de componentes/contenedores de swing
 		
 		
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		
 		pBotonera = new JPanel();
 		
@@ -82,6 +85,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		try {
 			lCabecera.setIcon((new ImageIcon(VentanaPrincipal.class.getResource("/ud/prog3/Comunio/img/cabeceraComunio.PNG"))));
 			
+		} catch (Exception e) {
+			System.err.println( "Error en carga de recurso: icono de comunio no encontrado" );
+			e.printStackTrace();
+		}
+		try {
+			lMourinho.setIcon((new ImageIcon(VentanaPrincipal.class.getResource("/ud/prog3/Comunio/img/josemourinho.jpg"))));
+			
+			//"comunioIcono.jpg" ).toURI().toURL() )
 		} catch (Exception e) {
 			System.err.println( "Error en carga de recurso: icono de comunio no encontrado" );
 			e.printStackTrace();
@@ -107,8 +118,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 //			boton.setName(fic);  // Pone el nombre al botón del fichero (útil para testeo o depuración)
 //		}
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
+		setResizable(false);
 		
 		contentPane.setBackground(new Color(0,128,0));
 //		lCabecera.setBounds(0, 0, 832, 98);
@@ -130,18 +142,22 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 //		lCabecera.setBounds(0, 0, contentPane.getWidth(), contentPane.getHeight());
 		contentPane.add(bUsuario,BorderLayout.WEST);
 		contentPane.add(bAdministrador,BorderLayout.EAST);
+		contentPane.add(lMourinho,BorderLayout.CENTER);
 		
 	
 		
 		lIcono.setVisible(true);
 		lCabecera.setVisible(true);
+		lMourinho.setVisible(true);
 		bUsuario.setVisible(true);
 		bAdministrador.setVisible(true);
 		
 		setContentPane(contentPane);
 		BasesDeDatos.initBD("Base de datos");
-		BasesDeDatos.crearTablaJugadores();
-		Jugador.inserccionJugadores();
+		//BasesDeDatos.crearTablaJugadores();
+		//Jugador.inserccionJugadores();
+		
+		
 		
        
 	}

@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
+import java.awt.Toolkit;
 
 public class Usuario extends JFrame implements ActionListener
 {
@@ -48,6 +49,7 @@ public class Usuario extends JFrame implements ActionListener
 	
 	public Usuario()
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		setResizable(false);
 		getContentPane().setBackground(new Color(0, 128, 0));
 		setBounds(400,300,500,400);
