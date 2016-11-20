@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -96,8 +97,10 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		mnAlineacin.add(mntmVerAlineacin);
 		
 		Escritorio = new JDesktopPane();
-		Escritorio.setBounds(0, 23, 484, 339);
+		//Escritorio.setBounds(10, 23, 474, 339);
+		Escritorio.setBackground(new Color(0, 128, 0));
 		getContentPane().add(Escritorio);
+		
 		
 		
 		

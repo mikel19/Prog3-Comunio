@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.ListModel;
 
 import java.awt.Color;
 
@@ -26,6 +27,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 
 public class VentanaAlineacion extends JInternalFrame {
 	VentanaAlineacion alineacion;
@@ -178,9 +180,13 @@ public class VentanaAlineacion extends JInternalFrame {
 		});
 		button_1.setBounds(103, 31, 89, 23);
 		getContentPane().add(button_1);
+		
+		JList list = new JList();
+		
+		list.setBounds(418, 81, 167, 371);
+		getContentPane().add(list);
 
 
 	
 	}
-	 
 }

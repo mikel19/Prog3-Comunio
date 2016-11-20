@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.FlowLayout;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
 
 
 
@@ -34,13 +36,15 @@ public class Usuario extends JFrame implements ActionListener
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField id;
-	private JTextField contraseña;
+	//private JTextField contraseña;
+	private JPasswordField contraseña;
 	private JButton btnAcceder;
 	private JButton btnCancelar;
 	private JLabel lblLogInCon;
 	private JLabel lblRegistrateYCrea;
 	private JTextField nId;
-	private JTextField nContraseña;
+	//private JTextField nContraseña;
+	private JPasswordField nContraseña;
 	private JLabel lblqueIdQuieres;
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
@@ -71,7 +75,7 @@ public class Usuario extends JFrame implements ActionListener
 		lblInserteLaContrasea.setBounds(10, 298, 128, 14);
 		getContentPane().add(lblInserteLaContrasea);
 		
-		contraseña = new JTextField();
+		contraseña = new JPasswordField();
 		contraseña.setBounds(169, 295, 86, 20);
 		getContentPane().add(contraseña);
 		contraseña.setColumns(10);
@@ -106,7 +110,7 @@ public class Usuario extends JFrame implements ActionListener
 		getContentPane().add(nId);
 		nId.setColumns(10);
 		
-		nContraseña = new JTextField();
+		nContraseña = new JPasswordField();
 		nContraseña.setBounds(169, 113, 86, 20);
 		getContentPane().add(nContraseña);
 		nContraseña.setColumns(10);
@@ -183,6 +187,10 @@ public class Usuario extends JFrame implements ActionListener
 			if (chequearYaEnTabla(st)) {  // Si está ya en la tabla
 				JOptionPane.showMessageDialog(null, "Ya existe ese usuario en la base de datos");
 				break;
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
 			}
 			
 			try {
