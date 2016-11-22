@@ -43,6 +43,8 @@ public class VentanaAlineacion extends JInternalFrame {
 	JComboBox <Jugador>MD;
 	JComboBox<Jugador> DI;
 	JComboBox<Jugador> DCD;
+	ImageIcon icono;
+	ImageIcon fot; 
 	/**
 	 * Launch the application.
 	 */
@@ -63,11 +65,16 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VentanaAlineacion() {
-	
-	
-	
-	
 		setMaximizable(true);
+//		addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				icono = new ImageIcon( 
+//						fot.getImage( ).getScaledInstance( 
+//								lblAlineacion.getWidth(), lblAlineacion.getHeight(), Image.SCALE_DEFAULT ) ); 
+//				lblAlineacion.setIcon(icono);
+//			}
+//		});
 
 		setClosable(true);
 		
@@ -85,7 +92,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		
 		
 		
-		ImageIcon fot = new ImageIcon(VentanaAlineacion.class.getResource("/ud/prog3/Comunio/img/Alineacion.jpeg"));
+		 fot = new ImageIcon(VentanaAlineacion.class.getResource("/ud/prog3/Comunio/img/Alineacion.jpeg"));
 		this.repaint();
 		
 
@@ -154,7 +161,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		lblAlineacion.setBackground(Color.WHITE);
 		lblAlineacion.setBounds(35, 81, 373, 392);
 		getContentPane().add(lblAlineacion);
-		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblAlineacion.getWidth(), lblAlineacion.getHeight(), Image.SCALE_DEFAULT));
+		 icono = new ImageIcon(fot.getImage().getScaledInstance(lblAlineacion.getWidth(), lblAlineacion.getHeight(), Image.SCALE_DEFAULT));
 		lblAlineacion.setIcon(icono);
 		
 		

@@ -1,6 +1,6 @@
 package ud.prog3.Comunio;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
@@ -15,6 +15,7 @@ import java.awt.Insets;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -47,13 +48,13 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	JMenu mnNoticias;
 	JMenuItem mntmLeerNoticias;
 	JTextField noticia;
-	private JDesktopPane Escritorio;
+	
 
 	public VentanaJuegoUsuario() {
 	
 		
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
+//		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		setTitle("OFICINA DEL ENTRENADOR - Gestiona tu equipo");
 		setBounds(400,300,500,400);
 		getContentPane().setLayout(null);
@@ -96,11 +97,6 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 		mnAlineacin.add(mntmVerAlineacin);
 		
-		Escritorio = new JDesktopPane();
-		//Escritorio.setBounds(10, 23, 474, 339);
-		Escritorio.setBackground(new Color(0, 128, 0));
-		getContentPane().add(Escritorio);
-		
 		
 		
 		
@@ -120,21 +116,16 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 
 		
-		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				Escritorio.setSize(getContentPane().getWidth(), getContentPane().getHeight());
-				
-			}
-		
-		});
+	
 		
 		mntmVerAlineacin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAlineacion alineacion=new VentanaAlineacion();
-				Escritorio.add(alineacion);
+
+				getContentPane().add(alineacion);
 				alineacion.setVisible(true);
+				
+				
 			}
 		});
 		
@@ -143,7 +134,8 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 				
 				JInternalNoticias noti=new JInternalNoticias();
-					Escritorio.add(noti);
+
+				getContentPane().add(noti);
 					noti.setVisible(true);
 				
 			
@@ -211,14 +203,14 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		case "Escribir":
 		
 			JInternalNoticias noti=new JInternalNoticias();
-			Escritorio.add(noti);
+//			Escritorio.add(noti);
 			noti.setVisible(true);
 			break;
 			
 		case "Ver Alineacion":
 			
 			VentanaAlineacion alineacion=new VentanaAlineacion();
-			Escritorio.add(alineacion);
+//			Escritorio.add(alineacion);
 			alineacion.setVisible(true);
 			break;
 		
@@ -227,4 +219,5 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 		
 	}
+
 }

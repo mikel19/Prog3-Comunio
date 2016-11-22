@@ -66,7 +66,7 @@ public class BasesDeDatos
 		if(statement==null) return;
 		try{
 			
-			statement.executeUpdate("create tabla UsuarioJugadores " + "(id string, nombrejugador string, equipojugador string" +")");
+			statement.executeUpdate("create table UsuarioJugadores " + "(id string, nombre string, equipo string" +")");
 		}catch(SQLException e){
 			
 		}

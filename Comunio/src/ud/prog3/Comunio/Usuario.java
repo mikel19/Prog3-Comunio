@@ -199,7 +199,7 @@ public class Usuario extends JFrame implements ActionListener
 						"'" + nContraseña.getText() +  "')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
-//				asignarjugadores(nId.getText());
+				asignarjugadores(nId.getText());
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
 //				return true;
 			} catch (SQLException e1) {
@@ -233,10 +233,23 @@ public class Usuario extends JFrame implements ActionListener
 			return false;
 		}
 	}
-	public static void asignarjugadores(String ID){
-		
-//		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"'"+','+"Select nombre, equipo from jugadores where (posicion=portero"+"')" +"')";
-//		System.out.println(sentSQL);
+	public static void asignarjugadores(String ID) throws SQLException{
+
+		BasesDeDatos.crearTablaUsuarioJugadores();
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		Random random=new Random();
+		String posicion="Portero";
+//		String nombre="Select nombre, equipo"+"Where(id='"+random.nextInt(100)+"'and equipo=portero"+"')";
+		int a=random.nextInt(100);
+		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"', '"+st.executeQuery("Select nombre from jugadores" +" where (id='"+a+"')" )+"', '" +st.executeQuery("Select equipo from jugadores" +" where (id='"+a+"')" )+"')";
+		 try {
+			st.executeUpdate( sentSQL );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(sentSQL);
 	}
 	public boolean chequearEnTabla( Statement st ) {
 		try {
