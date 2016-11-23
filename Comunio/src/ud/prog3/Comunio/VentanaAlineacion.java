@@ -209,6 +209,44 @@ public class VentanaAlineacion extends JInternalFrame {
 		button_1.setBounds(103, 31, 89, 23);
 		getContentPane().add(button_1);
 		
+		JButton button_2 = new JButton("4-3-3");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			LI.setBounds(60, 352, 28, 20);
+			DFCI.setBounds(150, 365, 28, 20);
+			DFCD.setBounds(266, 365, 28, 20);
+			LD.setBounds(339, 352, 28, 20);
+			MI.setBounds(110, 260, 28, 20);
+			MCI.setBounds(210, 260, 28, 20);
+			MCD.setBounds(310, 260, 28, 20);
+			MD.setBounds(110, 167, 28, 20);
+			DI.setBounds(210, 167, 28, 20);
+			DCD.setBounds(310, 167, 28, 20);
+				
+			}
+		});
+		button_2.setBounds(196, 31, 89, 23);
+		getContentPane().add(button_2);
+		
+		JButton button_3 = new JButton("5-4-1");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			LI.setBounds(65, 366, 28, 20);
+			DFCI.setBounds(135, 366, 28, 20);
+			DFCD.setBounds(205, 366, 28, 20);
+			LD.setBounds(345, 366, 28, 20);
+			MI.setBounds(275, 366, 28, 20);
+			MCI.setBounds(90, 250, 28, 20);
+			MCD.setBounds(170, 250, 28, 20);
+			MD.setBounds(250, 250, 28, 20);
+			DI.setBounds(330, 250, 28, 20);
+			DCD.setBounds(210, 167, 28, 20);
+				
+			}
+		});
+		button_3.setBounds(289, 31, 89, 23);
+		getContentPane().add(button_3);
+		
 		list = new JList();
 		list.setBounds(418, 81, 179, 372);
 		getContentPane().add(list);
