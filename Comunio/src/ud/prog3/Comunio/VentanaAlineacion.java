@@ -1,5 +1,6 @@
 package ud.prog3.Comunio;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
 import java.awt.Color;
@@ -29,6 +31,9 @@ import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 public class VentanaAlineacion extends JInternalFrame {
 	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
@@ -45,6 +50,8 @@ public class VentanaAlineacion extends JInternalFrame {
 	JComboBox<Jugador> DCD;
 	ImageIcon icono;
 	ImageIcon fot; 
+	JList list;
+	JButton bañadir;
 	/**
 	 * Launch the application.
 	 */
@@ -65,7 +72,6 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VentanaAlineacion() {
-		setMaximizable(true);
 //		addMouseListener(new MouseAdapter() {
 //			@Override
 //			public void mouseClicked(MouseEvent arg0) {
@@ -166,6 +172,21 @@ public class VentanaAlineacion extends JInternalFrame {
 		
 		
 		JButton button = new JButton("4-4-2");		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LI.setBounds(60, 352, 28, 20);
+				DFCI.setBounds(150, 365, 28, 20);
+				DFCD.setBounds(266, 365, 28, 20);
+				LD.setBounds(339, 352, 28, 20);
+				MI.setBounds(117, 276, 28, 20);
+				MCI.setBounds(165, 301, 28, 20);
+				MCD.setBounds(237, 301, 28, 20);
+				MD.setBounds(299, 276, 28, 20);
+				DI.setBounds(137, 181, 28, 20);
+				DCD.setBounds(266, 181, 28, 20);
+				
+			}
+		});
 		button.setBounds(10, 31, 89, 23);
 		getContentPane().add(button);
 		
@@ -188,11 +209,12 @@ public class VentanaAlineacion extends JInternalFrame {
 		button_1.setBounds(103, 31, 89, 23);
 		getContentPane().add(button_1);
 		
-		JList list = new JList();
-		
-		list.setBounds(418, 81, 167, 371);
+		list = new JList();
+		list.setBounds(418, 81, 179, 372);
 		getContentPane().add(list);
+		
 
+		
 
 	
 	}

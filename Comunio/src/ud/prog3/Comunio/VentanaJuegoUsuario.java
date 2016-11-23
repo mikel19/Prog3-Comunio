@@ -48,15 +48,20 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	JMenu mnNoticias;
 	JMenuItem mntmLeerNoticias;
 	JTextField noticia;
-	
-
+	ImageIcon icono;
+	ImageIcon fot; 
+	JLabel lblmanager;
+	private JLabel lblNewLabel;
+	JMenuItem mntmVerAlineacion;
 	public VentanaJuegoUsuario() {
-	
+		setResizable(false);
+		fot = new ImageIcon(VentanaJuegoUsuario.class.getResource("/ud/prog3/Comunio/img/manager.jpg"));
+		this.repaint();
 		
 		
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		setTitle("OFICINA DEL ENTRENADOR - Gestiona tu equipo");
-		setBounds(400,300,500,400);
+		setBounds(300, 100, 849, 711);
 		getContentPane().setLayout(null);
 		
 		menuBar = new JMenuBar();
@@ -92,10 +97,19 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		JMenu mnAlineacin = new JMenu("Alineaci\u00F3n");
 		menuBar.add(mnAlineacin);
 		
-		JMenuItem mntmVerAlineacin = new JMenuItem("Ver Alineacion");
+		mntmVerAlineacion = new JMenuItem("Ver Alineacion");
+
 		
 		
-		mnAlineacin.add(mntmVerAlineacin);
+		mnAlineacin.add(mntmVerAlineacion);
+		
+		lblmanager = new JLabel("");
+		lblmanager.setBounds(0, 27, 833, 646);
+		 getContentPane().add(lblmanager);
+		 icono = new ImageIcon(fot.getImage().getScaledInstance(lblmanager.getWidth(), lblmanager.getHeight(), Image.SCALE_DEFAULT));
+		 lblmanager.setIcon(icono);
+	
+		 
 		
 		
 		
@@ -118,11 +132,14 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 	
 		
-		mntmVerAlineacin.addActionListener(new ActionListener() {
+		mntmVerAlineacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				VentanaAlineacion alineacion=new VentanaAlineacion();
-
+				
 				getContentPane().add(alineacion);
+				lblmanager.add(alineacion);
+				
 				alineacion.setVisible(true);
 				
 				
@@ -219,5 +236,4 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 		
 	}
-
 }
