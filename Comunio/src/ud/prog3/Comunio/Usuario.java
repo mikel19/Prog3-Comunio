@@ -22,12 +22,14 @@ import javax.swing.JButton;
 
 
 
+
 import java.awt.Font;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Toolkit;
 
@@ -51,7 +53,7 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
 	Random  rnd = new Random();
-	
+	ArrayList <Jugador>taken=new ArrayList<Jugador>();
 	
 	public Usuario()
 	{
@@ -246,26 +248,26 @@ public class Usuario extends JFrame implements ActionListener
 		int a=1+random.nextInt(73);
 		
 		
-		
-		ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
-		ResultSetMetaData rsmd = nombre.getMetaData();
-		int columnCount = rsmd.getColumnCount();
-		while(nombre.next())
-		{
-			nombre1=nombre.getString(columnCount);
-		}
-		ResultSet equipo=st.executeQuery("select equipo from jugadores" +" where (id='"+a+"')" );
-		ResultSetMetaData rsmd1 = equipo.getMetaData();
-		int columnCount1 = rsmd1.getColumnCount();
-		while(equipo.next())
-		{
-			equipo1=equipo.getString(columnCount1);
-		}
-		
-		
+//		
+//		ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
+//		ResultSetMetaData rsmd = nombre.getMetaData();
+//		int columnCount = rsmd.getColumnCount();
+//		while(nombre.next())
+//		{
+//			nombre1=nombre.getString(columnCount);
+//		}
+//		ResultSet equipo=st.executeQuery("select equipo from jugadores" +" where (id='"+a+"')" );
+//		ResultSetMetaData rsmd1 = equipo.getMetaData();
+//		int columnCount1 = rsmd1.getColumnCount();
+//		while(equipo.next())
+//		{
+//			equipo1=equipo.getString(columnCount1);
+//		}
 		
 		
-		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+nombre1+"', '" +equipo1+"')";
+		
+		
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+a+"')";
 		 try {
 			 
 			 
