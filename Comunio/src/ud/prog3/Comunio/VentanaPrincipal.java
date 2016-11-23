@@ -47,6 +47,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 				}
 			}
 		});
+		System.out.println("jiji");
 	}
 	public VentanaPrincipal()
 	{
