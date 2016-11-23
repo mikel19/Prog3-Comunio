@@ -199,7 +199,7 @@ public class Usuario extends JFrame implements ActionListener
 						"'" + nContraseña.getText() +  "')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
-				asignarjugadores(nId.getText());
+			//	asignarjugadores(nId.getText());
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
 //				return true;
 			} catch (SQLException e1) {
@@ -239,12 +239,21 @@ public class Usuario extends JFrame implements ActionListener
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
 		Random random=new Random();
-		String posicion="Portero";
-//		String nombre="Select nombre, equipo"+"Where(id='"+random.nextInt(100)+"'and equipo=portero"+"')";
-		int a=random.nextInt(100);
-		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"', '"+st.executeQuery("Select nombre from jugadores" +" where (id='"+a+"')" )+"', '" +st.executeQuery("Select equipo from jugadores" +" where (id='"+a+"')" )+"')";
+		String nombre1="";
+		String equipo1="";
+		int a=random.nextInt(74);
+		ResultSet nombre=st.executeQuery("Select nombre from jugadores" +" where (id='"+a+"')" );
+		ResultSet equipo=st.executeQuery("Select equipo from jugadores" +" where (id='"+a+"')" );
+		
+		
+		
+		
+		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"', '"+nombre.getString("")+"', '" +equipo.getString("")+"')";
 		 try {
+			 while(nombre.next()&&equipo.next())
+			 {
 			st.executeUpdate( sentSQL );
+			 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

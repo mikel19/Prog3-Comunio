@@ -61,7 +61,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		setTitle("OFICINA DEL ENTRENADOR - Gestiona tu equipo");
-		setBounds(300, 100, 849, 711);
+		setBounds(300, 20, 849, 711);
 		getContentPane().setLayout(null);
 		
 		menuBar = new JMenuBar();
