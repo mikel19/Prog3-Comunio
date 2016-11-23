@@ -53,10 +53,11 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
 	Random  rnd = new Random();
-	ArrayList <Jugador>taken=new ArrayList<Jugador>();
+	
 	
 	public Usuario()
 	{
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		setResizable(false);
 		getContentPane().setBackground(new Color(0, 128, 0));
@@ -238,15 +239,41 @@ public class Usuario extends JFrame implements ActionListener
 		}
 	}
 	public static void asignarjugadores(String ID) throws SQLException{
-
-		BasesDeDatos.crearTablaUsuarioJugadores();
 		Statement st=null;
+		BasesDeDatos.crearTablaUsuarioJugadores();
 		st=BasesDeDatos.getStatement();
+		int nombre1=0;
+		ArrayList<Integer> taken=new ArrayList<Integer>();
+		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getInt(columnCount);
+			taken.add(nombre1);
+		}
+	
+
+		for(int a=0;a<taken.size();a++){
+			System.out.println(taken.get(a)+"-");
+		}
 		Random random=new Random();
-		String nombre1="";
-		String equipo1="";
+//		String nombre1="";
+//		String equipo1="";
 		int a=1+random.nextInt(73);
+		int i=0;
 		
+		for(i++;i<taken.size();){
+			while(a==taken.get(i)){
+				
+				a=1+random.nextInt(73);
+//				JOptionPane.showMessageDialog(null, "repetido");
+				i=0;
+				
+			}
+			
+		}
+		taken.add(a);
 		
 //		
 //		ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
