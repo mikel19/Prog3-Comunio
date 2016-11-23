@@ -140,6 +140,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 				getContentPane().add(alineacion);
 				lblmanager.add(alineacion);
 				
+				
 				alineacion.setVisible(true);
 				
 				

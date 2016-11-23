@@ -21,9 +21,11 @@ import javax.swing.JButton;
 
 
 
+
 import java.awt.Font;
 import java.awt.Color;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
@@ -199,7 +201,7 @@ public class Usuario extends JFrame implements ActionListener
 						"'" + nContraseña.getText() +  "')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
-			//	asignarjugadores(nId.getText());
+				asignarjugadores(nId.getText());
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
 //				return true;
 			} catch (SQLException e1) {
@@ -241,19 +243,34 @@ public class Usuario extends JFrame implements ActionListener
 		Random random=new Random();
 		String nombre1="";
 		String equipo1="";
-		int a=random.nextInt(74);
-		ResultSet nombre=st.executeQuery("Select nombre from jugadores" +" where (id='"+a+"')" );
-		ResultSet equipo=st.executeQuery("Select equipo from jugadores" +" where (id='"+a+"')" );
+		int a=1+random.nextInt(73);
+		
+		
+		
+		ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getString(columnCount);
+		}
+		ResultSet equipo=st.executeQuery("select equipo from jugadores" +" where (id='"+a+"')" );
+		ResultSetMetaData rsmd1 = equipo.getMetaData();
+		int columnCount1 = rsmd1.getColumnCount();
+		while(equipo.next())
+		{
+			equipo1=equipo.getString(columnCount1);
+		}
 		
 		
 		
 		
-		String sentSQL="insert into UsuarioJugadores values(" +"'"+ID+"', '"+nombre.getString("")+"', '" +equipo.getString("")+"')";
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+nombre1+"', '" +equipo1+"')";
 		 try {
-			 while(nombre.next()&&equipo.next())
-			 {
+			 
+			 
 			st.executeUpdate( sentSQL );
-			 }
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
