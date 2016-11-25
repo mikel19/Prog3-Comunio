@@ -155,8 +155,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		
 		setContentPane(contentPane);
 		BasesDeDatos.initBD("Base de datos");
-		//BasesDeDatos.crearTablaJugadores();
-		//Jugador.inserccionJugadores();
+//		BasesDeDatos.crearTablaJugadores();
+//		Jugador.inserccionJugadores();
 		
 		
 		

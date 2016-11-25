@@ -243,58 +243,47 @@ public class Usuario extends JFrame implements ActionListener
 		BasesDeDatos.crearTablaUsuarioJugadores();
 		st=BasesDeDatos.getStatement();
 		int nombre1=0;
-		ArrayList<Integer> taken=new ArrayList<Integer>();
-		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
-		ResultSetMetaData rsmd = nombre.getMetaData();
-		int columnCount = rsmd.getColumnCount();
-		while(nombre.next())
-		{
-			nombre1=nombre.getInt(columnCount);
-			taken.add(nombre1);
-		}
-	
-
-		for(int a=0;a<taken.size();a++){
-			System.out.println(taken.get(a)+"-");
-		}
-		Random random=new Random();
-//		String nombre1="";
-//		String equipo1="";
-		int a=1+random.nextInt(73);
-		int i=0;
+		int id1=0;
 		
-		for(i++;i<taken.size();){
-			while(a==taken.get(i)){
-				
-				a=1+random.nextInt(73);
-//				JOptionPane.showMessageDialog(null, "repetido");
-				i=0;
-				
-			}
-			
-		}
-		taken.add(a);
-		
-//		
-//		ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
+//		ArrayList<Integer> taken=new ArrayList<Integer>();
+//		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
 //		ResultSetMetaData rsmd = nombre.getMetaData();
 //		int columnCount = rsmd.getColumnCount();
 //		while(nombre.next())
 //		{
-//			nombre1=nombre.getString(columnCount);
+//			nombre1=nombre.getInt(columnCount);
+//			taken.add(nombre1);
 //		}
-//		ResultSet equipo=st.executeQuery("select equipo from jugadores" +" where (id='"+a+"')" );
-//		ResultSetMetaData rsmd1 = equipo.getMetaData();
-//		int columnCount1 = rsmd1.getColumnCount();
-//		while(equipo.next())
+//	
+//		System.out.println(taken);
+		
+//		int i=0;
+//		Random random=new Random();
+//		int a = (int)Math.random()*74;
+//		int a=1+random.nextInt(73);
+//		for(;i<taken.size();i++){
+//			if(a==taken.get(i)){
+//				
+//				a=(int)Math.random()*74;
+//				i=0;
+//				
+//			}
+//			
+//		}
+//		taken.add(a);
+//		ResultSet id=st.executeQuery("select idJugador from usuariojugadores" +" where (id='"+a+"and posicion=Portero')" );
+//		ResultSetMetaData rsmd2 = id.getMetaData();
+//		int columnCount2 = rsmd2.getColumnCount();
+//		while(nombre.next())
 //		{
-//			equipo1=equipo.getString(columnCount1);
+//			id1=id.getInt(columnCount2);
 //		}
+
 		
 		
-		
-		
-		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+a+"')";
+
+	
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandom()+"')";
 		 try {
 			 
 			 
@@ -304,8 +293,67 @@ public class Usuario extends JFrame implements ActionListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(sentSQL);
+		
+		 System.out.println(sentSQL);
 	}
+	
+//	
+//	ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
+//	ResultSetMetaData rsmd = nombre.getMetaData();
+//	int columnCount = rsmd.getColumnCount();
+//	while(nombre.next())
+//	{
+//		nombre1=nombre.getString(columnCount);
+//	}
+//	ResultSet equipo=st.executeQuery("select equipo from jugadores" +" where (id='"+a+"')" );
+//	ResultSetMetaData rsmd1 = equipo.getMetaData();
+//	int columnCount1 = rsmd1.getColumnCount();
+//	while(equipo.next())
+//	{
+//		equipo1=equipo.getString(columnCount1);
+//	}
+	public static int verificarrandom() throws SQLException{
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		int nombre1=0;
+		int a=0;
+		ArrayList<Integer> taken=new ArrayList<Integer>();
+		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getInt(columnCount);
+			taken.add(nombre1);
+		}
+		System.out.println(taken);
+		int i=0;
+		Random random=new Random();
+		 a=1+random.nextInt(73);
+		for(;i<taken.size();i++){
+			if(a==taken.get(i)){
+//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
+				a=1+random.nextInt(73);
+				i=0;
+				
+			}
+			
+		}
+		taken.add(a);
+		
+		
+		
+		return a;
+		
+		
+		
+	}
+	public static void asignarportero(){
+		
+		
+		
+	}
+	
 	public boolean chequearEnTabla( Statement st ) {
 		try {
 			String sentSQL = "select * from usuarios " +
