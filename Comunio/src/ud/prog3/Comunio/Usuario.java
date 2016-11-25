@@ -317,7 +317,9 @@ public class Usuario extends JFrame implements ActionListener
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
 		int nombre1=0;
+		String nombre2="";
 		int a=0;
+		
 		ArrayList<Integer> taken=new ArrayList<Integer>();
 		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
 		ResultSetMetaData rsmd = nombre.getMetaData();
@@ -327,19 +329,50 @@ public class Usuario extends JFrame implements ActionListener
 			nombre1=nombre.getInt(columnCount);
 			taken.add(nombre1);
 		}
-		System.out.println(taken);
-		int i=0;
-		Random random=new Random();
-		 a=1+random.nextInt(73);
-		for(;i<taken.size();i++){
-			if(a==taken.get(i)){
-//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
-				a=1+random.nextInt(73);
-				i=0;
-				
-			}
-			
+		System.out.println("taken:"+taken);
+		ArrayList<String> taken2=new ArrayList<String>();
+		ArrayList<Integer>taken3=new ArrayList<Integer>();
+		ResultSet nomb=st.executeQuery("select id from jugadores where posicion='Portero'");
+		ResultSetMetaData rsmd2 = nombre.getMetaData();
+		int columnCount2 = rsmd2.getColumnCount();
+		while(nombre.next())
+		{
+			nombre2=nomb.getString(columnCount2);
+			taken2.add(nombre2);
 		}
+		System.out.println("taken2:"+taken2);
+		System.out.println(taken);
+		for(int o=0;o<taken2.size();o++){
+			int y=Integer.parseInt(taken2.get(o));
+//			int y=Integer.valueOf(s)
+			taken3.add(y);
+		}
+		System.out.println("taken3:"+taken3);
+		Random random=new Random();
+		int i=0;
+		int s=0;
+		
+		for( ;s<taken3.size();s++){
+//			 a=1+random.nextInt(73);
+		 if(a!=taken3.get(s)){
+			 a=1+random.nextInt(73);
+			 s=0;
+		 }
+		 else{
+			 break;
+		 }
+		 
+		}
+//		 taken2.get(a);
+//		for(;i<taken.size();i++){
+//			if(taken3.get(a)==taken.get(i)){
+//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
+//				a=1+random.nextInt(73);
+//				i=0;
+				
+//			}
+			
+//		}
 		taken.add(a);
 		
 		
