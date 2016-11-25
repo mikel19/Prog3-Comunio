@@ -205,6 +205,7 @@ public class Usuario extends JFrame implements ActionListener
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
 				asignarjugadores(nId.getText());
+				System.out.println("perfectamente guardado");
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
 //				return true;
 			} catch (SQLException e1) {
