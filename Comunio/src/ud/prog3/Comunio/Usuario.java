@@ -283,8 +283,8 @@ public class Usuario extends JFrame implements ActionListener
 		
 		
 
-	
-		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandom()+"')";
+	for(int u=0;u<2;u++){
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandomportero()+"')";
 		 try {
 			 
 			 
@@ -297,6 +297,53 @@ public class Usuario extends JFrame implements ActionListener
 		
 		 System.out.println(sentSQL);
 	}
+	
+	for(int e=0;e<4;e++){
+		
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandomdefensa()+"')";
+		 try {
+			 
+			 
+			st.executeUpdate( sentSQL );
+			 
+		} catch (SQLException a) {
+			// TODO Auto-generated catch block
+			a.printStackTrace();
+		}
+		
+		 System.out.println(sentSQL);
+	}
+	for(int v=0;v<4;v++){
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandommedio()+"')";
+		 try {
+			 
+			 
+			st.executeUpdate( sentSQL );
+			 
+		} catch (SQLException a) {
+			// TODO Auto-generated catch block
+			a.printStackTrace();
+		}
+		
+		 System.out.println(sentSQL);
+	}
+	for(int j=0;j<2;j++){
+		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandomataque()+"')";
+		 try {
+			 
+			 
+			st.executeUpdate( sentSQL );
+			 
+		} catch (SQLException a) {
+			// TODO Auto-generated catch block
+			a.printStackTrace();
+		}
+		
+		 System.out.println(sentSQL);
+		
+	}
+	}
+	
 	
 //	
 //	ResultSet nombre=st.executeQuery("select nombre from jugadores" +" where (id='"+a+"')" );
@@ -313,14 +360,14 @@ public class Usuario extends JFrame implements ActionListener
 //	{
 //		equipo1=equipo.getString(columnCount1);
 //	}
-	public static int verificarrandom() throws SQLException{
+	public static int verificarrandomportero() throws SQLException{
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
 		int nombre1=0;
 		String nombre2="";
-		int a=0;
 		
-		ArrayList<Integer> taken=new ArrayList<Integer>();
+		
+		ArrayList<Integer> taken=new ArrayList<Integer>();//contiene id de los jugadores que ya estan asignados
 		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
 		ResultSetMetaData rsmd = nombre.getMetaData();
 		int columnCount = rsmd.getColumnCount();
@@ -331,7 +378,7 @@ public class Usuario extends JFrame implements ActionListener
 		}
 		System.out.println("taken:"+taken);
 		ArrayList<String> taken2=new ArrayList<String>();
-		ArrayList<Integer>taken3=new ArrayList<Integer>();
+		ArrayList<Integer>taken3=new ArrayList<Integer>();//contiene id de jugdaroes cuya posicion sea portero
 		ResultSet nomb=st.executeQuery("select id from jugadores where posicion='Portero'");
 		ResultSetMetaData rsmd2 = nombre.getMetaData();
 		int columnCount2 = rsmd2.getColumnCount();
@@ -341,7 +388,7 @@ public class Usuario extends JFrame implements ActionListener
 			taken2.add(nombre2);
 		}
 		System.out.println("taken2:"+taken2);
-		System.out.println(taken);
+		System.out.println("taken:"+taken);
 		for(int o=0;o<taken2.size();o++){
 			int y=Integer.parseInt(taken2.get(o));
 //			int y=Integer.valueOf(s)
@@ -349,20 +396,26 @@ public class Usuario extends JFrame implements ActionListener
 		}
 		System.out.println("taken3:"+taken3);
 		Random random=new Random();
-		int i=0;
+	
+		int a = 0;
+		int c=0;
 		int s=0;
 		
-		for( ;s<taken3.size();s++){
-//			 a=1+random.nextInt(73);
-		 if(a!=taken3.get(s)){
-			 a=1+random.nextInt(73);
-			 s=0;
-		 }
-		 else{
-			 break;
-		 }
-		 
+		
+		for (;s<taken.size();s++){
+//			
+			a=taken3.get(c);
+			
+				 if(taken.get(s)==a){
+					 c++;
+					 s=0;
+					 
+				 }
+//			 } 
 		}
+		
+		
+		
 //		 taken2.get(a);
 //		for(;i<taken.size();i++){
 //			if(taken3.get(a)==taken.get(i)){
@@ -381,6 +434,227 @@ public class Usuario extends JFrame implements ActionListener
 		
 		
 		
+	}
+	public static int verificarrandomdefensa() throws SQLException{
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		int nombre1=0;
+		String nombre2="";
+		
+		
+		ArrayList<Integer> taken=new ArrayList<Integer>();//contiene id de los jugadores que ya estan asignados
+		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getInt(columnCount);
+			taken.add(nombre1);
+		}
+		System.out.println("taken:"+taken);
+		ArrayList<String> taken2=new ArrayList<String>();
+		ArrayList<Integer>taken3=new ArrayList<Integer>();//contiene id de jugdaroes cuya posicion sea portero
+		ResultSet nomb=st.executeQuery("select id from jugadores where posicion='Defensa'");
+		ResultSetMetaData rsmd2 = nombre.getMetaData();
+		int columnCount2 = rsmd2.getColumnCount();
+		while(nombre.next())
+		{
+			nombre2=nomb.getString(columnCount2);
+			taken2.add(nombre2);
+		}
+		System.out.println("taken2:"+taken2);
+		System.out.println("taken:"+taken);
+		for(int o=0;o<taken2.size();o++){
+			int y=Integer.parseInt(taken2.get(o));
+//			int y=Integer.valueOf(s)
+			taken3.add(y);
+		}
+		System.out.println("taken3:"+taken3);
+		Random random=new Random();
+	
+		int a = 0;
+		int c=0;
+		int s=0;
+		
+		
+		for (;s<taken.size();s++){
+//			
+			a=taken3.get(c);
+			
+				 if(taken.get(s)==a){
+					 c++;
+					 s=0;
+					 
+				 }
+//			 } 
+		}
+		
+		
+		
+//		 taken2.get(a);
+//		for(;i<taken.size();i++){
+//			if(taken3.get(a)==taken.get(i)){
+//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
+//				a=1+random.nextInt(73);
+//				i=0;
+				
+//			}
+			
+//		}
+		taken.add(a);
+		
+		
+		
+		return a;
+		
+		
+		
+		
+		
+	}
+	public static int verificarrandommedio() throws SQLException{
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		int nombre1=0;
+		String nombre2="";
+		
+		
+		ArrayList<Integer> taken=new ArrayList<Integer>();//contiene id de los jugadores que ya estan asignados
+		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getInt(columnCount);
+			taken.add(nombre1);
+		}
+		System.out.println("taken:"+taken);
+		ArrayList<String> taken2=new ArrayList<String>();
+		ArrayList<Integer>taken3=new ArrayList<Integer>();//contiene id de jugdaroes cuya posicion sea portero
+		ResultSet nomb=st.executeQuery("select id from jugadores where posicion='Centrocampista'");
+		ResultSetMetaData rsmd2 = nombre.getMetaData();
+		int columnCount2 = rsmd2.getColumnCount();
+		while(nombre.next())
+		{
+			nombre2=nomb.getString(columnCount2);
+			taken2.add(nombre2);
+		}
+		System.out.println("taken2:"+taken2);
+		System.out.println("taken:"+taken);
+		for(int o=0;o<taken2.size();o++){
+			int y=Integer.parseInt(taken2.get(o));
+//			int y=Integer.valueOf(s)
+			taken3.add(y);
+		}
+		System.out.println("taken3:"+taken3);
+		Random random=new Random();
+	
+		int a = 0;
+		int c=0;
+		int s=0;
+		
+		
+		for (;s<taken.size();s++){
+//			
+			a=taken3.get(c);
+			
+				 if(taken.get(s)==a){
+					 c++;
+					 s=0;
+					 
+				 }
+//			 } 
+		}
+		
+		
+		
+//		 taken2.get(a);
+//		for(;i<taken.size();i++){
+//			if(taken3.get(a)==taken.get(i)){
+//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
+//				a=1+random.nextInt(73);
+//				i=0;
+				
+//			}
+			
+//		}
+		taken.add(a);
+		
+		
+		
+		return a;
+	}
+	public static int verificarrandomataque() throws SQLException{
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		int nombre1=0;
+		String nombre2="";
+		
+		
+		ArrayList<Integer> taken=new ArrayList<Integer>();//contiene id de los jugadores que ya estan asignados
+		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
+		ResultSetMetaData rsmd = nombre.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		while(nombre.next())
+		{
+			nombre1=nombre.getInt(columnCount);
+			taken.add(nombre1);
+		}
+		System.out.println("taken:"+taken);
+		ArrayList<String> taken2=new ArrayList<String>();
+		ArrayList<Integer>taken3=new ArrayList<Integer>();//contiene id de jugdaroes cuya posicion sea portero
+		ResultSet nomb=st.executeQuery("select id from jugadores where posicion='Delantero'");
+		ResultSetMetaData rsmd2 = nombre.getMetaData();
+		int columnCount2 = rsmd2.getColumnCount();
+		while(nombre.next())
+		{
+			nombre2=nomb.getString(columnCount2);
+			taken2.add(nombre2);
+		}
+		System.out.println("taken2:"+taken2);
+		System.out.println("taken:"+taken);
+		for(int o=0;o<taken2.size();o++){
+			int y=Integer.parseInt(taken2.get(o));
+//			int y=Integer.valueOf(s)
+			taken3.add(y);
+		}
+		System.out.println("taken3:"+taken3);
+		Random random=new Random();
+	
+		int a = 0;
+		int c=0;
+		int s=0;
+		
+		
+		for (;s<taken.size();s++){
+//			
+			a=taken3.get(c);
+			
+				 if(taken.get(s)==a){
+					 c++;
+					 s=0;
+					 
+				 }
+//			 } 
+		}
+		
+		
+		
+//		 taken2.get(a);
+//		for(;i<taken.size();i++){
+//			if(taken3.get(a)==taken.get(i)){
+//				ResultSet nombre=st.executeQuery("select idJugador from Jugadores where posicion=portero ");
+//				a=1+random.nextInt(73);
+//				i=0;
+				
+//			}
+			
+//		}
+		taken.add(a);
+		
+		
+		
+		return a;
 	}
 	public static void asignarportero(){
 		
