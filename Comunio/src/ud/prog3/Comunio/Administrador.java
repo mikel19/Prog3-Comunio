@@ -363,6 +363,7 @@ private JTextField textFieldEdad;
 			ResultSet rs=st.executeQuery(jugadores);
 			
 			
+			
 //			ResultSetMetaData rsmd = rs.getMetaData();
 //			int columnCount = rsmd.getColumnCount();
 			while(rs.next())

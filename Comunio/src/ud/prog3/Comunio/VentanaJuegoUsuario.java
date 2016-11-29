@@ -32,6 +32,7 @@ import javax.swing.JInternalFrame;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JDesktopPane;
 
@@ -135,7 +136,11 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		mntmVerAlineacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				VentanaAlineacion alineacion=new VentanaAlineacion();
+				VentanaAlineacion alineacion =new VentanaAlineacion();
+			
+					 
+
+				
 				
 				getContentPane().add(alineacion);
 				lblmanager.add(alineacion);
@@ -227,7 +232,8 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 			
 		case "Ver Alineacion":
 			
-			VentanaAlineacion alineacion=new VentanaAlineacion();
+			VentanaAlineacion alineacion = null;
+			alineacion = new VentanaAlineacion();
 //			Escritorio.add(alineacion);
 			alineacion.setVisible(true);
 			break;

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -33,6 +34,11 @@ import javax.swing.JList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class VentanaAlineacion extends JInternalFrame {
 	VentanaAlineacion alineacion;
@@ -50,8 +56,9 @@ public class VentanaAlineacion extends JInternalFrame {
 	JComboBox<Jugador> DCD;
 	ImageIcon icono;
 	ImageIcon fot; 
-	JList list;
 	JButton bañadir;
+	JList <DefaultListModel>lista ;
+	DefaultListModel modelo;
 	/**
 	 * Launch the application.
 	 */
@@ -70,8 +77,9 @@ public class VentanaAlineacion extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public VentanaAlineacion() {
+	public VentanaAlineacion()  {
 //		addMouseListener(new MouseAdapter() {
 //			@Override
 //			public void mouseClicked(MouseEvent arg0) {
@@ -247,13 +255,128 @@ public class VentanaAlineacion extends JInternalFrame {
 		button_3.setBounds(289, 31, 89, 23);
 		getContentPane().add(button_3);
 		
-		list = new JList();
-		list.setBounds(418, 81, 179, 372);
-		getContentPane().add(list);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(431, 74, 166, 431);
+		getContentPane().add(scrollPane);
 		
-
+		lista = new JList<DefaultListModel>();
 		
+		modelo=new DefaultListModel();
+		lista.setModel(modelo);
+		
+		scrollPane.setViewportView(lista);
+		
+		Statement st=null;
+		st=BasesDeDatos.getStatement();
+		String jugadores="";
+		String jugadores2="";
+		ArrayList<String>idJugador=new ArrayList<String>();
 
+		 
+		try {
+			ResultSet	rs = st.executeQuery("select idJugador from usuariojugadores");
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			
+			while(rs.next()){
+				
+				
+				jugadores=rs.getString(columnCount);
+				idJugador.add(jugadores);
+				
+				
+				
+				
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("idjugadores:"+idJugador);
+		ArrayList<String>idtodojugadores=new ArrayList<String>();
+		try {
+			ResultSet	rs2 = st.executeQuery("select id from jugadores");
+			ResultSetMetaData rsmd2 = rs2.getMetaData();
+			int columnCount2 = rsmd2.getColumnCount();
+			
+			while(rs2.next()){
+			
+			
+				jugadores2=rs2.getString(columnCount2);
+				idtodojugadores.add(jugadores);
+				
+				
+				
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("idjugadores:"+idtodojugadores);
+		
+		
+//		System.out.println("dsfsdgfdsga");
+//		Statement st=null;
+//		st=BasesDeDatos.getStatement();
+//		String jugadores="";
+//	
+//
+//		ResultSet rs=st.executeQuery(jugadores);
+//		ResultSetMetaData rsmd = rs.getMetaData();
+//		int columnCount = rsmd.getColumnCount();
+//		ArrayList<String>idJugador=new ArrayList<String>();
+//		while(rs.next()){
+//		
+//		
+//			jugadores="select idJugador from usuariojugadores";
+//			idJugador.add(jugadores);
+//			System.out.println("idjugadores:"+idJugador);
+//			
+//			
+//			
+//		}
+//
+//		ResultSet rs2=st.executeQuery(jugadores);
+//		ResultSetMetaData rsmd2 = rs.getMetaData();
+//		int columnCount2 = rsmd2.getColumnCount();
+//		ArrayList<String>idtodojugadores=new ArrayList<String>();
+//		while(rs2.next()){
+//		
+//		
+//			jugadores="select id from jugadores";
+//			idtodojugadores.add(jugadores);
+//			System.out.println("idjugadores:"+idtodojugadores);
+//			
+//			
+//			
+//		}
+//		ArrayList<String>nombre=new ArrayList<String>();
+//		int s=0;
+//		for(int a=0;a<idJugador.size();a++){
+//			if(idJugador.get(a).equals(idtodojugadores.get(s))){
+//
+//				ResultSet rs3=st.executeQuery(jugadores);
+//				ResultSetMetaData rsmd3 = rs.getMetaData();
+//				int columnCount3 = rsmd3.getColumnCount();
+//				ArrayList<String>nombrejugadores=new ArrayList<String>();
+//				while(rs3.next()){
+//				
+//				
+//					jugadores="select nombre from jugadores"+"where(id='"+idtodojugadores.get(a)+"')";
+//					idtodojugadores.add(jugadores);
+//					System.out.println("idjugadores:"+idtodojugadores);
+//					
+//					modelo.addElement(jugadores);
+//					
+//				}
+//				
+//				
+//				
+//			}
+//		}
 	
 	}
-}
+	
+	}
+
