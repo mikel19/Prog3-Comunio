@@ -54,6 +54,7 @@ JLabel lblNombre_1;
 JLabel lblEquipo_1;
 JLabel lblPosicion_1;
 JLabel lblAdd ;
+JLabel labelAñadir;
 Statement st=null;
 JLabel lblEdad;
 JLabel lblEdad_1;
@@ -143,12 +144,13 @@ private JTextField textFieldEdad;
 		btnPuntuar.setBounds(451, 44, 89, 23);
 		getContentPane().add(btnPuntuar);
 		
-		JLabel label = new JLabel("");
-		label.addMouseListener(new MouseAdapter() {
+		labelAñadir = new JLabel("");
+		labelAñadir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
 
+				labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward-CL.png")));
 				Statement st=null;
 				st=BasesDeDatos.getStatement();
 				int puntosJornada1=0;
@@ -198,13 +200,13 @@ private JTextField textFieldEdad;
 				
 				JOptionPane.showMessageDialog(null, "Los puntos de esta jornada ya se han actualizado en los puntos totales de cada jugador");
 				
-				
+				dispose();
 				
 			}
 		});
-		label.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward.png")));
-		label.setBounds(464, 167, 39, 30);
-		getContentPane().add(label);
+		labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward.png")));
+		labelAñadir.setBounds(464, 167, 39, 30);
+		getContentPane().add(labelAñadir);
 		
 		JLabel lblProximaJornada = new JLabel("Proxima Jornada");
 		lblProximaJornada.setBounds(457, 140, 103, 14);
@@ -290,6 +292,7 @@ private JTextField textFieldEdad;
 				repaint();
 				
 			}
+			
 		});
 		lblAdd.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Add.png")));
 		lblAdd.setBounds(382, 447, 39, 30);
