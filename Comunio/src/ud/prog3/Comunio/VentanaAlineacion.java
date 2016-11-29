@@ -347,15 +347,18 @@ public class VentanaAlineacion extends JInternalFrame {
 		ArrayList<String>nombre=new ArrayList<String>();
 		
 		ArrayList<String>nombrejugadores=new ArrayList<String>();
+		Usuario usuario=new Usuario();
 
-for(int z=0;z<idusuario.size();z++){		
-		for(int a=0;a<idJugador.size();a++){
-			for(int s=0;s<idtodojugadores.size();s++){
-			if(idJugador.get(a).equals(idtodojugadores.get(s))){
+for(int z=0;z<idusuario.size();z++){	
+	if(idusuario.get(z).equals(usuario.idusuario())){
+		
+			
+//			for(int s=0;s<idJugador.size();s++){
+		
 
 		
 				try {
-					ResultSet	rs3 = st.executeQuery("select nombre from jugadores where id='"+idJugador.get(a)+"'");
+					ResultSet	rs3 = st.executeQuery("select nombre from jugadores where id='"+idJugador.get(z)+"'");
 					ResultSetMetaData rsmd3 = rs3.getMetaData();
 					int columnCount3 = rsmd3.getColumnCount();
 					
@@ -377,9 +380,10 @@ for(int z=0;z<idusuario.size();z++){
 				
 				
 				
-			}
-			}
-		}
+			
+//			}
+		
+	}
 }
 		System.out.println("nombre jugadores:"+nombrejugadores);
 

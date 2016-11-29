@@ -144,6 +144,7 @@ public class Usuario extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
 		switch(e.getActionCommand())
@@ -155,7 +156,7 @@ public class Usuario extends JFrame implements ActionListener
 			if((chequearEnTabla(st))==true)
 			{
 				JOptionPane.showMessageDialog(null, "el usuario que ha introducido es correcto");
-				
+			
 				VentanaJuegoUsuario VJU=new VentanaJuegoUsuario();
 				VJU.setVisible(true);
 				dispose();
@@ -699,6 +700,11 @@ public class Usuario extends JFrame implements ActionListener
 		return false;
 	
 }
+	public String idusuario(){
+		String a=id.getText();
+		return a;
+		
+	}
 	
 	
 }
