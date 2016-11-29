@@ -271,6 +271,31 @@ public class VentanaAlineacion extends JInternalFrame {
 		String jugadores="";
 		String jugadores2="";
 		String jugadores3="";
+		String jugadores4="";
+		
+		ArrayList<String>idusuario=new ArrayList<String>();
+
+		 
+		try {
+			ResultSet	rs4 = st.executeQuery("select idUsuario from usuariojugadores");
+			ResultSetMetaData rsmd4 = rs4.getMetaData();
+			int columnCount4 = rsmd4.getColumnCount();
+			
+			while(rs4.next()){
+				
+				
+				jugadores4=rs4.getString(columnCount4);
+				idusuario.add(jugadores4);
+				
+				
+				
+				
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<String>idJugador=new ArrayList<String>();
 
 		 
@@ -305,7 +330,7 @@ public class VentanaAlineacion extends JInternalFrame {
 			
 			
 				jugadores2=rs2.getString(columnCount2);
-				idtodojugadores.add(jugadores);
+				idtodojugadores.add(jugadores2);
 				
 				
 				
@@ -320,26 +345,30 @@ public class VentanaAlineacion extends JInternalFrame {
 
 
 		ArrayList<String>nombre=new ArrayList<String>();
-		int s=0;
+		
+		ArrayList<String>nombrejugadores=new ArrayList<String>();
+
+for(int z=0;z<idusuario.size();z++){		
 		for(int a=0;a<idJugador.size();a++){
+			for(int s=0;s<idtodojugadores.size();s++){
 			if(idJugador.get(a).equals(idtodojugadores.get(s))){
 
 		
 				try {
-					ResultSet	rs3 = st.executeQuery(jugadores);
+					ResultSet	rs3 = st.executeQuery("select nombre from jugadores where id='"+idJugador.get(a)+"'");
 					ResultSetMetaData rsmd3 = rs3.getMetaData();
 					int columnCount3 = rsmd3.getColumnCount();
-					ArrayList<String>nombrejugadores=new ArrayList<String>();
-					while(rs3.next()){
 					
 					
-						jugadores3="select nombre from jugadores"+"where(id='"+idJugador.get(a)+"')";
+					
+					
+						jugadores3=rs3.getString(columnCount3);
 						nombrejugadores.add(jugadores3);
-						System.out.println("nombre jugadores:"+nombrejugadores);
+						
 						
 //						modelo.addElement(nombre);
 						
-					}
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -349,7 +378,12 @@ public class VentanaAlineacion extends JInternalFrame {
 				
 				
 			}
+			}
 		}
+}
+		System.out.println("nombre jugadores:"+nombrejugadores);
+
+	
 	
 	}
 	
