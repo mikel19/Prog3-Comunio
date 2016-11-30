@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class VentanaAlineacion extends JInternalFrame {
 	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
-	JComboBox<Jugador> Portero;
+	JComboBox<String> Portero;
 	JComboBox<Jugador> LI;
 	JComboBox<Jugador> DFCI;
 	JComboBox <Jugador>DFCD;
@@ -116,9 +116,9 @@ public class VentanaAlineacion extends JInternalFrame {
 	
 		
 		
-		Portero = new JComboBox<Jugador>();
+		Portero = new JComboBox<String>();
 		Portero.setToolTipText("Portero");
-		Portero.setBounds(207, 429, 28, 20);
+		Portero.setBounds(207, 429, 58, 20);
 		getContentPane().add(Portero);
 		
 		
@@ -391,7 +391,8 @@ for(int z=0;z<idusuario.size();z++){
 //for(int a=0;a<nombrejugadores.size();a++){
 //	modelo.addElement(nombrejugadores);
 //}
-	
+	Portero.addItem(nombrejugadores.get(0));
+	Portero.addItem(nombrejugadores.get(1));
 	
 	}
 	
