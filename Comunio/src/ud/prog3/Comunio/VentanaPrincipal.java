@@ -177,6 +177,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		case "administrador":
 //			Administrador vAdministrador=new Administrador();
 //			vAdministrador.setVisible(true);
+			AccesoAdministrador ventana=new AccesoAdministrador();
+			ventana.setVisible(true);
+			
 			
 			
 			
