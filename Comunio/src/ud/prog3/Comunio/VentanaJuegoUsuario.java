@@ -54,7 +54,8 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	JLabel lblmanager;
 	private JLabel lblNewLabel;
 	JMenuItem mntmVerAlineacion;
-	public VentanaJuegoUsuario() {
+	public VentanaJuegoUsuario(String string) {
+		final String b=string;
 		setResizable(false);
 		fot = new ImageIcon(VentanaJuegoUsuario.class.getResource("/ud/prog3/Comunio/img/manager.jpg"));
 		this.repaint();
@@ -136,7 +137,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		mntmVerAlineacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				VentanaAlineacion alineacion =new VentanaAlineacion();
+				VentanaAlineacion alineacion =new VentanaAlineacion(b);
 			
 					 
 
@@ -233,7 +234,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		case "Ver Alineacion":
 			
 			VentanaAlineacion alineacion = null;
-			alineacion = new VentanaAlineacion();
+//			alineacion = new VentanaAlineacion(b);
 //			Escritorio.add(alineacion);
 			alineacion.setVisible(true);
 			break;

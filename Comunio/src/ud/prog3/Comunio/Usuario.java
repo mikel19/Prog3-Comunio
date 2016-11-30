@@ -156,8 +156,8 @@ public class Usuario extends JFrame implements ActionListener
 			if((chequearEnTabla(st))==true)
 			{
 				JOptionPane.showMessageDialog(null, "el usuario que ha introducido es correcto");
-			
-				VentanaJuegoUsuario VJU=new VentanaJuegoUsuario();
+		
+				VentanaJuegoUsuario VJU=new VentanaJuegoUsuario(id.getText());
 				VJU.setVisible(true);
 				dispose();
 				break;

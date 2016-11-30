@@ -77,9 +77,11 @@ public class VentanaAlineacion extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param b 
 	 * @throws SQLException 
 	 */
-	public VentanaAlineacion()  {
+	public VentanaAlineacion(String b)  {
+		String idactual=b;
 //		addMouseListener(new MouseAdapter() {
 //			@Override
 //			public void mouseClicked(MouseEvent arg0) {
@@ -350,7 +352,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		Usuario usuario=new Usuario();
 
 for(int z=0;z<idusuario.size();z++){	
-	if(idusuario.get(z).equals(usuario.idusuario())){
+	if(idusuario.get(z).equals(idactual)){
 		
 			
 //			for(int s=0;s<idJugador.size();s++){
@@ -367,14 +369,14 @@ for(int z=0;z<idusuario.size();z++){
 					
 						jugadores3=rs3.getString(columnCount3);
 						nombrejugadores.add(jugadores3);
-						
+						modelo.addElement(jugadores3);
 						
 //						modelo.addElement(nombre);
 						
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+	
 				}
 			
 				
@@ -385,8 +387,10 @@ for(int z=0;z<idusuario.size();z++){
 		
 	}
 }
-		System.out.println("nombre jugadores:"+nombrejugadores);
-
+//		System.out.println("nombre jugadores:"+nombrejugadores);
+//for(int a=0;a<nombrejugadores.size();a++){
+//	modelo.addElement(nombrejugadores);
+//}
 	
 	
 	}
