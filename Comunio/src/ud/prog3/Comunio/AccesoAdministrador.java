@@ -31,6 +31,9 @@ public class AccesoAdministrador extends JFrame implements ActionListener
 	JButton btnAcceder;
 	JButton btnCancelar;
 	Runnable r;
+	Thread miHilo;
+	int contador=0;
+	boolean hilo=true;
 	
 	
 	
@@ -91,11 +94,48 @@ public class AccesoAdministrador extends JFrame implements ActionListener
 			
 			if(textFieldId.getText().equals("admin")&& passwordField.getText().equals("admin"))
 			{
-				JOptionPane.showMessageDialog(this, "Bienvenido Administrador");
-				dispose();
+				r=new Runnable()
+				{
+
+					@Override
+					public void run() 
+					{
+						try {
+							while(hilo)
+							{
+							Thread.sleep(100);
+							contador++;
+							progressBar.setValue(contador);
+							progressBar.setStringPainted(true);
+							if(contador==100)
+							{
+								hilo=false;
+								miHilo.interrupt();
+								JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+								dispose();
+								Administrador admin=new Administrador();
+								admin.setVisible(true);
+							}
+							}
+							
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+				};
+				miHilo=new Thread(r);
+				miHilo.start();
 				
-				Administrador admin=new Administrador();
-				admin.setVisible(true);
+					
+				
+				
+				
+				
+				
+				
 				break;
 				
 			}
