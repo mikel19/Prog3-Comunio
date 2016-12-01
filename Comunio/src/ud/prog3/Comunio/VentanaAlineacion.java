@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -44,21 +45,22 @@ public class VentanaAlineacion extends JInternalFrame {
 	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
 	JComboBox<String> Portero;
-	JComboBox<Jugador> LI;
-	JComboBox<Jugador> DFCI;
-	JComboBox <Jugador>DFCD;
-	JComboBox <Jugador>LD;
-	JComboBox<Jugador> MI;
-	JComboBox <Jugador>MCI;
-	JComboBox <Jugador>MCD;
-	JComboBox <Jugador>MD;
-	JComboBox<Jugador> DI;
-	JComboBox<Jugador> DCD;
+	JComboBox<String> LI;
+	JComboBox<String> DFCI;
+	JComboBox <String>DFCD;
+	JComboBox <String>LD;
+	JComboBox<String> MI;
+	JComboBox <String>MCI;
+	JComboBox <String>MCD;
+	JComboBox <String>MD;
+	JComboBox<String> DI;
+	JComboBox<String> DCD;
 	ImageIcon icono;
 	ImageIcon fot; 
 	JButton bañadir;
 	JList <DefaultListModel>lista ;
 	DefaultListModel modelo;
+	private JButton btnGuardarAlineacion;
 	/**
 	 * Launch the application.
 	 */
@@ -81,6 +83,7 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * @throws SQLException 
 	 */
 	public VentanaAlineacion(String b)  {
+		final ArrayList<String>nombrejugadores=new ArrayList<String>();
 		String idactual=b;
 //		addMouseListener(new MouseAdapter() {
 //			@Override
@@ -118,62 +121,63 @@ public class VentanaAlineacion extends JInternalFrame {
 		
 		Portero = new JComboBox<String>();
 		Portero.setToolTipText("Portero");
-		Portero.setBounds(207, 429, 58, 20);
+		Portero.setBounds(171, 431, 101, 20);
 		getContentPane().add(Portero);
 		
 		
-		LI = new JComboBox<Jugador>();
+		LI = new JComboBox<String>();
 		LI.setToolTipText("LI");
-		LI.setBounds(60, 352, 28, 20);
+		LI.setBounds(45, 332, 101, 20);
 		getContentPane().add(LI);
 		
-		DFCI = new JComboBox<Jugador>();
+		DFCI = new JComboBox<String>();
 		DFCI.setToolTipText("DFCI");
-		DFCI.setBounds(150, 365, 28, 20);
+		DFCI.setBounds(123, 363, 101, 20);
 		getContentPane().add(DFCI);
 		
-		DFCD = new JComboBox<Jugador>();
+		DFCD = new JComboBox<String>();
 		DFCD.setToolTipText("DFCD");
-		DFCD.setBounds(266, 365, 28, 20);
+		DFCD.setBounds(237, 363, 101, 20);
 		getContentPane().add(DFCD);
 		
-		LD = new JComboBox<Jugador>();
+		LD = new JComboBox<String>();
 		LD.setToolTipText("LD");
-		LD.setBounds(339, 352, 28, 20);
+		LD.setBounds(299, 332, 101, 20);
 		getContentPane().add(LD);
 		
-		MI = new JComboBox<Jugador>();
+		MI = new JComboBox<String>();
 		MI.setToolTipText("MI");
-		MI.setBounds(117, 276, 28, 20);
+		MI.setBounds(55, 264, 101, 20);
 		getContentPane().add(MI);
 		
-		MCI = new JComboBox<Jugador>();
+		MCI = new JComboBox<String>();
 		MCI.setToolTipText("MCI");
-		MCI.setBounds(165, 301, 28, 20);
+		MCI.setBounds(123, 295, 101, 20);
 		getContentPane().add(MCI);
 		
-		MCD = new JComboBox<Jugador>();
+		MCD = new JComboBox<String>();
 		MCD.setToolTipText("MCD");
-		MCD.setBounds(237, 301, 28, 20);
+		MCD.setBounds(237, 295, 101, 20);
 		getContentPane().add(MCD);
 		
-		MD = new JComboBox<Jugador>();
+		MD = new JComboBox<String>();
 		MD.setToolTipText("MD");
-		MD.setBounds(299, 276, 28, 20);
+		MD.setBounds(299, 264, 101, 20);
 		getContentPane().add(MD);
 		
-		DI = new JComboBox<Jugador>();
+		DI = new JComboBox<String>();
 		DI.setToolTipText("DI");
-		DI.setBounds(137, 181, 28, 20);
+		DI.setBounds(103, 170, 101, 20);
 		getContentPane().add(DI);
 		
-		DCD = new JComboBox<Jugador>();
+		DCD = new JComboBox<String>();
 		DCD.setToolTipText("DCD");
-		DCD.setBounds(266, 181, 28, 20);
+		DCD.setBounds(247, 170, 101, 20);
 		getContentPane().add(DCD);
 		
 		
 		lblAlineacion = new JLabel("");
+		
 		lblAlineacion.setBackground(Color.WHITE);
 		lblAlineacion.setBounds(35, 81, 373, 392);
 		getContentPane().add(lblAlineacion);
@@ -184,16 +188,17 @@ public class VentanaAlineacion extends JInternalFrame {
 		JButton button = new JButton("4-4-2");		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LI.setBounds(60, 352, 28, 20);
-				DFCI.setBounds(150, 365, 28, 20);
-				DFCD.setBounds(266, 365, 28, 20);
-				LD.setBounds(339, 352, 28, 20);
-				MI.setBounds(117, 276, 28, 20);
-				MCI.setBounds(165, 301, 28, 20);
-				MCD.setBounds(237, 301, 28, 20);
-				MD.setBounds(299, 276, 28, 20);
-				DI.setBounds(137, 181, 28, 20);
-				DCD.setBounds(266, 181, 28, 20);
+				Portero.setBounds(171, 431, 101, 20);
+				LI.setBounds(45, 332, 101, 20);
+				DFCI.setBounds(123, 363, 101, 20);
+				DFCD.setBounds(237, 363, 101, 20);
+				LD.setBounds(299, 332, 101, 20);
+				MI.setBounds(55, 264, 101, 20);
+				MCI.setBounds(123, 295, 101, 20);
+				MCD.setBounds(237, 295, 101, 20);
+				MD.setBounds(299, 264, 101, 20);
+				DI.setBounds(103, 170, 101, 20);
+				DCD.setBounds(247, 170, 101, 20);
 				
 			}
 		});
@@ -261,12 +266,93 @@ public class VentanaAlineacion extends JInternalFrame {
 		scrollPane.setBounds(431, 74, 166, 431);
 		getContentPane().add(scrollPane);
 		
+	
+		lblAlineacion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				int i=0;
+
+				
+				
+//				if(LI.getSelectedItem()==nombrejugadores.get(2) || DFCD.getSelectedItem()==nombrejugadores.get(2) ||  LD.getSelectedItem()==nombrejugadores.get(2)){
+//					DFCI.removeItem(nombrejugadores.get(2));
+//					
+//				}
+//				else{
+//					DFCI.addItem(nombrejugadores.get(2));
+//				}
+//				if(LI.getSelectedItem()==nombrejugadores.get(3) || DFCD.getSelectedItem()==nombrejugadores.get(3) ||  LD.getSelectedItem()==nombrejugadores.get(3)){
+//					DFCI.removeItem(nombrejugadores.get(3));
+//					
+//				}
+//				else{
+//					DFCI.addItem(nombrejugadores.get(3));
+//				}
+//				if(LI.getSelectedItem()==nombrejugadores.get(4) || DFCD.getSelectedItem()==nombrejugadores.get(4) ||  LD.getSelectedItem()==nombrejugadores.get(4)){
+//					DFCI.removeItem(nombrejugadores.get(4));
+//					
+//				}
+//				else{
+//					DFCI.addItem(nombrejugadores.get(4));
+//				}
+//				if(LI.getSelectedItem()==nombrejugadores.get(5) || DFCD.getSelectedItem()==nombrejugadores.get(5) ||  LD.getSelectedItem()==nombrejugadores.get(5)){
+//					DFCI.removeItem(nombrejugadores.get(5));
+//					
+//				}
+//				else{
+//					
+//					DFCI.addItem(nombrejugadores.get(5));
+//			
+//				}
+			}
+			
+			
+		});
+		
+		
+//		DFCI.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				if(LI.getSelectedItem()==nombrejugadores.get(2) || DFCD.getSelectedItem()==nombrejugadores.get(2) ||  LD.getSelectedItem()==nombrejugadores.get(2)){
+//					DFCI.removeItem(nombrejugadores.get(2));
+//					
+//				}
+//				else{
+//					if(DFCI.getSelectedItem()==nombrejugadores.get(2)){
+//						
+//					}else{
+//					
+//					DFCI.addItem(nombrejugadores.get(2));
+//					}
+//				}
+//			}
+//		});
+		
 		lista = new JList<DefaultListModel>();
 		
 		modelo=new DefaultListModel();
 		lista.setModel(modelo);
 		
 		scrollPane.setViewportView(lista);
+		
+		btnGuardarAlineacion = new JButton("GUARDAR ALINEACION");
+		btnGuardarAlineacion.setBounds(433, 31, 147, 23);
+		getContentPane().add(btnGuardarAlineacion);
+		
+		btnGuardarAlineacion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(jugadoresrepetidosenalineacion()==true){
+					JOptionPane.showMessageDialog(null, "Atención!! algunos jugadores estan repetidos");
+			
+				}
+				else{
+					
+				}
+				
+				
+			}
+		});
 		
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
@@ -348,7 +434,7 @@ public class VentanaAlineacion extends JInternalFrame {
 
 		ArrayList<String>nombre=new ArrayList<String>();
 		
-		ArrayList<String>nombrejugadores=new ArrayList<String>();
+	
 		Usuario usuario=new Usuario();
 
 for(int z=0;z<idusuario.size();z++){	
@@ -391,10 +477,103 @@ for(int z=0;z<idusuario.size();z++){
 //for(int a=0;a<nombrejugadores.size();a++){
 //	modelo.addElement(nombrejugadores);
 //}
+
+		
 	Portero.addItem(nombrejugadores.get(0));
 	Portero.addItem(nombrejugadores.get(1));
 	
+	LI.addItem(nombrejugadores.get(2));
+	LI.addItem(nombrejugadores.get(3));
+	LI.addItem(nombrejugadores.get(4));
+	LI.addItem(nombrejugadores.get(5));
+	
+	DFCI.addItem(nombrejugadores.get(5));
+	DFCI.addItem(nombrejugadores.get(4));
+	DFCI.addItem(nombrejugadores.get(2));
+	DFCI.addItem(nombrejugadores.get(2));
+	
+	DFCD.addItem(nombrejugadores.get(3));
+	DFCD.addItem(nombrejugadores.get(2));
+	DFCD.addItem(nombrejugadores.get(4));
+	DFCD.addItem(nombrejugadores.get(5));
+	
+	LD.addItem(nombrejugadores.get(4));
+	LD.addItem(nombrejugadores.get(3));
+	LD.addItem(nombrejugadores.get(2));
+	LD.addItem(nombrejugadores.get(5));
+	
+	MI.addItem(nombrejugadores.get(6));
+	MI.addItem(nombrejugadores.get(7));
+	MI.addItem(nombrejugadores.get(8));
+	MI.addItem(nombrejugadores.get(9));
+	
+	MCI.addItem(nombrejugadores.get(7));
+	MCI.addItem(nombrejugadores.get(6));
+	MCI.addItem(nombrejugadores.get(8));
+	MCI.addItem(nombrejugadores.get(9));
+	
+	MCD.addItem(nombrejugadores.get(8));
+	MCD.addItem(nombrejugadores.get(7));
+	MCD.addItem(nombrejugadores.get(6));
+	MCD.addItem(nombrejugadores.get(9));
+	
+	MD.addItem(nombrejugadores.get(9));
+	MD.addItem(nombrejugadores.get(7));
+	MD.addItem(nombrejugadores.get(8));
+	MD.addItem(nombrejugadores.get(6));
+	
+	DI.addItem(nombrejugadores.get(10));
+	DCD.addItem(nombrejugadores.get(11));
+	
+	
+
+
 	}
+	
+	public boolean jugadoresrepetidosenalineacion(){
+		boolean repetido=false;
+		if(LI.getSelectedItem()==DFCI.getSelectedItem() || LI.getSelectedItem()==DFCD.getSelectedItem() || LI.getSelectedItem()==LD.getSelectedItem()){
+		
+			repetido=true;
+		}
+		if(DFCI.getSelectedItem()==LI.getSelectedItem() || DFCI.getSelectedItem()==DFCD.getSelectedItem() ||DFCI.getSelectedItem()==LD.getSelectedItem()){
+			repetido=true;
+		}
+		if(DFCD.getSelectedItem()==LI.getSelectedItem() ||DFCD.getSelectedItem()==DFCI.getSelectedItem()||DFCD.getSelectedItem()==LD.getSelectedItem()){
+			repetido=true;
+		}
+		if(LD.getSelectedItem()==LI.getSelectedItem() ||LD.getSelectedItem()==DFCI.getSelectedItem()||LD.getSelectedItem()==DFCD.getSelectedItem()){
+			repetido=true;
+		}
+		
+		
+		if(MI.getSelectedItem()==MD.getSelectedItem() ||MD.getSelectedItem()==MCI.getSelectedItem()||MD.getSelectedItem()==MCD.getSelectedItem()){
+			repetido=true;
+		}
+		if(MD.getSelectedItem()==MI.getSelectedItem() ||MD.getSelectedItem()==MCI.getSelectedItem()||MD.getSelectedItem()==MCD.getSelectedItem()){
+			repetido=true;
+		}
+		if(MCI.getSelectedItem()==MD.getSelectedItem() ||MCI.getSelectedItem()==MCD.getSelectedItem()||MCI.getSelectedItem()==MI.getSelectedItem()){
+			repetido=true;
+		}
+		if(MCD.getSelectedItem()==MI.getSelectedItem() ||MCD.getSelectedItem()==MCI.getSelectedItem()||MCD.getSelectedItem()==MD.getSelectedItem()){
+			repetido=true;
+		}
+	
+		
+		if(DI.getSelectedItem()==DCD.getSelectedItem()){
+			repetido=true;
+		}
+		if(DCD.getSelectedItem()==DI.getSelectedItem()){
+			repetido=true;
+		}
+		
+		
+		
+		return repetido;
+		
+		
+		}
 	
 	}
 
