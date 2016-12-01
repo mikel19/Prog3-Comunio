@@ -103,7 +103,7 @@ public class AccesoAdministrador extends JFrame implements ActionListener
 						try {
 							while(hilo)
 							{
-							Thread.sleep(100);
+							Thread.sleep(50);
 							contador++;
 							progressBar.setValue(contador);
 							progressBar.setStringPainted(true);
@@ -118,9 +118,9 @@ public class AccesoAdministrador extends JFrame implements ActionListener
 							}
 							}
 							
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						} catch (InterruptedException e) 
+						{
+							e.getStackTrace();
 						}
 						
 					}
