@@ -60,11 +60,13 @@ JLabel lblEdad;
 JLabel lblEdad_1;
 JSpinner spinner;
 ArrayList<Jugador>listaJ;
+ArrayList puntosJornada;
 Jugador jugador;
 private JTextField textFieldNNombre;
 private JTextField TextFieldNEquipo;
 private JTextField textFieldNPosicion;
 private JTextField textFieldEdad;
+
 
 	public Administrador() {
 		setBounds(new Rectangle(0, 0, 2147483647, 2147483647));
@@ -102,7 +104,9 @@ private JTextField textFieldEdad;
 				
 				Statement st=null;
 				st=BasesDeDatos.getStatement();
-				
+				BasesDeDatos.crearTablaPuntosJornada();
+				int puntosEstaJornada=0;
+				puntosJornada=new ArrayList();
 				
 				listaJ.clear();
 				
@@ -111,8 +115,15 @@ private JTextField textFieldEdad;
 					Random puntos;
 					puntos=new Random();
 					
+					
+					
 					String sentencia="update jugadores set puntosJornada='"+puntos.nextInt(15)+"' where id='"+i+"'";
-
+					String num=""+i;
+					
+				
+					
+					//String PuntosJornada="insert into puntosjornada values ('"+num+"', '"+comprobarJornada()+"', '"+puntos.nextInt(15)+"')";
+					
 
 					
 					
@@ -121,7 +132,19 @@ private JTextField textFieldEdad;
 						st.executeUpdate(sentencia);
 						añadirJugadoresALista();
 						
+						//st.executeUpdate(PuntosJornada);
 						
+						ResultSet rs=st.executeQuery("select PuntosJornada1 from puntosjornada");
+						ResultSetMetaData rsmd1 = rs.getMetaData();
+						int columnCount1 = rsmd1.getColumnCount();
+						while(rs.next())
+						{
+						puntosEstaJornada=rs.getInt(columnCount1);
+						
+						puntosJornada.add(puntosEstaJornada);
+						
+						
+						}
 						}
 						
 					
@@ -132,6 +155,31 @@ private JTextField textFieldEdad;
 					}
 					
 					
+				}
+				
+				if(comprobarPuntos(puntosJornada)==true)
+				{
+					String alterarTable="alter table puntosjornada add PuntosJornada"+comprobarJornada()+"";
+					try {
+						st.executeUpdate(alterarTable);
+						
+						for(int i=1;i<75;i++)
+						{
+							
+							
+							
+							
+							String puntosACero="update puntosjornada set PuntosJornada"+comprobarJornada()+"='"+0+"' where "+i+"= '"+null+"'";
+							st.executeUpdate(puntosACero);
+						
+					  }
+						
+						
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				JOptionPane.showMessageDialog(null, "Los puntos para esta jornada se han calculado");
@@ -185,6 +233,9 @@ private JTextField textFieldEdad;
 						st.executeUpdate(sentencia);
 						String sentencia1="update jugadores set  puntosJornada='0'where id='"+i+"'";
 						st.executeUpdate(sentencia1);
+						
+						
+						
 						} 
 						
 						añadirJugadoresALista();
@@ -547,4 +598,61 @@ private JTextField textFieldEdad;
 		}
 		
 	}
+	
+	public boolean comprobarPuntos(ArrayList puntos)
+	{
+		int contador=0;
+		boolean comprobacion=true;
+		
+		for(int i=0;i<puntos.size();i++)
+		{
+			if((int)puntos.get(i)==0)
+			{
+				contador++;
+			}
+				
+				
+		}
+		if(contador==puntos.size())
+		{
+			comprobacion=false;
+		}
+		
+		
+		return comprobacion;
+		
+	}
+	
+	public int comprobarJornada()
+	{
+		ResultSet rs;
+		int jornada=1;
+		try {
+			rs = st.executeQuery("select numJornada from puntosjornada");
+			ResultSetMetaData rsmd1 = rs.getMetaData();
+			int columnCount1 = rsmd1.getColumnCount();
+			
+			while(rs.next())
+			{
+				
+					jornada=rs.getInt(columnCount1)+1;
+					break;
+				
+					
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			
+		}
+		
+		return jornada;
+		
+	}
+	
+	
+	
+	
 }

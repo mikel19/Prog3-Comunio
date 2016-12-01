@@ -66,7 +66,7 @@ public class BasesDeDatos
 		if(statement==null) return;
 		try{
 			
-			statement.executeUpdate("create table UsuarioJugadores " + "(idUsuario string, idJugador" +")");
+			statement.executeUpdate("create table UsuarioJugadores " + "(idUsuario string, idJugador string" +")");
 		}catch(SQLException e){
 			
 		}
@@ -96,6 +96,22 @@ public class BasesDeDatos
 			// e.printStackTrace();  
 		}
 		}
+	
+	public static void crearTablaPuntosJornada(){
+		
+		if(statement==null) return;
+		try{
+			
+			statement.executeUpdate("create table puntosjornada " + "(idJugador string, numJornada int, PuntosJornada1 int" +")");
+		}catch(SQLException e){
+			
+		}
+		
+		
+	}
+	
+	
+	
 		
 	}
 
