@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -105,6 +106,18 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		
 		mnAlineacin.add(mntmVerAlineacion);
 		
+		JMenu mnClasificacin_1 = new JMenu("Clasificaci\u00F3n");
+		menuBar.add(mnClasificacin_1);
+		
+		JMenuItem mntmVerClasificacin = new JMenuItem("Ver clasificaci\u00F3n");
+		mnClasificacin_1.add(mntmVerClasificacin);
+		
+		JMenu mnMercadoDeFichajes = new JMenu("Mercado de fichajes");
+		menuBar.add(mnMercadoDeFichajes);
+		
+		JMenuItem mntmIrAlMercado = new JMenuItem("Ir al mercado");
+		mnMercadoDeFichajes.add(mntmIrAlMercado);
+		
 		lblmanager = new JLabel("");
 		lblmanager.setBounds(0, 27, 833, 646);
 		 getContentPane().add(lblmanager);
@@ -168,7 +181,37 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 			}
 		});
 		
-	
+		mntmVerClasificacin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+//				
+				InternalClasificacion clasificacion=new InternalClasificacion();
+				getContentPane().add(clasificacion);
+				lblmanager.add(clasificacion);
+				clasificacion.setVisible(true);
+			
+			}
+		});
+		
+		mntmVerClasificacin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InternalClasificacion clasificacion=new InternalClasificacion();
+				getContentPane().add(clasificacion);
+				lblmanager.add(clasificacion);
+				clasificacion.setVisible(true);
+			}
+		});
+		
+		mntmIrAlMercado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MercadoFichajes mercado=new MercadoFichajes();
+				getContentPane().add(mercado);
+				lblmanager.add(mercado);
+				mercado.setVisible(true);
+				
+			}
+		});
 		
 //		tiempoUso = new JTextField();
 //		tiempoUso.setLocation(60, 24);

@@ -55,6 +55,7 @@ public class VentanaAlineacion extends JInternalFrame {
 	JComboBox <String>MD;
 	JComboBox<String> DI;
 	JComboBox<String> DCD;
+	JComboBox<String> EI;
 	ImageIcon icono;
 	ImageIcon fot; 
 	JButton bañadir;
@@ -175,6 +176,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		DCD.setBounds(247, 170, 101, 20);
 		getContentPane().add(DCD);
 		
+
 		
 		lblAlineacion = new JLabel("");
 		
@@ -206,18 +208,28 @@ public class VentanaAlineacion extends JInternalFrame {
 		getContentPane().add(button);
 		
 		JButton button_1 = new JButton("3-4-3");
+		
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				if(modelo.size()<13){
+					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
+				}
+				
+			}
+		});
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			LI.setBounds(128, 366, 28, 20);
-			DFCI.setBounds(206, 366, 28, 20);
-			DFCD.setBounds(279, 366, 28, 20);
-			LD.setBounds(206, 167, 28, 20);
-			MI.setBounds(103, 284, 28, 20);
-			MCI.setBounds(160, 250, 28, 20);
-			MCD.setBounds(241, 250, 28, 20);
-			MD.setBounds(302, 284, 28, 20);
-			DI.setBounds(128, 167, 28, 20);
-			DCD.setBounds(289, 167, 28, 20);
+			LI.setBounds(128, 366, 101, 20);
+			DFCI.setBounds(206, 366, 101, 20);
+			DFCD.setBounds(279, 366, 101, 20);
+			LD.setBounds(206, 167, 101, 20);
+			MI.setBounds(103, 284, 101, 20);
+			MCI.setBounds(160, 250, 101, 20);
+			MCD.setBounds(241, 250, 101, 20);
+			MD.setBounds(302, 284, 101, 20);
+			DI.setBounds(128, 167, 101, 20);
+			DCD.setBounds(289, 167, 101, 20);
 				
 			}
 		});
@@ -225,6 +237,15 @@ public class VentanaAlineacion extends JInternalFrame {
 		getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("4-3-3");
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(modelo.size()<13){
+					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
+				}
+				
+			}
+		});
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			LI.setBounds(60, 352, 28, 20);
@@ -244,6 +265,15 @@ public class VentanaAlineacion extends JInternalFrame {
 		getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("5-4-1");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(modelo.size()<13){
+					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
+				}
+				
+			}
+		});
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			LI.setBounds(65, 366, 28, 20);
@@ -339,20 +369,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		btnGuardarAlineacion.setBounds(433, 31, 147, 23);
 		getContentPane().add(btnGuardarAlineacion);
 		
-		btnGuardarAlineacion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if(jugadoresrepetidosenalineacion()==true){
-					JOptionPane.showMessageDialog(null, "Atención!! algunos jugadores estan repetidos");
-			
-				}
-				else{
-					
-				}
-				
-				
-			}
-		});
+	
 		
 		Statement st=null;
 		st=BasesDeDatos.getStatement();
@@ -360,6 +377,7 @@ public class VentanaAlineacion extends JInternalFrame {
 		String jugadores2="";
 		String jugadores3="";
 		String jugadores4="";
+		
 		
 		ArrayList<String>idusuario=new ArrayList<String>();
 
@@ -472,7 +490,99 @@ for(int z=0;z<idusuario.size();z++){
 //			}
 		
 	}
+	
 }
+final ArrayList <Integer>id=new ArrayList<Integer>();
+for(int z=0;z<idusuario.size();z++){	
+	int jugadores5=0;
+	if(idusuario.get(z).equals(idactual)){
+		
+			
+//			for(int s=0;s<idJugador.size();s++){
+		
+
+		
+				try {
+					ResultSet	rs3 = st.executeQuery("select id from jugadores where id='"+idJugador.get(z)+"'");
+					ResultSetMetaData rsmd3 = rs3.getMetaData();
+					int columnCount3 = rsmd3.getColumnCount();
+					
+					
+					
+					
+						jugadores5=rs3.getInt(columnCount3);
+						id.add(jugadores5);
+						
+//						modelo.addElement(nombre);
+						
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+	
+				}
+			
+				
+				
+				
+			
+//			}
+		
+	}
+	
+}
+
+	
+	btnGuardarAlineacion.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			if(jugadoresrepetidosenalineacion()==true){
+				JOptionPane.showMessageDialog(null, "Atención!! algunos jugadores estan repetidos");
+		
+			}
+			else{
+				
+			}
+			
+			
+		}
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			int puntos=0;
+			int resultado=0;
+			int puntosjornada=0;
+			Statement st=null;
+			st=BasesDeDatos.getStatement();
+			try {
+				for(int i=0;i<id.size();i++){
+				ResultSet	rs4 = st.executeQuery("select PuntosJornada1 from puntosJornada where idJugador='"+id.get(i)+"'");
+				ResultSetMetaData rsmd4 = rs4.getMetaData();
+				int columnCount4 = rsmd4.getColumnCount();
+				
+				while(rs4.next()){
+					
+					
+					puntos=rs4.getInt(columnCount4);
+					System.out.println("puntos:"+ puntos);
+					
+					puntosjornada=puntosjornada+puntos;
+					
+					
+					
+					
+					
+				}
+				}
+				System.out.println("puntos jornada:"+puntosjornada);
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+		}
+	});
+
 //		System.out.println("nombre jugadores:"+nombrejugadores);
 //for(int a=0;a<nombrejugadores.size();a++){
 //	modelo.addElement(nombrejugadores);
@@ -574,6 +684,7 @@ for(int z=0;z<idusuario.size();z++){
 		
 		
 		}
+	
 	
 	}
 
