@@ -121,7 +121,19 @@ public static void crearTablaMercadoDeFichajes(){
 		
 		
 	}
+public static void crearTablaClasificacion(){
+	if(statement==null) return;
 	
+	try{
+		statement.executeUpdate("create table clasificacion"+ "(Posicion string,idJugador string, PuntosJornada string,  PuntosTotales string"+")");
+	}catch(SQLException e){
+		
+		
+		
+	}
+	
+	
+}
 	
 	
 	

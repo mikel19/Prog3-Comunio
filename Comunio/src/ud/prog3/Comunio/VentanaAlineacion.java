@@ -61,6 +61,8 @@ public class VentanaAlineacion extends JInternalFrame {
 	JButton bañadir;
 	JList <DefaultListModel>lista ;
 	DefaultListModel modelo;
+	static String idjornada;
+	static String puntosjornada2;
 	private JButton btnGuardarAlineacion;
 	/**
 	 * Launch the application.
@@ -84,6 +86,7 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * @throws SQLException 
 	 */
 	public VentanaAlineacion(String b)  {
+		idjornada=b;
 		final ArrayList<String>nombrejugadores=new ArrayList<String>();
 		String idactual=b;
 //		addMouseListener(new MouseAdapter() {
@@ -549,7 +552,7 @@ for(int z=0;z<idusuario.size();z++){
 		public void mouseClicked(MouseEvent arg0) {
 			int puntos=0;
 			int resultado=0;
-			int puntosjornada=0;
+			int puntosjornada = 0;
 			Statement st=null;
 			st=BasesDeDatos.getStatement();
 			try {
@@ -573,6 +576,8 @@ for(int z=0;z<idusuario.size();z++){
 				}
 				}
 				System.out.println("puntos jornada:"+puntosjornada);
+				puntosjornada2=String.valueOf(puntosjornada);
+			
 				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -684,7 +689,11 @@ for(int z=0;z<idusuario.size();z++){
 		
 		
 		}
-	
+	public static String valor1(){
+		return idjornada;
+	}
+	public static String valor2(){
+		return puntosjornada2;
+	}
 	
 	}
-
