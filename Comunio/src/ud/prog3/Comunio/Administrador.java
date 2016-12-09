@@ -66,6 +66,8 @@ private JTextField textFieldNNombre;
 private JTextField TextFieldNEquipo;
 private JTextField textFieldNPosicion;
 private JTextField textFieldEdad;
+private JTextField textFieldPrecio;
+private JLabel lblPrecio;
 
 
 	public Administrador() {
@@ -104,13 +106,14 @@ private JTextField textFieldEdad;
 				
 				Statement st=null;
 				st=BasesDeDatos.getStatement();
-				BasesDeDatos.crearTablaPuntosJornada();
+				
 				int puntosEstaJornada=0;
-				puntosJornada=new ArrayList();
 				
-				listaJ.clear();
 				
-				for(int i=1;i<75;i++)
+				
+				añadirJugadoresALista();
+				
+				for(int i=1;i<listaJ.size();i++)
 				{
 					Random puntos;
 					puntos=new Random();
@@ -130,7 +133,7 @@ private JTextField textFieldEdad;
 					
 					try {
 						st.executeUpdate(sentencia);
-						añadirJugadoresALista();
+						
 						
 						//st.executeUpdate(PuntosJornada);
 						
@@ -157,30 +160,30 @@ private JTextField textFieldEdad;
 					
 				}
 				
-				if(comprobarPuntos(puntosJornada)==true)
-				{
-					String alterarTable="alter table puntosjornada add PuntosJornada"+comprobarJornada()+"";
-					try {
-						st.executeUpdate(alterarTable);
-						
-						for(int i=1;i<75;i++)
-						{
-							
-							
-							
-							
-							String puntosACero="update puntosjornada set PuntosJornada"+comprobarJornada()+"='"+0+"' where "+i+"= '"+null+"'";
-							st.executeUpdate(puntosACero);
-						
-					  }
-						
-						
-						
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+//				if(comprobarPuntos(puntosJornada)==true)
+//				{
+//					String alterarTable="alter table puntosjornada add PuntosJornada"+comprobarJornada()+"";
+//					try {
+//						st.executeUpdate(alterarTable);
+//						
+//						for(int i=1;i<75;i++)
+//						{
+//							
+//							
+//							
+//							
+//							String puntosACero="update puntosjornada set PuntosJornada"+comprobarJornada()+"='"+0+"' where "+i+"= '"+null+"'";
+//							st.executeUpdate(puntosACero);
+//						
+//					  }
+//						
+//						
+//						
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
 				
 				JOptionPane.showMessageDialog(null, "Los puntos para esta jornada se han calculado");
 				
@@ -205,9 +208,11 @@ private JTextField textFieldEdad;
 				int puntosTotales1=0;
 				int suma=0;
 				
+				añadirJugadoresALista();
 				
 				
-				for(int i=1;i<75;i++)
+				
+				for(int i=1;i<listaJ.size();i++)
 				{
 					ResultSet puntosJornada;
 					ResultSet puntosTotales;
@@ -409,6 +414,71 @@ private JTextField textFieldEdad;
 		textFieldEdad.setBounds(896, 328, 103, 20);
 		getContentPane().add(textFieldEdad);
 		
+		JButton btnNewButton = new JButton("A\u00D1ADIR A MERCADO DE FICHAJES");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(textFieldNombre.getText().isEmpty()==true)
+				{
+					JOptionPane.showMessageDialog(null, "Por favor, selecciona un jugador para añadir al mercado de fichajes");
+					return;
+				}
+				
+				else
+				{
+					
+					if(textFieldPrecio.isVisible()==false)
+					{
+						JOptionPane.showMessageDialog(null, "Introduce el precio de este jugador");
+					textFieldPrecio.setVisible(true);
+					lblPrecio.setVisible(true);
+					return;
+					}
+					else
+					{
+					
+					BasesDeDatos.crearTablaMercadoDeFichajes();
+					Statement st=null;
+					st=BasesDeDatos.getStatement();
+					
+					
+					
+					
+					
+					String sentencia="insert into mercadoDeFichajes values('"+textFieldNombre.getText()+"', '"+textFieldPrecio.getText()+"', '"+textFieldPuntosTotales.getText()+"')";
+					
+					 try {
+						 
+						 
+							st.executeUpdate( sentencia );
+							JOptionPane.showMessageDialog(null, textFieldNombre.getText()+" añadido correctamente en el mercado de fichajes" );
+							 
+							dispose();
+							
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				}
+				
+				
+				}
+				}
+		});
+		btnNewButton.setBounds(1009, 378, 280, 23);
+		getContentPane().add(btnNewButton);
+		
+		textFieldPrecio = new JTextField();
+		textFieldPrecio.setBounds(787, 378, 177, 23);
+		getContentPane().add(textFieldPrecio);
+		textFieldPrecio.setColumns(10);
+		textFieldPrecio.setVisible(false);
+		
+		lblPrecio = new JLabel("Precio");
+		lblPrecio.setBounds(699, 378, 66, 23);
+		getContentPane().add(lblPrecio);
+		lblPrecio.setVisible(false);
+		
 		
 		Statement st=BasesDeDatos.getStatement();
 		String jugadores="";
@@ -598,61 +668,4 @@ private JTextField textFieldEdad;
 		}
 		
 	}
-	
-	public boolean comprobarPuntos(ArrayList puntos)
-	{
-		int contador=0;
-		boolean comprobacion=true;
-		
-		for(int i=0;i<puntos.size();i++)
-		{
-			if((int)puntos.get(i)==0)
-			{
-				contador++;
-			}
-				
-				
-		}
-		if(contador==puntos.size())
-		{
-			comprobacion=false;
-		}
-		
-		
-		return comprobacion;
-		
-	}
-	
-	public int comprobarJornada()
-	{
-		ResultSet rs;
-		int jornada=1;
-		try {
-			rs = st.executeQuery("select numJornada from puntosjornada");
-			ResultSetMetaData rsmd1 = rs.getMetaData();
-			int columnCount1 = rsmd1.getColumnCount();
-			
-			while(rs.next())
-			{
-				
-					jornada=rs.getInt(columnCount1)+1;
-					break;
-				
-					
-				
-				
-				
-			}
-			
-		} catch (SQLException e) {
-			
-		}
-		
-		return jornada;
-		
-	}
-	
-	
-	
-	
 }

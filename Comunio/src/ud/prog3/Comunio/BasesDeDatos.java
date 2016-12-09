@@ -97,18 +97,31 @@ public class BasesDeDatos
 		}
 		}
 	
-	public static void crearTablaPuntosJornada(){
+//	public static void crearTablaPuntosJornada(){
+//		
+//		if(statement==null) return;
+//		try{
+//			
+//			statement.executeUpdate("create table puntosjornada " + "(idJugador string, numJornada int, PuntosJornada1 int" +")");
+//		}catch(SQLException e){
+//			
+//		}
+//		
+//		
+//	}
+public static void crearTablaMercadoDeFichajes(){
 		
 		if(statement==null) return;
 		try{
 			
-			statement.executeUpdate("create table puntosjornada " + "(idJugador string, numJornada int, PuntosJornada1 int" +")");
+			statement.executeUpdate("create table mercadoDeFichajes " + "(idJugador string, precio int, puntosTotales int" +")");
 		}catch(SQLException e){
 			
 		}
 		
 		
 	}
+	
 	
 	
 	
