@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class InternalClasificacion extends JInternalFrame {
 	private String[][] datos={{"lope","12","233"},};
@@ -26,6 +27,7 @@ public class InternalClasificacion extends JInternalFrame {
 	private static JTable table;
 static String total;
 static Statement st=null;
+
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +48,7 @@ static Statement st=null;
 	 * Create the frame.
 	 */
 	public InternalClasificacion() {
+		BasesDeDatos.crearTablaClasificacion();
 		setClosable(true);
 		setBounds(100, 100, 450, 300);
 		
@@ -84,6 +87,12 @@ static Statement st=null;
 		getContentPane().setLayout(groupLayout);
 		JScrollPane scrol=new JScrollPane();
 		
+		
+		ArrayList<String>posicionlista=new ArrayList<String>();
+		for(int i=0;i<posicion().size();i++){
+			posicionlista.add(posicion().get(i));
+		}
+		
 		int numcolumns=table.getModel().getColumnCount();
 		Object[]fila=new Object[numcolumns];
 		
@@ -93,8 +102,8 @@ static Statement st=null;
 	Puntostotales=Integer.parseInt(VentanaAlineacion.valor2())+Puntostotales;
 	 total=String.valueOf(Puntostotales);
 				
-	fila[0]=valor1();
-//	fila[1]=VentanaAlineacion.valor1();
+//	fila[0]=posicion();
+//	fila[1]=idjugador();
 //	fila[2]=VentanaAlineacion.valor2();
 //	fila[3]=total;
 	
@@ -107,30 +116,55 @@ static Statement st=null;
 	
 	public void guardarclasificacion(){
 	
-		BasesDeDatos.crearTablaClasificacion();;
+		
 		st=BasesDeDatos.getStatement();
+		boolean resultado=true;
+		String posicion="";
+		ResultSet nombre;
+		try {
+			nombre = st.executeQuery("select idJugador from clasificacion");
+			ResultSetMetaData rsmd = nombre.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			while(nombre.next())
+			{
+				posicion=nombre.getString(columnCount);
+				if(posicion==VentanaAlineacion.valor1()){
+					resultado=false;
+				}
+				else{
+					resultado=true;
+				}
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		
+		if(resultado=true){
 		String sentSQL="insert into clasificacion values ('"+"1"+"','"+VentanaAlineacion.valor1()+"','"+VentanaAlineacion.valor2()+"','"+total+"')";
-		
 		try {
 			st.executeUpdate(sentSQL);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		}else{
+			
+		}
 		
-		System.out.println(sentSQL);
+			
+	
+		
+	
 	}
-	public static String valor1() {
-		int numcolumns=table.getModel().getColumnCount();
-		Object[]fila=new Object[numcolumns];
-		
-		
-		
-
-
 	
-	
+	public static ArrayList<String> posicion() {
+
+		
+		ArrayList<String>lista=new ArrayList<String>();
+
 	
 		
 		
@@ -144,7 +178,7 @@ static Statement st=null;
 			while(nombre.next())
 			{
 				posicion=nombre.getString(columnCount);
-				fila[0]=posicion;
+				lista.add(posicion);
 			
 			}
 		} catch (SQLException e) {
@@ -153,12 +187,43 @@ static Statement st=null;
 		}
 		
 		
-		((DefaultTableModel)table.getModel()).addRow(fila);
 		
 		
-		return posicion;
+		return lista;
 		
 	}
+	public static ArrayList<String> idjugador(){
+		
+		
+		
+		
+ArrayList <String>id=new ArrayList<String>();
 	
+		
+		
+		st=BasesDeDatos.getStatement();
+		String posicion2="";
+		ResultSet nombre2;
+		try {
+			nombre2 = st.executeQuery("select idJugador from clasificacion");
+			ResultSetMetaData rsmd2 = nombre2.getMetaData();
+			int columnCount2 = rsmd2.getColumnCount();
+			while(nombre2.next())
+			{
+				posicion2=nombre2.getString(columnCount2);
+				id.add(posicion2);
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	
+		
+		
+		return id;
+	}
 
 }
