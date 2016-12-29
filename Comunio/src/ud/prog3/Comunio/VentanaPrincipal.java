@@ -202,6 +202,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * cuando cerramos la ventana, se cierra la base de datos.
+	 */
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub

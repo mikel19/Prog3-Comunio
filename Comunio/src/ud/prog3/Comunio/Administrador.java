@@ -9,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.DefaultListModel;
@@ -50,6 +51,8 @@ private JTextField textFieldPuntosJornada;
 private JTextField textFieldPuntosTotales;
 JList <DefaultListModel>lista ;
 DefaultListModel modelo;
+DefaultListModel modeloUsuarios;
+DefaultListModel modeloMercado;
 JLabel lblNombre_1;
 JLabel lblEquipo_1;
 JLabel lblPosicion_1;
@@ -68,6 +71,9 @@ private JTextField textFieldNPosicion;
 private JTextField textFieldEdad;
 private JTextField textFieldPrecio;
 private JLabel lblPrecio;
+private JList listMercado;
+private JLabel lblJugadoresEnMercado;
+private JScrollPane scrollPane_2;
 
 
 	public Administrador() {
@@ -90,13 +96,16 @@ private JLabel lblPrecio;
 		lista = new JList<DefaultListModel>();
 		
 		modelo=new DefaultListModel();
+		modeloUsuarios=new DefaultListModel();
+		modeloMercado=new DefaultListModel();
+		
 		lista.setModel(modelo);
 		
 		scrollPane.setViewportView(lista);
 		
 		lista.addListSelectionListener(this);
 		JLabel lblEstosSonLos = new JLabel("Estos son los jugadores que hay");
-		lblEstosSonLos.setBounds(441, 11, 217, 14);
+		lblEstosSonLos.setBounds(378, 13, 217, 14);
 		getContentPane().add(lblEstosSonLos);
 		
 		 JButton btnPuntuar = new JButton("PUNTUAR");
@@ -192,7 +201,7 @@ private JLabel lblPrecio;
 			
 		});
 		
-		btnPuntuar.setBounds(451, 44, 89, 23);
+		btnPuntuar.setBounds(378, 187, 89, 23);
 		getContentPane().add(btnPuntuar);
 		
 		labelAñadir = new JLabel("");
@@ -261,72 +270,72 @@ private JLabel lblPrecio;
 			}
 		});
 		labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward.png")));
-		labelAñadir.setBounds(464, 167, 39, 30);
+		labelAñadir.setBounds(382, 278, 39, 30);
 		getContentPane().add(labelAñadir);
 		
 		JLabel lblProximaJornada = new JLabel("Proxima Jornada");
-		lblProximaJornada.setBounds(457, 140, 103, 14);
+		lblProximaJornada.setBounds(383, 238, 103, 14);
 		getContentPane().add(lblProximaJornada);
 		
 		JLabel lblEstosSonLos_1 = new JLabel("Estos son los datos del jugador que has seleccionado");
 		lblEstosSonLos_1.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblEstosSonLos_1.setBounds(382, 248, 406, 14);
+		lblEstosSonLos_1.setBounds(378, 337, 406, 14);
 		getContentPane().add(lblEstosSonLos_1);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(378, 285, 60, 14);
+		lblNombre.setBounds(378, 385, 60, 14);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblEquipo = new JLabel("Equipo");
-		lblEquipo.setBounds(598, 285, 46, 14);
+		lblEquipo.setBounds(598, 385, 46, 14);
 		getContentPane().add(lblEquipo);
 		
 		JLabel lblPosicion = new JLabel("Posicion");
-		lblPosicion.setBounds(784, 285, 60, 14);
+		lblPosicion.setBounds(784, 385, 60, 14);
 		getContentPane().add(lblPosicion);
 		
 		JLabel lblPuntosDeEsta = new JLabel("Puntos de esta Jornada");
-		lblPuntosDeEsta.setBounds(1031, 285, 149, 14);
+		lblPuntosDeEsta.setBounds(1031, 385, 149, 14);
 		getContentPane().add(lblPuntosDeEsta);
 		
 		JLabel lblPuntosTotales = new JLabel("Puntos Totales");
-		lblPuntosTotales.setBounds(1209, 285, 95, 14);
+		lblPuntosTotales.setBounds(1209, 385, 95, 14);
 		getContentPane().add(lblPuntosTotales);
 		
 		textFieldNombre = new JTextField();
 		
 		textFieldNombre.setEditable(false);
-		textFieldNombre.setBounds(362, 328, 141, 20);
+		textFieldNombre.setBounds(362, 428, 141, 20);
 		getContentPane().add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		textFieldEquipo = new JTextField();
 		textFieldEquipo.setEditable(false);
 		textFieldEquipo.setColumns(10);
-		textFieldEquipo.setBounds(529, 328, 190, 20);
+		textFieldEquipo.setBounds(529, 428, 190, 20);
 		getContentPane().add(textFieldEquipo);
 		
 		textFieldPosicion = new JTextField();
 		textFieldPosicion.setEditable(false);
 		textFieldPosicion.setColumns(10);
-		textFieldPosicion.setBounds(758, 328, 103, 20);
+		textFieldPosicion.setBounds(758, 428, 103, 20);
 		getContentPane().add(textFieldPosicion);
 		
 		textFieldPuntosJornada = new JTextField();
 		textFieldPuntosJornada.setEditable(false);
 		textFieldPuntosJornada.setColumns(10);
-		textFieldPuntosJornada.setBounds(1067, 328, 86, 20);
+		textFieldPuntosJornada.setBounds(1067, 428, 86, 20);
 		getContentPane().add(textFieldPuntosJornada);
 		
 		textFieldPuntosTotales = new JTextField();
 		textFieldPuntosTotales.setEditable(false);
 		textFieldPuntosTotales.setColumns(10);
-		textFieldPuntosTotales.setBounds(1203, 328, 86, 20);
+		textFieldPuntosTotales.setBounds(1203, 428, 86, 20);
 		getContentPane().add(textFieldPuntosTotales);
 		
 		JLabel lblquieresAadirUn = new JLabel("\u00BFQuieres a\u00F1adir un jugador?");
 		lblquieresAadirUn.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblquieresAadirUn.setBounds(382, 406, 239, 14);
+		lblquieresAadirUn.setBounds(382, 506, 239, 14);
 		getContentPane().add(lblquieresAadirUn);
 		
 		lblAdd = new JLabel("");
@@ -351,67 +360,67 @@ private JLabel lblPrecio;
 			
 		});
 		lblAdd.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Add.png")));
-		lblAdd.setBounds(382, 447, 39, 30);
+		lblAdd.setBounds(382, 547, 39, 30);
 		getContentPane().add(lblAdd);
 		
 		lblNombre_1 = new JLabel("Nombre ");
-		lblNombre_1.setBounds(499, 441, 61, 14);
+		lblNombre_1.setBounds(499, 541, 61, 14);
 		getContentPane().add(lblNombre_1);
 		lblNombre_1.setVisible(false);
 		
 		lblEquipo_1 = new JLabel("Equipo");
-		lblEquipo_1.setBounds(499, 484, 61, 14);
+		lblEquipo_1.setBounds(499, 584, 61, 14);
 		getContentPane().add(lblEquipo_1);
 		lblEquipo_1.setVisible(false);
 		
 		lblPosicion_1 = new JLabel("Posicion");
-		lblPosicion_1.setBounds(499, 527, 61, 14);
+		lblPosicion_1.setBounds(499, 627, 61, 14);
 		getContentPane().add(lblPosicion_1);
 		lblPosicion_1.setVisible(false);
 		
 		textFieldNNombre = new JTextField();
-		textFieldNNombre.setBounds(594, 437, 194, 23);
+		textFieldNNombre.setBounds(594, 537, 194, 23);
 		getContentPane().add(textFieldNNombre);
 		textFieldNNombre.setColumns(10);
 		textFieldNNombre.setVisible(false);
 		
 		TextFieldNEquipo = new JTextField();
 		TextFieldNEquipo.setColumns(10);
-		TextFieldNEquipo.setBounds(594, 475, 194, 23);
+		TextFieldNEquipo.setBounds(594, 575, 194, 23);
 		getContentPane().add(TextFieldNEquipo);
 		TextFieldNEquipo.setVisible(false);
 		
 		textFieldNPosicion = new JTextField();
 		textFieldNPosicion.setColumns(10);
-		textFieldNPosicion.setBounds(594, 518, 194, 23);
+		textFieldNPosicion.setBounds(594, 618, 194, 23);
 		getContentPane().add(textFieldNPosicion);
 		textFieldNPosicion.setVisible(false);
 		
 		JButton btnAadir = new JButton("A\u00D1ADIR");
-		btnAadir.setBounds(890, 511, 160, 30);
+		btnAadir.setBounds(598, 709, 160, 30);
 		getContentPane().add(btnAadir);
 		btnAadir.addActionListener(this);
 		btnAadir.setActionCommand("anyadir");
 		
 		lblEdad_1 = new JLabel("Edad");
-		lblEdad_1.setBounds(499, 572, 46, 14);
+		lblEdad_1.setBounds(499, 672, 46, 14);
 		getContentPane().add(lblEdad_1);
 		lblEdad_1.setVisible(false);
 		
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 40, 1));
-		spinner.setBounds(594, 569, 29, 20);
+		spinner.setBounds(594, 669, 29, 20);
 		getContentPane().add(spinner);
 		spinner.setVisible(false);
 		
 		lblEdad= new JLabel("Edad");
-		lblEdad.setBounds(933, 285, 46, 14);
+		lblEdad.setBounds(933, 385, 46, 14);
 		getContentPane().add(lblEdad);
 		
 		textFieldEdad = new JTextField();
 		textFieldEdad.setEditable(false);
 		textFieldEdad.setColumns(10);
-		textFieldEdad.setBounds(896, 328, 103, 20);
+		textFieldEdad.setBounds(896, 428, 103, 20);
 		getContentPane().add(textFieldEdad);
 		
 		JButton btnNewButton = new JButton("A\u00D1ADIR A MERCADO DE FICHAJES");
@@ -453,79 +462,75 @@ private JLabel lblPrecio;
 							st.executeUpdate( sentencia );
 							JOptionPane.showMessageDialog(null, textFieldNombre.getText()+" añadido correctamente en el mercado de fichajes" );
 							 
-							dispose();
+							textFieldPrecio.setVisible(false);
+							lblPrecio.setVisible(false);
+							textFieldPrecio.setText("");
+							textFieldNombre.setText("");
+							
+							modeloMercado.clear();
+							cargarJugadoresMercado();
+						
+							
 							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 				}
+					
 				
 				
 				}
 				}
 		});
-		btnNewButton.setBounds(1009, 378, 280, 23);
+		btnNewButton.setBounds(1009, 478, 280, 23);
 		getContentPane().add(btnNewButton);
 		
 		textFieldPrecio = new JTextField();
-		textFieldPrecio.setBounds(787, 378, 177, 23);
+		textFieldPrecio.setBounds(787, 478, 177, 23);
 		getContentPane().add(textFieldPrecio);
 		textFieldPrecio.setColumns(10);
 		textFieldPrecio.setVisible(false);
 		
 		lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(699, 378, 66, 23);
+		lblPrecio.setBounds(699, 478, 66, 23);
 		getContentPane().add(lblPrecio);
+		
+		JLabel lblPulsaEsteBoton = new JLabel("PULSA ESTE BOTON PARA PUNTUAR A LOS JUGADORES");
+		lblPulsaEsteBoton.setBounds(378, 151, 323, 14);
+		getContentPane().add(lblPulsaEsteBoton);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(784, 65, 149, 286);
+		getContentPane().add(scrollPane_1);
+		
+		JList listUsuarios = new JList();
+		scrollPane_1.setViewportView(listUsuarios);
+		listUsuarios.setModel(modeloUsuarios);
+		cargarUsuariosRegistrados();
+		
+		
+		JLabel lblListaDeUsuarios = new JLabel("Lista de Usuarios Registrados");
+		lblListaDeUsuarios.setBounds(784, 27, 215, 14);
+		getContentPane().add(lblListaDeUsuarios);
+		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(1067, 65, 177, 286);
+		getContentPane().add(scrollPane_2);
+		
+		listMercado = new JList();
+		scrollPane_2.setViewportView(listMercado);
+		listMercado.setModel(modeloMercado);
+		listMercado.addListSelectionListener(this);
+		cargarJugadoresMercado();
+		
+		lblJugadoresEnMercado = new JLabel("Jugadores en MERCADO ");
+		lblJugadoresEnMercado.setBounds(1089, 27, 190, 14);
+		getContentPane().add(lblJugadoresEnMercado);
 		lblPrecio.setVisible(false);
 		
-		
-		Statement st=BasesDeDatos.getStatement();
-		String jugadores="";
-		try {
-			jugadores="select * from jugadores";
-			ResultSet rs=st.executeQuery(jugadores);
-			
-			
-			
-//			ResultSetMetaData rsmd = rs.getMetaData();
-//			int columnCount = rsmd.getColumnCount();
-			while(rs.next())
-			{
-				jugador=new Jugador();
-				
-//				jugador.setNombre(rs.getString("nombre"));
-//				jugador.setEdad(rs.getInt("edad"));
-//				jugador.setEquipo(rs.getString("equipo"));
-//				jugador.setId(rs.getString("id"));
-//				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
-//				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
-//				jugador.setPosicion(rs.getString("posicion"));
-				
-				
-				
-				jugador.setNombre(rs.getString(2));
-				jugador.setEdad(rs.getInt(5));
-				jugador.setEquipo(rs.getString(3));
-				jugador.setId(rs.getString(1));
-				jugador.setPuntosJornada(rs.getInt(6));
-				jugador.setPuntosTotales(rs.getInt(7));
-				jugador.setPosicion(rs.getString(4));
-				
-				
-				
-			modelo.addElement(rs.getString("nombre")+"  ");
-			
-			listaJ.add(jugador);
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
+		cargarJugadoresEnLista();
+	
 		
 	
 		
@@ -539,6 +544,122 @@ private JLabel lblPrecio;
 
 
 	
+	private void cargarJugadoresEnLista() 
+	{
+		 st=BasesDeDatos.getStatement();
+			String jugadores="";
+			try {
+				jugadores="select * from jugadores";
+				ResultSet rs=st.executeQuery(jugadores);
+				
+				
+				
+//				ResultSetMetaData rsmd = rs.getMetaData();
+//				int columnCount = rsmd.getColumnCount();
+				while(rs.next())
+				{
+					jugador=new Jugador();
+					
+//					jugador.setNombre(rs.getString("nombre"));
+//					jugador.setEdad(rs.getInt("edad"));
+//					jugador.setEquipo(rs.getString("equipo"));
+//					jugador.setId(rs.getString("id"));
+//					jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+//					jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+//					jugador.setPosicion(rs.getString("posicion"));
+					
+					
+					
+					jugador.setNombre(rs.getString(2));
+					jugador.setEdad(rs.getInt(5));
+					jugador.setEquipo(rs.getString(3));
+					jugador.setId(rs.getString(1));
+					jugador.setPuntosJornada(rs.getInt(6));
+					jugador.setPuntosTotales(rs.getInt(7));
+					jugador.setPosicion(rs.getString(4));
+					
+					
+					
+				modelo.addElement(rs.getString("nombre")+"  ");
+				
+				listaJ.add(jugador);
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+		
+	}
+
+
+
+
+
+	private void cargarUsuariosRegistrados()
+	{
+		st=BasesDeDatos.getStatement();
+		
+		String sentencia="select * from usuarios";
+		
+		try
+		{
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				modeloUsuarios.addElement(rs.getString("id"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+
+
+
+
+	
+
+
+
+
+
+	private void cargarJugadoresMercado() 
+	{
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from mercadodefichajes";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				modeloMercado.addElement(rs.getString("idJugador") +" ");
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+
+
+
+
+
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) 
 	{
@@ -702,6 +823,4 @@ private JLabel lblPrecio;
 		}
 		
 	}
-	
-	
 }
