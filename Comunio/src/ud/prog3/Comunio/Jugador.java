@@ -1,7 +1,9 @@
 package ud.prog3.Comunio;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Jugador 
 {
@@ -174,11 +176,52 @@ public class Jugador
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	//}
+	
 		
 	
 	
 	}
+	
+	
+	public int testJugadoresEnBaseDatos(ArrayList <Jugador>lista,Statement st)
+	{
+		
+		BasesDeDatos.initBD("Base de datos");
+		st=BasesDeDatos.getStatement();
+		lista.clear();
+		
+		try {
+			ResultSet rs=st.executeQuery("select * from jugadores");
+			
+			Jugador jugador=new Jugador();
+			while(rs.next())
+			{
+				
+				jugador=new Jugador();
+				
+
+				jugador.setNombre(rs.getString(2));
+				jugador.setEdad(rs.getInt(5));
+				jugador.setEquipo(rs.getString(3));
+				jugador.setId(rs.getString(1));
+				jugador.setPuntosJornada(rs.getInt(6));
+				jugador.setPuntosTotales(rs.getInt(7));
+				jugador.setPosicion(rs.getString(4));
+				
+				lista.add(jugador);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return lista.size();
+	}
+
+
+
 }
 
 

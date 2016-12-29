@@ -79,7 +79,7 @@ private JLabel lblPrecio;
 		
 		listaJ=new ArrayList<Jugador>();
 		
-		añadirJugadoresALista();
+		//añadirJugadoresALista();
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -568,6 +568,40 @@ private JLabel lblPrecio;
 		}
 		
 	}
+	public int testJugadoresEnBaseDatos(ArrayList <Jugador>lista,Statement st)
+	{
+		st=BasesDeDatos.getStatement();
+		lista.clear();
+		
+		try {
+			ResultSet rs=st.executeQuery("select * from jugadores");
+			
+			Jugador jugador=new Jugador();
+			while(rs.next())
+			{
+				
+				jugador=new Jugador();
+				
+
+				jugador.setNombre(rs.getString(2));
+				jugador.setEdad(rs.getInt(5));
+				jugador.setEquipo(rs.getString(3));
+				jugador.setId(rs.getString(1));
+				jugador.setPuntosJornada(rs.getInt(6));
+				jugador.setPuntosTotales(rs.getInt(7));
+				jugador.setPosicion(rs.getString(4));
+				
+				lista.add(jugador);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return lista.size();
+	}
 
 
 
@@ -668,4 +702,6 @@ private JLabel lblPrecio;
 		}
 		
 	}
+	
+	
 }
