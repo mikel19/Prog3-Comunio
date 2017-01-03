@@ -27,6 +27,9 @@ public class InternalClasificacion extends JInternalFrame {
 	private static JTable table;
 static String total;
 static Statement st=null;
+private JTable tabla;
+private String[][]datos2= {{"1","juan","addas","Aasdasd"}};
+ArrayList<String>id=new ArrayList<String>();
 
 	/**
 	 * Launch the application.
@@ -48,6 +51,13 @@ static Statement st=null;
 	 * Create the frame.
 	 */
 	public InternalClasificacion() {
+		
+		
+		
+		for(int i=0;i<idjugador().size();i++){
+			id.add(idjugador().get(i));
+			
+		}
 		BasesDeDatos.crearTablaClasificacion();
 		setClosable(true);
 		setBounds(100, 100, 450, 300);
@@ -78,7 +88,11 @@ static Statement st=null;
 					
 					
 				
+				
 			},
+			
+	
+		 
 			new String[] {
 				"Posicion", "ID", "PuntosJornada", "PuntosTotales"
 			}
@@ -99,17 +113,23 @@ static Statement st=null;
 		
 		
 	int Puntostotales=0;
-	Puntostotales=Integer.parseInt(VentanaAlineacion.valor2())+Puntostotales;
-	 total=String.valueOf(Puntostotales);
+//	Puntostotales=Integer.parseInt(VentanaAlineacion.valor2())+Puntostotales;
+//	 total=String.valueOf(Puntostotales);
+	 for(int i=0;i<id.size();i++){
+		 fila[1]=idjugador(); 
+	 }
 				
-//	fila[0]=posicion();
-//	fila[1]=idjugador();
-//	fila[2]=VentanaAlineacion.valor2();
+	fila[0]=posicion();
+	
+	fila[2]=VentanaAlineacion.valor2();
 //	fila[3]=total;
 	
 	
 	
 		((DefaultTableModel)table.getModel()).addRow(fila);
+		
+		
+
 		guardarclasificacion();
 
 	}
@@ -160,7 +180,7 @@ static Statement st=null;
 	
 	}
 	
-	public static ArrayList<String> posicion() {
+public static ArrayList<String> posicion() {
 
 		
 		ArrayList<String>lista=new ArrayList<String>();
@@ -192,7 +212,7 @@ static Statement st=null;
 		return lista;
 		
 	}
-	public static ArrayList<String> idjugador(){
+public static ArrayList<String> idjugador(){
 		
 		
 		
@@ -225,5 +245,15 @@ ArrayList <String>id=new ArrayList<String>();
 		
 		return id;
 	}
+//public void valor2(){
+//	
+//	
+//	  String matris[][]=new String [id.size()][4];
+//	  for(int i=0;i<id.size();i++){
+//	  
+//	  matris[i][2]=id.get(i);
+//	  }
+//	
+//}
 
 }
