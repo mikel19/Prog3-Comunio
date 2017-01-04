@@ -23,6 +23,7 @@ import javax.swing.JButton;
 
 
 
+
 import java.awt.Font;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -52,6 +53,8 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblqueIdQuieres;
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
+	Statement st;
+	ArrayList Usuarios;
 	Random  rnd = new Random();
 	
 	
@@ -201,8 +204,10 @@ public class Usuario extends JFrame implements ActionListener
 			
 			try {
 				String sentSQL = "insert into usuarios values(" +
+						"'" + insertarNumIdentificador() + "', " +
 						"'" + nId.getText() + "', " +
-						"'" + nContraseña.getText() +  "')";
+						"'" + nContraseña.getText() + "', "+ 
+						"'" + 20000000 +"')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
 				asignarjugadores(nId.getText());
@@ -224,6 +229,33 @@ public class Usuario extends JFrame implements ActionListener
 		
 	}
 	
+	private int insertarNumIdentificador() 
+	{
+		Usuarios=new ArrayList();
+		
+		st=BasesDeDatos.getStatement();
+		
+		String sentencia="select * from usuarios";
+		
+		ResultSet rs;
+		try {
+			rs = st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				Usuarios.add(rs.getString("id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return Usuarios.size()+1;
+	}
+
 	public boolean chequearYaEnTabla( Statement st ) {
 		try {
 			String sentSQL = "select * from usuarios " +

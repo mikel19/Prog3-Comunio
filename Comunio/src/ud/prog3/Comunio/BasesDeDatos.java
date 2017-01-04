@@ -55,7 +55,7 @@ public class BasesDeDatos
 	public static void crearTablaUsuarios() {
 	if (statement==null) return;//para que alguien no nos llame antes de initBD
 	try {
-			statement.executeUpdate("create table usuarios " + "(id string, contraseña string" +")");
+			statement.executeUpdate("create table usuarios " + "(numIdentificador int, id string, contraseña string, dinero double" +")");
 	} catch (SQLException e) {
 		// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 		// e.printStackTrace();  
@@ -114,7 +114,7 @@ public static void crearTablaMercadoDeFichajes(){
 		if(statement==null) return;
 		try{
 			
-			statement.executeUpdate("create table mercadoDeFichajes " + "(idJugador string, precio int, puntosTotales int" +")");
+			statement.executeUpdate("create table mercadoDeFichajes " + "(idJugador string, nombre string, precio int, puntosTotales int" +")");
 		}catch(SQLException e){
 			
 		}

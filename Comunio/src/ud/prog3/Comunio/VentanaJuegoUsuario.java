@@ -118,6 +118,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		JMenuItem mntmIrAlMercado = new JMenuItem("Ir al mercado");
 		mnMercadoDeFichajes.add(mntmIrAlMercado);
 		
+		
 		lblmanager = new JLabel("");
 		lblmanager.setBounds(0, 27, 833, 646);
 		 getContentPane().add(lblmanager);
