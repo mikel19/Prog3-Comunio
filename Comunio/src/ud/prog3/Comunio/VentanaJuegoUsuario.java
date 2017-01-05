@@ -55,7 +55,10 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	JLabel lblmanager;
 	private JLabel lblNewLabel;
 	JMenuItem mntmVerAlineacion;
-	public VentanaJuegoUsuario(String string) {
+	JMenuItem mntmVerClasificacin;
+	
+	public VentanaJuegoUsuario(String string)
+	{
 		final String b=string;
 		setResizable(false);
 		fot = new ImageIcon(VentanaJuegoUsuario.class.getResource("/ud/prog3/Comunio/img/manager.jpg"));
@@ -109,14 +112,34 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 		JMenu mnClasificacin_1 = new JMenu("Clasificaci\u00F3n");
 		menuBar.add(mnClasificacin_1);
 		
-		JMenuItem mntmVerClasificacin = new JMenuItem("Ver clasificaci\u00F3n");
+		mntmVerClasificacin = new JMenuItem("Ver clasificaci\u00F3n");
 		mnClasificacin_1.add(mntmVerClasificacin);
+		mntmVerClasificacin.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				InternalClasificacion clasif=new InternalClasificacion();
+				clasif.setVisible(true);
+			}
+		});
+		
 		
 		JMenu mnMercadoDeFichajes = new JMenu("Mercado de fichajes");
 		menuBar.add(mnMercadoDeFichajes);
 		
 		JMenuItem mntmIrAlMercado = new JMenuItem("Ir al mercado");
 		mnMercadoDeFichajes.add(mntmIrAlMercado);
+		mntmIrAlMercado.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				MercadoFichajes mercado=new MercadoFichajes(b);
+				mercado.setVisible(true);
+				
+			}
+		});
+		
+	
 		
 		
 		lblmanager = new JLabel("");
@@ -182,37 +205,9 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 			}
 		});
 		
-		mntmVerClasificacin.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-//				
-				InternalClasificacion clasificacion=new InternalClasificacion();
-				getContentPane().add(clasificacion);
-				lblmanager.add(clasificacion);
-				clasificacion.setVisible(true);
-			
-			}
-		});
 		
-		mntmVerClasificacin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				InternalClasificacion clasificacion=new InternalClasificacion();
-				getContentPane().add(clasificacion);
-				lblmanager.add(clasificacion);
-				clasificacion.setVisible(true);
-			}
-		});
 		
-		mntmIrAlMercado.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				MercadoFichajes mercado=new MercadoFichajes();
-				getContentPane().add(mercado);
-				lblmanager.add(mercado);
-				mercado.setVisible(true);
-				
-			}
-		});
+		
 		
 //		tiempoUso = new JTextField();
 //		tiempoUso.setLocation(60, 24);
@@ -282,6 +277,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 //			Escritorio.add(alineacion);
 			alineacion.setVisible(true);
 			break;
+		
 		
 		
 		}

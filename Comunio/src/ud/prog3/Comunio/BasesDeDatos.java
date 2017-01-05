@@ -75,6 +75,7 @@ public class BasesDeDatos
 	}
 	
 	
+	
 	/** Cierra la conexión con la Base de Datos
 	 */
 	public static void close() {

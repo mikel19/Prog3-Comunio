@@ -53,9 +53,9 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblqueIdQuieres;
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
-	Statement st;
+	Statement st=null;
 	ArrayList Usuarios;
-	Random  rnd = new Random();
+	Random  random;
 	
 	
 	public Usuario()
@@ -148,7 +148,7 @@ public class Usuario extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		
-		Statement st=null;
+		
 		st=BasesDeDatos.getStatement();
 		switch(e.getActionCommand())
 		{
@@ -428,7 +428,7 @@ public class Usuario extends JFrame implements ActionListener
 			taken3.add(y);
 		}
 		System.out.println("taken3:"+taken3);
-		Random random=new Random();
+		 Random random=new Random();
 	
 		int a = 0;
 		int c=0;

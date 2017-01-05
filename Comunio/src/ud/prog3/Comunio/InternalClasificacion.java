@@ -1,7 +1,10 @@
 package ud.prog3.Comunio;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -21,118 +24,356 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class InternalClasificacion extends JInternalFrame {
+public class InternalClasificacion extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[][] datos={{"lope","12","233"},};
 	private String [] cabeceras={"id","puntos jornada","puntos totales"};
 	private static JTable table;
 static String total;
-static Statement st=null;
+Statement st=null;
 private JTable tabla;
 private String[][]datos2= {{"1","juan","addas","Aasdasd"}};
 ArrayList<String>id=new ArrayList<String>();
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					InternalClasificacion frame = new InternalClasificacion();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the frame.
-	 */
-	public InternalClasificacion() {
+ArrayList usuarios;
+ArrayList<Jugador> jugadores;
+ArrayList <Jugador>puntosJugadores;
+ArrayList  <Jugador>puntosCadaUsuario;
+Jugador jugador;
+int suma=0;
+int cantidad=0;
+	int puntosTotalUsuario=0;
+	 
+	public InternalClasificacion()
+	 {
+		usuarios=new ArrayList();
+		jugadores=new ArrayList<Jugador>();
+		puntosJugadores=new ArrayList<Jugador>();
+		puntosCadaUsuario=new ArrayList<Jugador>();
+		jugador=new Jugador();
 		
+		cargarUsuariosJugadores();
+		puntosCadaJugador();
+		suma=contarMismosUsuarios();
+		cantidad=totalUsuarios(suma);
+		calcularPuntosTotalesCadaUsuario(suma,cantidad);
 		
-		
-		for(int i=0;i<idjugador().size();i++){
-			id.add(idjugador().get(i));
-			
-		}
-		BasesDeDatos.crearTablaClasificacion();
-		setClosable(true);
-		setBounds(100, 100, 450, 300);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.addMouseListener(new MouseAdapter() {
-
-		});
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(29)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(24)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-					
-					
-				
-				
-			},
-			
-	
-		 
-			new String[] {
-				"Posicion", "ID", "PuntosJornada", "PuntosTotales"
-			}
-		));
-		scrollPane.setViewportView(table);
-		getContentPane().setLayout(groupLayout);
-		JScrollPane scrol=new JScrollPane();
-		
-		
-		ArrayList<String>posicionlista=new ArrayList<String>();
-		for(int i=0;i<posicion().size();i++){
-			posicionlista.add(posicion().get(i));
-		}
-		
-		int numcolumns=table.getModel().getColumnCount();
-		Object[]fila=new Object[numcolumns];
-		
-		
-		
-	int Puntostotales=0;
-//	Puntostotales=Integer.parseInt(VentanaAlineacion.valor2())+Puntostotales;
-//	 total=String.valueOf(Puntostotales);
-	 for(int i=0;i<id.size();i++){
-		 fila[1]=idjugador(); 
 	 }
+//		 
+//		 
+//	        String[] columnNames = {"POSICION",
+//	                                "IDJUGADOR",
+//	                                "PUNTOSTOTALES"};
+//	 
+//	        
+//	        Object[][] data = {
+//	        {"Kathy", "Smith",
+//	         "Snowboarding", new Integer(5), new Boolean(false)},
+//	        {"John", "Doe",
+//	         "Rowing", new Integer(3), new Boolean(true)},
+//	        {"Sue", "Black",
+//	         "Knitting", new Integer(2), new Boolean(false)},
+//	        {"Jane", "White",
+//	         "Speed reading", new Integer(20), new Boolean(true)},
+//	        {"Joe", "Brown",
+//	         "Pool", new Integer(10), new Boolean(false)}
+//	        };
+//	 
+//	        final JTable table = new JTable(data, columnNames);
+//	        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+//	        table.setFillsViewportHeight(true);
+//	 
+//	        if (DEBUG) {
+//	            table.addMouseListener(new MouseAdapter() {
+//	                public void mouseClicked(MouseEvent e) {
+//	                    printDebugData(table);
+//	                }
+//	            });
+//	        }
+//	 
+//	        //Create the scroll pane and add the table to it.
+//	        JScrollPane scrollPane = new JScrollPane(table);
+//	 
+//	        //Add the scroll pane to this panel.
+//	        add(scrollPane);
+//	    }
+	 
+	
+	
+	
+	
+	    private int totalUsuarios(int suma) 
+	    {
+	    	int cantidad=0;
+	    	
+	    	for(int i=0;i<usuarios.size();i++)
+	    	{
+	    		cantidad=cantidad+suma;
+	    		if(cantidad<usuarios.size())
+	    			{
+	    				cantidad++;
+	    			}
+	    		else
+	    		{
+	    			break;
+	    		}
+	    }
+	    	return cantidad;
+	    }
+
+
+
+
+
+		private void calcularPuntosTotalesCadaUsuario(int suma2, int cantidad2) 
+	    {
+			int suma3=suma;
+			Jugador j=new Jugador();
+			for(int i=0;i<=cantidad2;cantidad2++)
+			{
+				for(int e=0;e<=suma2;e++)
+				{
+					puntosTotalUsuario=puntosTotalUsuario+jugadores.get(e).getPuntosTotales();
+					
+				}
 				
-	fila[0]=posicion();
-	
-	fila[2]=VentanaAlineacion.valor2();
-//	fila[3]=total;
-	
-	
-	
-		((DefaultTableModel)table.getModel()).addRow(fila);
+				j.setPuntosTotales(puntosTotalUsuario);
+				
+				//j.setId(chequearIdUsuario(cantidad2,suma2));
+			
+				
+			} 
+			
+					
+					
 		
+	    }
+
+
+
+
+//
+//		private String chequarIdUsuario(int cantidad,int suma2) 
+//		{
+//			
+//			for(int i=0;i<usuarios.size();i=)
+//			
+//			
+//		}
+
+
+
+
+
+		private int contarMismosUsuarios() 
+	    {
+	    	int contador=1;
+		for(int i=0;i<usuarios.size();i++)
+		{
+			if(i==usuarios.size()-1)
+			{
+				break;
+			}
+			if(usuarios.get(i).equals(usuarios.get(i+1)))
+			{
+				contador++;
+			}
+			else
+			{
+				break;
+			}
+		}
 		
-
-		guardarclasificacion();
-
+		return contador;
+		
 	}
+
+
+
+
+
+		private void puntosCadaJugador() 
+	    {
+	    	st=BasesDeDatos.getStatement();
+	    	
+	    	String sentencia="select * from jugadores";
+	    	
+	    	try {
+				ResultSet rs=st.executeQuery(sentencia);
+				while(rs.next())
+				{
+				jugador.setId(rs.getString("id"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				puntosJugadores.add(jugador);
+				}
+				
+				
+				for(int i=0;i<jugadores.size();i++)
+				{
+						for(int e=0;e<puntosJugadores.size();e++)
+						{
+							
+							if((jugadores.get(i).getId()).compareTo(puntosJugadores.get(e).getId())==0)
+							{
+								
+								jugadores.get(i).setPuntosTotales(puntosJugadores.get(e).getPuntosTotales());
+								
+							}
+							
+						}
+				}
+				
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	
+		
+		
+	}
+
+
+
+
+
+		private void cargarUsuariosJugadores()
+	    {
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from usuariojugadores";
+		usuarios.clear();
+		
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+			usuarios.add(rs.getString("idUsuario"));
+			jugador.setId(rs.getString("idJugador"));
+			jugadores.add(jugador);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+		private void printDebugData(JTable table) {
+	        int numRows = table.getRowCount();
+	        int numCols = table.getColumnCount();
+	        javax.swing.table.TableModel model = table.getModel();
+	 
+	        System.out.println("Value of data: ");
+	        for (int i=0; i < numRows; i++) {
+	            System.out.print("    row " + i + ":");
+	            for (int j=0; j < numCols; j++) {
+	                System.out.print("  " + model.getValueAt(i, j));
+	            }
+	            System.out.println();
+	        }
+	        System.out.println("--------------------------");
+	    }
+		
+		
+		
+		
+		
+		
+		
+		
+//		
+//		for(int i=0;i<idjugador().size();i++){
+//			id.add(idjugador().get(i));
+//			
+//		}
+//		//BasesDeDatos.crearTablaClasificacion();
+//		
+//		setBounds(100, 100, 450, 300);
+//		
+//		JScrollPane scrollPane = new JScrollPane();
+//		scrollPane.addMouseListener(new MouseAdapter() {
+//
+//		});
+//		GroupLayout groupLayout = new GroupLayout(getContentPane());
+//		groupLayout.setHorizontalGroup(
+//			groupLayout.createParallelGroup(Alignment.LEADING)
+//				.addGroup(groupLayout.createSequentialGroup()
+//					.addGap(29)
+//					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+//					.addContainerGap())
+//		);
+//		groupLayout.setVerticalGroup(
+//			groupLayout.createParallelGroup(Alignment.LEADING)
+//				.addGroup(groupLayout.createSequentialGroup()
+//					.addGap(24)
+//					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+//					.addContainerGap())
+//		);
+//		
+//		table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//					
+//					
+//				
+//				
+//			},
+//			
+//	
+//		 
+//			new String[] {
+//				"Posicion", "ID", "PuntosJornada", "PuntosTotales"
+//			}
+//		));
+//		scrollPane.setViewportView(table);
+//		getContentPane().setLayout(groupLayout);
+//		JScrollPane scrol=new JScrollPane();
+//		
+//		
+//		ArrayList<String>posicionlista=new ArrayList<String>();
+//		for(int i=0;i<posicion().size();i++){
+//			posicionlista.add(posicion().get(i));
+//		}
+//		
+//		int numcolumns=table.getModel().getColumnCount();
+//		Object[]fila=new Object[numcolumns];
+//		
+//		
+//		
+//	int Puntostotales=0;
+////	Puntostotales=Integer.parseInt(VentanaAlineacion.valor2())+Puntostotales;
+////	 total=String.valueOf(Puntostotales);
+//	 for(int i=0;i<id.size();i++){
+//		 fila[1]=idjugador(); 
+//	 }
+//				
+//	fila[0]=posicion();
+//	
+//	fila[2]=VentanaAlineacion.valor2();
+////	fila[3]=total;
+//	
+//	
+//	
+//		((DefaultTableModel)table.getModel()).addRow(fila);
+//		
+//		
+//
+//		//guardarclasificacion();
+
+
 	
 	public void guardarclasificacion(){
 	
@@ -180,80 +421,90 @@ ArrayList<String>id=new ArrayList<String>();
 	
 	}
 	
-public static ArrayList<String> posicion() {
-
-		
-		ArrayList<String>lista=new ArrayList<String>();
-
-	
-		
-		
-		st=BasesDeDatos.getStatement();
-		String posicion="";
-		ResultSet nombre;
-		try {
-			nombre = st.executeQuery("select Posicion from clasificacion");
-			ResultSetMetaData rsmd = nombre.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-			while(nombre.next())
-			{
-				posicion=nombre.getString(columnCount);
-				lista.add(posicion);
-			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		return lista;
-		
-	}
-public static ArrayList<String> idjugador(){
-		
-		
-		
-		
-ArrayList <String>id=new ArrayList<String>();
-	
-		
-		
-		st=BasesDeDatos.getStatement();
-		String posicion2="";
-		ResultSet nombre2;
-		try {
-			nombre2 = st.executeQuery("select idJugador from clasificacion");
-			ResultSetMetaData rsmd2 = nombre2.getMetaData();
-			int columnCount2 = rsmd2.getColumnCount();
-			while(nombre2.next())
-			{
-				posicion2=nombre2.getString(columnCount2);
-				id.add(posicion2);
-			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	
-		
-		
-		return id;
-	}
-//public void valor2(){
+//public static ArrayList<String> posicion() {
+//
+//		
+//		ArrayList<String>lista=new ArrayList<String>();
+//
 //	
+//		
+//		
+//		st=BasesDeDatos.getStatement();
+//		String posicion="";
+//		ResultSet nombre;
+//		try {
+//			nombre = st.executeQuery("select Posicion from clasificacion");
+//			ResultSetMetaData rsmd = nombre.getMetaData();
+//			int columnCount = rsmd.getColumnCount();
+//			while(nombre.next())
+//			{
+//				posicion=nombre.getString(columnCount);
+//				lista.add(posicion);
+//			
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		
+//		return lista;
+//		
+//	}
+//public static ArrayList<String> idjugador(){
+//		
+//		
+//		
+//		
+//ArrayList <String>id=new ArrayList<String>();
 //	
-//	  String matris[][]=new String [id.size()][4];
-//	  for(int i=0;i<id.size();i++){
-//	  
-//	  matris[i][2]=id.get(i);
-//	  }
+//		
+//		
+//		st=BasesDeDatos.getStatement();
+//		String posicion2="";
+//		ResultSet nombre2;
+//		try {
+//			nombre2 = st.executeQuery("select idJugador from clasificacion");
+//			ResultSetMetaData rsmd2 = nombre2.getMetaData();
+//			int columnCount2 = rsmd2.getColumnCount();
+//			while(nombre2.next())
+//			{
+//				posicion2=nombre2.getString(columnCount2);
+//				id.add(posicion2);
+//			
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
 //	
+//		
+//		
+//		return id;
+//	}
+////public void valor2(){
+////	
+////	
+////	  String matris[][]=new String [id.size()][4];
+////	  for(int i=0;i<id.size();i++){
+////	  
+////	  matris[i][2]=id.get(i);
+////	  }
+////	
+////}
+//
+//
+//
+//
+//
+//@Override
+//public String toString() {
+//	return ;
 //}
-
+//
+//
 }

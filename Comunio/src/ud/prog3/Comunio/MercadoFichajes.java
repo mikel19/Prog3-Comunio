@@ -2,64 +2,229 @@ package ud.prog3.Comunio;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JList;
 
-public class MercadoFichajes extends JInternalFrame  {
+import java.awt.BorderLayout;
 
-	/**
-	 * Launch the application.
-	 */
-	String [] columnNames={"ID",
-			  "Nombre",
-			  "Equipo",
-			  "Valor",
-			  "puja"};
-		Object[][] data = {
-				{"Kathy", "Smith",
-					"Snowboarding","122222", ""},
-				{"John", "Doe",
-						"Rowing", "122222", ""},
-				{"Sue", "Black",
-					"Knitting", "122222", ""},
-					{"Jane", "White",
-					"Speed reading", "122222", ""},
-				{"Joe", "Brown",
-					"Pool", "122222", ""}
-						};
-	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MercadoFichajes frame = new MercadoFichajes();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+import javax.swing.JButton;
 
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+
+public class MercadoFichajes extends JFrame  implements ListSelectionListener,ActionListener, Serializable
+{
+
+	JButton btnNewButton;
+	JScrollPane scrollPane;
+	JList list;
+	JLabel lblUsuario;
+	JLabel label;
+	JLabel lblPrecioJugador;
+	JLabel lblRealizarOferta;
+	JTextField textField;
+	JTextField textField_1;
+	DefaultListModel modelo;
+	Statement st=null;
+	ArrayList precios;
+	int i=0;
+	ArrayList mercadoId;
+	private JLabel label_1;
 	/**
 	 * Create the frame.
+	 * @param b 
 	 */
-	public MercadoFichajes() {
-		setBounds(100, 100, 450, 300);
-
-			
-			
-			
-			JTable table = new JTable(data, columnNames);
-		table.setBounds(29, 53, 225, 16);
-
-			 JScrollPane scrollPane = new JScrollPane(table);
-			 table.add(scrollPane);
-			 table.setFillsViewportHeight(true);
+	public MercadoFichajes(String b) {
+		getContentPane().setBackground(new Color(0, 128, 0));
+		getContentPane().setForeground(new Color(0, 100, 0));
+		setTitle("MERCADO DE FICHAJES");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MercadoFichajes.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
+		setBounds(300, 300, 550, 400);
 		getContentPane().setLayout(null);
-			 getContentPane().add(table);
+		precios=new ArrayList();
+		mercadoId=new ArrayList();
+		
+		btnNewButton = new JButton("Pujar");
+		btnNewButton.setBounds(233, 231, 89, 23);
+		getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(this);
+		btnNewButton.setActionCommand("pujar");
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 34, 162, 317);
+		getContentPane().add(scrollPane);
+		
+		list = new JList();
+		scrollPane.setViewportView(list);
+		modelo=new DefaultListModel();
+		list.setModel(modelo);
+		list.addListSelectionListener(this);
+		
+		
+		lblUsuario = new JLabel("USUARIO:");
+		lblUsuario.setBounds(362, 11, 69, 14);
+		getContentPane().add(lblUsuario);
+		
+		label = new JLabel(b);
+		label.setBounds(430, 11, 94, 14);
+		getContentPane().add(label);
+		
+		lblPrecioJugador = new JLabel("Precio Jugador");
+		lblPrecioJugador.setBounds(233, 66, 94, 14);
+		getContentPane().add(lblPrecioJugador);
+		
+		lblRealizarOferta = new JLabel("Realizar Oferta");
+		lblRealizarOferta.setBounds(233, 145, 107, 14);
+		getContentPane().add(lblRealizarOferta);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(233, 94, 117, 20);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(233, 170, 107, 20);
+		getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(MercadoFichajes.class.getResource("/ud/prog3/Comunio/img/iconoMercado2.png")));
+		label_1.setBounds(417, 68, 46, 46);
+		getContentPane().add(label_1);
+
+			cargarMercadoDeFichajes();
+			
+			
 
 	}
-}
+
+
+	private void cargarMercadoDeFichajes() 
+	{
+		st=BasesDeDatos.getStatement();
+		modelo.clear();
+		precios.clear();
+		mercadoId.clear();
+		
+		String sentencia="select * from mercadodefichajes";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				modelo.addElement(rs.getString("nombre"));
+				precios.add(rs.getInt("precio"));
+				mercadoId.add(rs.getString("idJugador"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		repaint();
+		
+	}
+
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		
+		if(arg0.getValueIsAdjusting()==false)
+		{
+			
+			
+			int index=list.getSelectedIndex();
+			
+			textField.setText(precios.get(index)+"");
+		
+			repaint();
+		}
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		switch(arg0.getActionCommand())
+		{
+		case "pujar":
+			int p1=Integer.parseInt(textField.getText());
+			int p2=Integer.parseInt(textField_1.getText());
+			
+			if(p1>p2)
+			{
+				JOptionPane.showMessageDialog(null, "El jugador NO ha aceptado la oferta, es demasiado baja");
+			}
+			if(p1<=p2)
+			{
+				JOptionPane.showMessageDialog(null, "el usuario "+label.getText()+" ha fichado a "+modelo.getElementAt(list.getSelectedIndex()));
+			
+			st=BasesDeDatos.getStatement();
+			
+			String sentencia="insert into usuariojugadores values('"+label.getText()+"', '"+mercadoId.get(list.getSelectedIndex())+"')";
+			String sentencia2="delete from mercadodefichajes where idJugador = '"+mercadoId.get(list.getSelectedIndex())+"'";
+			
+			
+				
+//ObjectInputStream oos=new ObjectInputStream(new FileInputStream("el usuario "+label.getText()+" ha fichado a "+modelo.getElementAt(list.getSelectedIndex())));
+//			
+//			
+//			} catch (FileNotFoundException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+			
+			try {
+				st.executeUpdate(sentencia);
+				st.executeUpdate(sentencia2);
+				
+				dispose();
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			}
+			
+			}
+			
+		}
+		
+	}
+
+
+	
+
 
