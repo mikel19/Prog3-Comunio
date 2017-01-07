@@ -192,18 +192,18 @@ JButton btnEliminarUsuarios;
 						
 						
 						//st.executeUpdate(PuntosJornada);
-						
-						ResultSet rs=st.executeQuery("select PuntosJornada1 from puntosjornada");
-						ResultSetMetaData rsmd1 = rs.getMetaData();
-						int columnCount1 = rsmd1.getColumnCount();
-						while(rs.next())
-						{
-						puntosEstaJornada=rs.getInt(columnCount1);
-						
-						puntosJornada.add(puntosEstaJornada);
-						
-						
-						}
+//						
+//						ResultSet rs=st.executeQuery("select PuntosJornada1 from puntosjornada");
+//						ResultSetMetaData rsmd1 = rs.getMetaData();
+//						int columnCount1 = rsmd1.getColumnCount();
+//						while(rs.next())
+//						{
+//						puntosEstaJornada=rs.getInt(columnCount1);
+//						
+//						//puntosJornada.add(puntosEstaJornada);
+//						
+//						
+//						}
 						}
 						
 					
@@ -271,50 +271,64 @@ JButton btnEliminarUsuarios;
 				
 				for(int i=1;i<listaJ.size();i++)
 				{
-					ResultSet puntosJornada;
-					ResultSet puntosTotales;
+					listaJ.get(i).setPuntosTotales(listaJ.get(i).getPuntosTotales()+listaJ.get(i).getPuntosJornada());
 					try {
-						puntosJornada = st.executeQuery("select puntosJornada from jugadores" +" where (id='"+i+"')" );
-						ResultSetMetaData rsmd1 = puntosJornada.getMetaData();
-						int columnCount1 = rsmd1.getColumnCount();
-						
-						
-						puntosTotales = st.executeQuery("select puntosTotales from jugadores" +" where (id='"+i+"')" );
-						ResultSetMetaData rsmd2 = puntosJornada.getMetaData();
-						int columnCount2 = rsmd2.getColumnCount();
-						
-						
-						while(puntosJornada.next())
-						{
-							
-						puntosJornada1=puntosJornada.getInt(columnCount1);
-						puntosTotales1=puntosTotales.getInt(columnCount2);
-						suma=puntosTotales1+puntosJornada1;
-						
-						String sentencia="update jugadores set  puntosTotales='"+suma+"'where id='"+i+"'";
-						st.executeUpdate(sentencia);
-						String sentencia1="update jugadores set  puntosJornada='0'where id='"+i+"'";
-						st.executeUpdate(sentencia1);
-						
-						
-						
-						} 
-						
-						añadirJugadoresALista();
-						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+						st.executeUpdate("update jugadores set puntosTotales = '"+listaJ.get(i).getPuntosTotales()+"' where id = '"+i+"'");
+						st.executeUpdate("update jugadores set puntosJornada = '"+0+"' where id = '"+i+"'");
 					
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					
 				}
 				
-				JOptionPane.showMessageDialog(null, "Los puntos de esta jornada ya se han actualizado en los puntos totales de cada jugador");
-				
-				dispose();
-				
+					
+//					try {
+//						ResultSet puntosJornada = st.executeQuery("select puntosJornada from jugadores" +" where (id='"+i+"')" );
+//						ResultSetMetaData rsmd1 = puntosJornada.getMetaData();
+//						int columnCount1 = rsmd1.getColumnCount();
+//						
+//						
+//						ResultSet puntosTotales=st.executeQuery("select puntosTotales from jugadores" +" where (id='"+i+"')" );
+//						ResultSetMetaData rsmd2 = puntosJornada.getMetaData();
+//						int columnCount2 = rsmd2.getColumnCount();
+//						
+//						
+//						while(puntosJornada.next())
+//						{
+//							
+//						puntosJornada1=puntosJornada.getInt(columnCount1);
+//						
+//						puntosTotales1=puntosTotales.getInt(columnCount2);
+//						suma=puntosTotales1+puntosJornada1;
+//						
+//						String sentencia="update jugadores set puntosTotales = '"+suma+"' where id = '"+i+"'";
+//						System.out.println(sentencia);
+//						st.executeUpdate(sentencia);
+//						String sentencia1="update jugadores set puntosJornada = '0' where id = '"+i+"'";
+//						st.executeUpdate(sentencia1);
+//						
+//						
+//						
+//						} 
+//						
+//						añadirJugadoresALista();
+//						
+//					} catch (SQLException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//					
+//					
+//					
+//				}
+//				
+//				JOptionPane.showMessageDialog(null, "Los puntos de esta jornada ya se han actualizado en los puntos totales de cada jugador");
+//				
+//				dispose();
+//				
 			}
 		});
 		labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward.png")));

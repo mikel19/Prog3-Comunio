@@ -72,7 +72,57 @@ public class BasesDeDatos
 		}
 		
 		
+		
 	}
+	
+public static void crearTablaPorterosSalidos(){
+		
+		if(statement==null) return;
+		try{
+			
+			statement.executeUpdate("create table porterosSalidos " + "(id string, nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+		}catch(SQLException e){
+			
+		}
+		
+		
+	}
+public static void crearTablaDefensasSalidos(){
+		
+		if(statement==null) return;
+		try{
+			
+			statement.executeUpdate("create table defensasSalidos " + "(id string, nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+		}catch(SQLException e){
+			
+		}
+		
+		
+	}
+public static void crearTablaMediosSalidos(){
+	
+	if(statement==null) return;
+	try{
+		
+		statement.executeUpdate("create table mediosSalidos " + "(id string, nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+	}catch(SQLException e){
+		
+	}
+	
+	
+}
+public static void crearTablaDelanterosSalidos(){
+	
+	if(statement==null) return;
+	try{
+		
+		statement.executeUpdate("create table delanterosSalidos " + "(id string, nombre string, equipo string, posicion string, edad int, puntosJornada int, puntosTotales int" +")");
+	}catch(SQLException e){
+		
+	}
+	
+	
+}
 	
 	
 	

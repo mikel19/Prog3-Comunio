@@ -53,9 +53,19 @@ public class Usuario extends JFrame implements ActionListener
 	private JLabel lblqueIdQuieres;
 	private JLabel lblyQueContrasea;
 	private JButton btnRegistrar;
-	Statement st=null;
+	static Statement st=null;
 	ArrayList Usuarios;
-	Random  random;
+	 ArrayList <Jugador>defensas;
+	 ArrayList <Jugador>medios;
+	 ArrayList <Jugador>delanteros;
+	 ArrayList <Jugador>porteros;
+	 ArrayList<Jugador>todosJugadores;
+	 ArrayList <Jugador>defensasRepe;
+	 ArrayList <Jugador>mediosRepe;
+	 ArrayList <Jugador>delanterosRepe;
+	 ArrayList <Jugador>porterosRepe;
+	 Jugador jugador;
+	 Random  random;
 	
 	
 	public Usuario()
@@ -67,6 +77,19 @@ public class Usuario extends JFrame implements ActionListener
 		setBounds(400,300,500,400);
 		setTitle("Sign Up - Comunio");
 		getContentPane().setLayout(null);
+		
+		defensas=new ArrayList<Jugador>();
+		medios=new ArrayList<Jugador>();
+		delanteros=new ArrayList<Jugador>();
+		porteros=new ArrayList<Jugador>();
+		defensasRepe=new ArrayList<Jugador>();
+		mediosRepe=new ArrayList<Jugador>();
+		delanterosRepe=new ArrayList<Jugador>();
+		porterosRepe=new ArrayList<Jugador>();
+		
+		todosJugadores=new ArrayList<Jugador>();
+		jugador=new Jugador();
+		
 		
 		JLabel lContraseña = new JLabel("inserte el id del usuario");
 		lContraseña.setForeground(Color.WHITE);
@@ -141,8 +164,429 @@ public class Usuario extends JFrame implements ActionListener
 		
 		//BasesDeDatos.initBD("UsuariosBD");
 		BasesDeDatos.crearTablaUsuarios();
+		BasesDeDatos.crearTablaPorterosSalidos();
+		BasesDeDatos.crearTablaMediosSalidos();
+		BasesDeDatos.crearTablaDefensasSalidos();
+		BasesDeDatos.crearTablaDelanterosSalidos();
 	
+		cargarJugadoresPosicion();
+		
 	}
+	
+
+	public void asignarjugadores(String ID) {
+		Statement st=null;
+		BasesDeDatos.crearTablaUsuarioJugadores();
+		st=BasesDeDatos.getStatement();
+		
+		int posPortero;
+		int posDefensa;
+		int posMedio;
+		int posDelantero;
+		
+		Random rnd=new Random();
+		posPortero=rnd.nextInt(porteros.size()-1);
+		
+		do
+		{
+			posPortero=rnd.nextInt(porteros.size()-1);
+		}while(chequearPortero(porteros.get(posPortero))==false);
+		
+		
+		if(chequearPortero(porteros.get(posPortero))==true)
+			{
+				System.out.println("portero: "+porteros.get(posPortero).getNombre());
+				
+				String sentencia2="insert into usuarioJugadores values ('"+ID+"', '"+porteros.get(posPortero).getId()+"')";
+				
+				String sentencia="insert into porterosSalidos values"
+						+ "('"+porteros.get(posPortero).getId()
+						+"', '"+porteros.get(posPortero).getNombre()
+						+"', '"+porteros.get(posPortero).getEquipo()
+						+"', '"+porteros.get(posPortero).getPosicion()
+						+"', '"+porteros.get(posPortero).getEdad()
+						+"', '"+porteros.get(posPortero).getPuntosJornada()
+						+"', '"+porteros.get(posPortero).getPuntosTotales()
+						+"')";	
+				System.out.println(sentencia);
+				System.out.println(sentencia2);
+				
+				try {
+					st.executeUpdate(sentencia);
+					st.executeUpdate(sentencia2);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				}
+			
+		
+			
+		
+		
+		for(int i=0;i<4;i++)
+		{
+			posMedio=rnd.nextInt(medios.size()-1);
+			posDefensa=rnd.nextInt(defensas.size()-1);
+			
+			System.out.println("medios: "+medios.get(posMedio).getNombre());
+			
+			
+			do{
+				
+				posMedio=rnd.nextInt(medios.size()-1);
+				
+			}while(chequearMedios(medios.get(posMedio))==false);
+			
+			if(chequearMedios(medios.get(posMedio))==true)
+			{
+				String sentencia="insert into mediosSalidos values"
+						+ "('"+medios.get(posMedio).getId()
+						+"', '"+medios.get(posMedio).getNombre()
+						+"', '"+medios.get(posMedio).getEquipo()
+						+"', '"+medios.get(posMedio).getPosicion()
+						+"', '"+medios.get(posMedio).getEdad()
+						+"', '"+medios.get(posMedio).getPuntosJornada()
+						+"', '"+medios.get(posMedio).getPuntosTotales()
+						+"')";	
+				String sentencia2="insert into usuarioJugadores values ('"+ID+"', '"+medios.get(posMedio).getId()+"')";
+				System.out.println(sentencia);
+				System.out.println(sentencia2);
+				
+				try {
+					st.executeUpdate(sentencia);
+					st.executeUpdate(sentencia2);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+				
+			
+			
+			
+			System.out.println("defensas: "+defensas.get(posDefensa).getNombre());
+			
+			
+			do{
+			
+				posDefensa=rnd.nextInt(defensas.size()-1);
+			
+			}while(chequearDefensas(defensas.get(posDefensa))==false);
+			
+			if(chequearDefensas(defensas.get(posDefensa))==true)
+			{
+
+				String sentencia="insert into defensasSalidos values"
+						+ "('"+defensas.get(posDefensa).getId()
+						+"', '"+defensas.get(posDefensa).getNombre()
+						+"', '"+defensas.get(posDefensa).getEquipo()
+						+"', '"+defensas.get(posDefensa).getPosicion()
+						+"', '"+defensas.get(posDefensa).getEdad()
+						+"', '"+defensas.get(posDefensa).getPuntosJornada()
+						+"', '"+defensas.get(posDefensa).getPuntosTotales()
+						+"')";	
+				System.out.println(sentencia);
+				String sentencia3="insert into usuarioJugadores values ('"+ID+"', '"+defensas.get(posDefensa).getId()+"')";
+				System.out.println(sentencia3);
+				
+				try {
+					st.executeUpdate(sentencia);
+					st.executeUpdate(sentencia3);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		for(int i=0;i<2;i++)
+		{
+			posDelantero=rnd.nextInt(delanteros.size()-1);
+			System.out.println("delanteros: "+delanteros.get(posDelantero).getNombre());
+			
+			do
+			{
+				posDelantero=rnd.nextInt(delanteros.size()-1);
+			}while(chequearDelantero(delanteros.get(posDelantero))==false);
+			
+		
+			
+			if(chequearDelantero(delanteros.get(posDelantero))==true)
+			{
+
+				String sentencia="insert into delanterosSalidos values"
+						+ "('"+delanteros.get(posDelantero).getId()
+						+"', '"+delanteros.get(posDelantero).getNombre()
+						+"', '"+delanteros.get(posDelantero).getEquipo()
+						+"', '"+delanteros.get(posDelantero).getPosicion()
+						+"', '"+delanteros.get(posDelantero).getEdad()
+						+"', '"+delanteros.get(posDelantero).getPuntosJornada()
+						+"', '"+delanteros.get(posDelantero).getPuntosTotales()
+						+"')";	
+				System.out.println(sentencia);
+				String sentencia2="insert into usuarioJugadores values ('"+ID+"', '"+delanteros.get(posDelantero).getId()+"')";
+				try {
+					st.executeUpdate(sentencia);
+					st.executeUpdate(sentencia2);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			}
+					
+		}
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+	private boolean chequearDelantero(Jugador jugador2)
+	{
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from delanterosSalidos";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			if(rs.first()==false)
+			{
+				return true;
+			}
+			else
+			{
+				while(rs.next())
+					{
+				jugador=new Jugador();
+				
+				jugador.setId(rs.getString("id"));
+				jugador.setNombre(rs.getString("nombre"));
+				jugador.setEquipo(rs.getString("equipo"));
+				jugador.setPosicion(rs.getString("posicion"));
+				jugador.setEdad(rs.getInt("edad"));
+				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				delanterosRepe.add(jugador);
+					
+			} 
+			}
+		}
+
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+				for(int i=0;i<delanterosRepe.size();i++)
+				{
+					if(jugador2.getId().equalsIgnoreCase(delanterosRepe.get(i).getId()))
+					{
+				
+						return false;
+						
+					}
+				}
+				
+				
+			
+			
+			return true;
+		
+		
+
+
+
+
+	}
+
+
+	private boolean chequearDefensas(Jugador jugador2)
+	{
+		
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from defensasSalidos";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			if(rs.isFirst()==false)
+			{
+				return true;
+			}
+			else
+			{
+				while(rs.next())
+					{
+				jugador=new Jugador();
+				
+				jugador.setId(rs.getString("id"));
+				jugador.setNombre(rs.getString("nombre"));
+				jugador.setEquipo(rs.getString("equipo"));
+				jugador.setPosicion(rs.getString("posicion"));
+				jugador.setEdad(rs.getInt("edad"));
+				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				defensasRepe.add(jugador);
+					
+			} 
+			}
+		}
+
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+				for(int i=0;i<defensasRepe.size();i++)
+				{
+					if(jugador2.getId().equalsIgnoreCase(defensasRepe.get(i).getId()))
+					{
+				
+						return false;
+						
+					}
+				}
+				
+				
+			
+			
+			return true;
+		
+		
+
+
+
+
+	}
+
+
+	private boolean chequearMedios(Jugador jugador2)
+	{
+
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from mediosSalidos";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			if(rs.isFirst()==false)
+			{
+				return true;
+			}
+			else
+			{
+				while(rs.next())
+					{
+				jugador=new Jugador();
+				
+				jugador.setId(rs.getString("id"));
+				jugador.setNombre(rs.getString("nombre"));
+				jugador.setEquipo(rs.getString("equipo"));
+				jugador.setPosicion(rs.getString("posicion"));
+				jugador.setEdad(rs.getInt("edad"));
+				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				mediosRepe.add(jugador);
+					
+			} 
+			}
+		}
+
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+				for(int i=0;i<mediosRepe.size();i++)
+				{
+					if(jugador2.getId().equalsIgnoreCase(mediosRepe.get(i).getId()))
+					{
+				
+						return false;
+						
+					}
+				}
+				
+				
+			
+			
+			return true;
+		
+		
+
+
+
+
+
+
+	}
+
+	private boolean chequearPortero(Jugador jugador2) {
+		
+		
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from porterosSalidos";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			if(rs.isFirst()==false)
+			{
+				return true;
+			}
+			else
+			{
+				while(rs.next())
+					{
+				jugador=new Jugador();
+				
+				jugador.setId(rs.getString("id"));
+				jugador.setNombre(rs.getString("nombre"));
+				jugador.setEquipo(rs.getString("equipo"));
+				jugador.setPosicion(rs.getString("posicion"));
+				jugador.setEdad(rs.getInt("edad"));
+				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				porterosRepe.add(jugador);
+					
+			} 
+			}
+		}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+				for(int i=0;i<porterosRepe.size();i++)
+				{
+					if(jugador2.getId().equalsIgnoreCase(porterosRepe.get(i).getId()))
+					{
+				
+						return false;
+						
+					}
+				}
+				
+				
+			
+			
+			return true;
+		
+		
+	}
+	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -159,7 +603,7 @@ public class Usuario extends JFrame implements ActionListener
 			if((chequearEnTabla(st))==true)
 			{
 				JOptionPane.showMessageDialog(null, "el usuario que ha introducido es correcto");
-		
+				
 				VentanaJuegoUsuario VJU=new VentanaJuegoUsuario(id.getText());
 				VJU.setVisible(true);
 				dispose();
@@ -200,7 +644,7 @@ public class Usuario extends JFrame implements ActionListener
 			else
 			{
 				JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-			}
+				
 			
 			try {
 				String sentSQL = "insert into usuarios values(" +
@@ -210,6 +654,7 @@ public class Usuario extends JFrame implements ActionListener
 						"'" + 20000000 +"')";
 				System.out.println( sentSQL );  // (Quitar) para ver lo que se hace
 				int val = st.executeUpdate( sentSQL );
+				
 				asignarjugadores(nId.getText());
 				System.out.println("perfectamente guardado");
 //				if (val!=1) return false;  // Se tiene que añadir 1 - error si no
@@ -219,7 +664,7 @@ public class Usuario extends JFrame implements ActionListener
 //				return false;
 			}
 			
-			
+			}
 			
 			
 			break;
@@ -272,12 +717,8 @@ public class Usuario extends JFrame implements ActionListener
 			return false;
 		}
 	}
-	public static void asignarjugadores(String ID) throws SQLException{
-		Statement st=null;
-		BasesDeDatos.crearTablaUsuarioJugadores();
-		st=BasesDeDatos.getStatement();
-		int nombre1=0;
-		int id1=0;
+	
+	
 		
 //		ArrayList<Integer> taken=new ArrayList<Integer>();
 //		ResultSet nombre=st.executeQuery("select idJugador from UsuarioJugadores");
@@ -314,7 +755,71 @@ public class Usuario extends JFrame implements ActionListener
 //		}
 
 		
+		public  void cargarJugadoresPosicion() 
+		{
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from jugadores";
+		todosJugadores=new ArrayList<Jugador>();
 		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				jugador=new Jugador();
+				
+				jugador.setId(rs.getString("id"));
+				jugador.setNombre(rs.getString("nombre"));
+				jugador.setEquipo(rs.getString("equipo"));
+				jugador.setPosicion(rs.getString("posicion"));
+				jugador.setEdad(rs.getInt("edad"));
+				jugador.setPuntosJornada(rs.getInt("puntosJornada"));
+				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
+				
+				todosJugadores.add(jugador);
+				
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		for(int i=0;i<todosJugadores.size();i++)
+		{
+			if(todosJugadores.get(i).getPosicion().equalsIgnoreCase("Defensa"))
+			{
+				defensas.add(todosJugadores.get(i));
+			}
+			else
+			{
+				if(todosJugadores.get(i).getPosicion().equalsIgnoreCase("Delantero"))
+				{
+					delanteros.add(todosJugadores.get(i));
+				}
+				else
+				{
+					if(todosJugadores.get(i).getPosicion().equalsIgnoreCase("Centrocampista"))
+					{
+						medios.add(todosJugadores.get(i));
+					}
+					else
+					{
+						porteros.add(todosJugadores.get(i));
+					}
+				}
+				System.out.println(todosJugadores.get(i).getPosicion());
+			}
+		}
+		
+		
+	}
+
+		/**
 
 	for(int u=0;u<2;u++){
 		String sentSQL="insert into usuariojugadores values(" +"'"+ID+"', '"+verificarrandomportero()+"')";
@@ -689,6 +1194,7 @@ public class Usuario extends JFrame implements ActionListener
 		
 		return a;
 	}
+	**/
 	public static void asignarportero(){
 		
 		

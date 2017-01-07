@@ -28,21 +28,24 @@ public class InternalClasificacion extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String[][] datos={{"lope","12","233"},};
-	private String [] cabeceras={"id","puntos jornada","puntos totales"};
-	private static JTable table;
-static String total;
+//	private static final long serialVersionUID = 1L;
+//	private String[][] datos={{"lope","12","233"},};
+//	private String [] cabeceras={"id","puntos jornada","puntos totales"};
+//	private static JTable table;
+//static String total;
 Statement st=null;
-private JTable tabla;
-private String[][]datos2= {{"1","juan","addas","Aasdasd"}};
-ArrayList<String>id=new ArrayList<String>();
+//private JTable tabla;
+//private String[][]datos2= {{"1","juan","addas","Aasdasd"}};
+//ArrayList<String>id=new ArrayList<String>();
 
 
 ArrayList usuarios;
+UsuarioJugador usu;
 ArrayList<Jugador> jugadores;
 ArrayList <Jugador>puntosJugadores;
 ArrayList  <Jugador>puntosCadaUsuario;
+ArrayList <UsuarioJugador> definitivo;
+ArrayList <UsuarioJugador> usuj;
 Jugador jugador;
 int suma=0;
 int cantidad=0;
@@ -50,147 +53,125 @@ int cantidad=0;
 	 
 	public InternalClasificacion()
 	 {
-		usuarios=new ArrayList();
+		
+		
+		setBounds(300,300,300,300);
+		
 		jugadores=new ArrayList<Jugador>();
 		puntosJugadores=new ArrayList<Jugador>();
 		puntosCadaUsuario=new ArrayList<Jugador>();
 		jugador=new Jugador();
+		usuj=new ArrayList <UsuarioJugador>();
+		definitivo=new ArrayList <UsuarioJugador>();
+		usu=new UsuarioJugador();
+		usuarios=new ArrayList();
 		
 		cargarUsuariosJugadores();
+		cargarUsuarios();
 		puntosCadaJugador();
-		suma=contarMismosUsuarios();
-		cantidad=totalUsuarios(suma);
-		calcularPuntosTotalesCadaUsuario(suma,cantidad);
+		calcularPuntosTotalesCadaUsuario();
+		
+		
 		
 	 }
-//		 
-//		 
-//	        String[] columnNames = {"POSICION",
-//	                                "IDJUGADOR",
-//	                                "PUNTOSTOTALES"};
-//	 
-//	        
-//	        Object[][] data = {
-//	        {"Kathy", "Smith",
-//	         "Snowboarding", new Integer(5), new Boolean(false)},
-//	        {"John", "Doe",
-//	         "Rowing", new Integer(3), new Boolean(true)},
-//	        {"Sue", "Black",
-//	         "Knitting", new Integer(2), new Boolean(false)},
-//	        {"Jane", "White",
-//	         "Speed reading", new Integer(20), new Boolean(true)},
-//	        {"Joe", "Brown",
-//	         "Pool", new Integer(10), new Boolean(false)}
-//	        };
-//	 
-//	        final JTable table = new JTable(data, columnNames);
-//	        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-//	        table.setFillsViewportHeight(true);
-//	 
-//	        if (DEBUG) {
-//	            table.addMouseListener(new MouseAdapter() {
-//	                public void mouseClicked(MouseEvent e) {
-//	                    printDebugData(table);
-//	                }
-//	            });
-//	        }
-//	 
-//	        //Create the scroll pane and add the table to it.
-//	        JScrollPane scrollPane = new JScrollPane(table);
-//	 
-//	        //Add the scroll pane to this panel.
-//	        add(scrollPane);
-//	    }
+
 	 
-	
-	
-	
-	
-	    private int totalUsuarios(int suma) 
-	    {
-	    	int cantidad=0;
-	    	
-	    	for(int i=0;i<usuarios.size();i++)
-	    	{
-	    		cantidad=cantidad+suma;
-	    		if(cantidad<usuarios.size())
-	    			{
-	    				cantidad++;
-	    			}
-	    		else
-	    		{
-	    			break;
-	    		}
-	    }
-	    	return cantidad;
-	    }
 
 
 
 
 
-		private void calcularPuntosTotalesCadaUsuario(int suma2, int cantidad2) 
-	    {
-			int suma3=suma;
-			Jugador j=new Jugador();
-			for(int i=0;i<=cantidad2;cantidad2++)
-			{
-				for(int e=0;e<=suma2;e++)
-				{
-					puntosTotalUsuario=puntosTotalUsuario+jugadores.get(e).getPuntosTotales();
-					
-				}
-				
-				j.setPuntosTotales(puntosTotalUsuario);
-				
-				//j.setId(chequearIdUsuario(cantidad2,suma2));
+
+
+
+		private void cargarUsuarios()
+		{
 			
+			String sentencia="select * from usuarios";
+			st=BasesDeDatos.getStatement();
+			
+			try {
+				ResultSet rs=st.executeQuery(sentencia);
 				
+				while(rs.next())
+				{
+					usuarios.add(rs.getString("numIdentificador"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+		private void calcularPuntosTotalesCadaUsuario() 
+	    {
+			
+
+			for(int i=0;i<usuarios.size();i++)
+			{
+				usu=new UsuarioJugador();
+				
+				
+				
+					usu.setIdUsuario((String)usuarios.get(i));
+					usu.setPuntosTotales(damePuntosUsuario((String)usuarios.get(i)));
+					definitivo.add(usu);
+				
+			}
+			
+			for(int i=0;i<definitivo.size();i++)
+			{
+				System.out.println(definitivo.get(i).getIdUsuario()+": "+definitivo.get(i).getPuntosTotales());
+			}
+			
+			
 			} 
 			
 					
 					
 		
-	    }
+	    
 
 
 
-
-//
-//		private String chequarIdUsuario(int cantidad,int suma2) 
-//		{
-//			
-//			for(int i=0;i<usuarios.size();i=)
-//			
-//			
-//		}
+		
+	
 
 
 
 
 
-		private int contarMismosUsuarios() 
-	    {
-	    	int contador=1;
-		for(int i=0;i<usuarios.size();i++)
+		private int damePuntosUsuario(String idUsuario)
 		{
-			if(i==usuarios.size()-1)
+			int contadorPuntos=0;
+			for(int i=0;i<usuj.size();i++)
 			{
-				break;
+				if(idUsuario.equalsIgnoreCase(usuj.get(i).getIdUsuario()))
+						{
+						contadorPuntos=contadorPuntos+jugadores.get(i).getPuntosTotales();
+						}
 			}
-			if(usuarios.get(i).equals(usuarios.get(i+1)))
-			{
-				contador++;
-			}
-			else
-			{
-				break;
-			}
+			
+			return contadorPuntos;
+			
+			
 		}
-		
-		return contador;
-		
-	}
+
+
+
+
+
 
 
 
@@ -206,6 +187,7 @@ int cantidad=0;
 				ResultSet rs=st.executeQuery(sentencia);
 				while(rs.next())
 				{
+				jugador=new Jugador();
 				jugador.setId(rs.getString("id"));
 				jugador.setPuntosTotales(rs.getInt("puntosTotales"));
 				
@@ -249,18 +231,30 @@ int cantidad=0;
 	    {
 		st=BasesDeDatos.getStatement();
 		String sentencia="select * from usuariojugadores";
-		usuarios.clear();
+		
 		
 		
 		try {
 			ResultSet rs=st.executeQuery(sentencia);
 			
+			
 			while(rs.next())
 			{
-			usuarios.add(rs.getString("idUsuario"));
+				usu=new UsuarioJugador();
+				
+				usu.setIdUsuario(rs.getString("idUsuario"));
+				usu.setIdJugador(rs.getString("idJugador"));
+				usuj.add(usu);
+				
+				jugador=new Jugador();
+//			usuarios.add(rs.getString("idUsuario"));
 			jugador.setId(rs.getString("idJugador"));
 			jugadores.add(jugador);
+			
+			
 			}
+			
+			
 			
 			
 		} catch (SQLException e) {
@@ -271,22 +265,22 @@ int cantidad=0;
 		
 	}
 
-		private void printDebugData(JTable table) {
-	        int numRows = table.getRowCount();
-	        int numCols = table.getColumnCount();
-	        javax.swing.table.TableModel model = table.getModel();
-	 
-	        System.out.println("Value of data: ");
-	        for (int i=0; i < numRows; i++) {
-	            System.out.print("    row " + i + ":");
-	            for (int j=0; j < numCols; j++) {
-	                System.out.print("  " + model.getValueAt(i, j));
-	            }
-	            System.out.println();
-	        }
-	        System.out.println("--------------------------");
-	    }
-		
+//		private void printDebugData(JTable table) {
+//	        int numRows = table.getRowCount();
+//	        int numCols = table.getColumnCount();
+//	        javax.swing.table.TableModel model = table.getModel();
+//	 
+//	        System.out.println("Value of data: ");
+//	        for (int i=0; i < numRows; i++) {
+//	            System.out.print("    row " + i + ":");
+//	            for (int j=0; j < numCols; j++) {
+//	                System.out.print("  " + model.getValueAt(i, j));
+//	            }
+//	            System.out.println();
+//	        }
+//	        System.out.println("--------------------------");
+//	    }
+//		
 		
 		
 		
@@ -375,48 +369,48 @@ int cantidad=0;
 
 
 	
-	public void guardarclasificacion(){
-	
-		
-		st=BasesDeDatos.getStatement();
-		boolean resultado=true;
-		String posicion="";
-		ResultSet nombre;
-		try {
-			nombre = st.executeQuery("select idJugador from clasificacion");
-			ResultSetMetaData rsmd = nombre.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-			while(nombre.next())
-			{
-				posicion=nombre.getString(columnCount);
-				if(posicion==VentanaAlineacion.valor1()){
-					resultado=false;
-				}
-				else{
-					resultado=true;
-				}
-			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		if(resultado=true){
-		String sentSQL="insert into clasificacion values ('"+"1"+"','"+VentanaAlineacion.valor1()+"','"+VentanaAlineacion.valor2()+"','"+total+"')";
-		try {
-			st.executeUpdate(sentSQL);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}else{
-			
-		}
-		
-			
-	
+//	public void guardarclasificacion(){
+//	
+//		
+//		st=BasesDeDatos.getStatement();
+//		boolean resultado=true;
+//		String posicion="";
+//		ResultSet nombre;
+//		try {
+//			nombre = st.executeQuery("select idJugador from clasificacion");
+//			ResultSetMetaData rsmd = nombre.getMetaData();
+//			int columnCount = rsmd.getColumnCount();
+//			while(nombre.next())
+//			{
+//				posicion=nombre.getString(columnCount);
+//				if(posicion==VentanaAlineacion.valor1()){
+//					resultado=false;
+//				}
+//				else{
+//					resultado=true;
+//				}
+//			
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		if(resultado=true){
+//		String sentSQL="insert into clasificacion values ('"+"1"+"','"+VentanaAlineacion.valor1()+"','"+VentanaAlineacion.valor2()+"','"+total+"')";
+//		try {
+//			st.executeUpdate(sentSQL);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		}else{
+//			
+//		}
+//		
+//			
+//	
 		
 	
 	}
@@ -507,4 +501,4 @@ int cantidad=0;
 //}
 //
 //
-}
+

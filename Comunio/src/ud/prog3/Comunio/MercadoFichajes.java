@@ -173,6 +173,9 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 		switch(arg0.getActionCommand())
 		{
 		case "pujar":
+			
+			try
+			{
 			int p1=Integer.parseInt(textField.getText());
 			int p2=Integer.parseInt(textField_1.getText());
 			
@@ -202,24 +205,28 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 //				e1.printStackTrace();
 //			}
 			
-			try {
+			
 				st.executeUpdate(sentencia);
 				st.executeUpdate(sentencia2);
 				
 				dispose();
 				
+			}
+			}
 				
-				
-			} catch (SQLException e) {
+			 catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+			catch(NumberFormatException n)
+			{
+				JOptionPane.showMessageDialog(null, "inserta numeros por favor");
 			}
 			
 			}
 			
+			
+		
 		}
 		
 	}
