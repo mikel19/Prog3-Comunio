@@ -1,5 +1,6 @@
 package ud.prog3.Comunio;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -23,6 +24,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class InternalClasificacion extends JFrame {
 	/**
@@ -46,6 +48,7 @@ ArrayList <Jugador>puntosJugadores;
 ArrayList  <Jugador>puntosCadaUsuario;
 ArrayList <UsuarioJugador> definitivo;
 ArrayList <UsuarioJugador> usuj;
+ArrayList<UsuarioJugador> ordenados;
 Jugador jugador;
 int suma=0;
 int cantidad=0;
@@ -53,9 +56,7 @@ int cantidad=0;
 	 
 	public InternalClasificacion()
 	 {
-		
-		
-		setBounds(300,300,300,300);
+	setBounds(300,300,300,300);
 		
 		jugadores=new ArrayList<Jugador>();
 		puntosJugadores=new ArrayList<Jugador>();
@@ -70,6 +71,61 @@ int cantidad=0;
 		cargarUsuarios();
 		puntosCadaJugador();
 		calcularPuntosTotalesCadaUsuario();
+		
+		
+		
+		//creamos el arreglo de objetos que contendra el
+		//contenido de las columnas
+		Object[] data = new Object[3];
+		// creamos el modelo de Tabla
+		
+		DefaultTableModel dtm= new DefaultTableModel();
+		// se crea la Tabla con el modelo DefaultTableModel
+		final JTable table = new JTable(dtm);
+		// insertamos las columnas
+		for(int column = 1; column < 4; column++){
+			if(column==1){
+				dtm.addColumn("posicion");
+			}
+			if(column==2){
+				dtm.addColumn("ID jugador");
+			}
+			if(column==3){
+				dtm.addColumn("Puntos Totales");
+			}
+//		dtm.addColumn("Columna " + column);
+		}
+		for(int i=0;i<definitivo.size();i++){
+			System.out.println("tamaño"+definitivo.get(i).getIdUsuario());
+		}
+		// insertamos el contenido de las columnas
+//		for(int row = 0; row < definitivo.size(); row++) {
+			for(int i=0;i<definitivo.size();i++){
+		data[1] = definitivo.get(i).getIdUsuario();
+	
+			}
+			for(int z=0;z<definitivo.size();z++){
+				data[2] = definitivo.get(z).getPuntosTotales();
+				dtm.addRow(data);
+					}
+		
+		
+	
+//		}
+		//se define el tamaño
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		//Creamos un JscrollPane y le agregamos la JTable
+		JScrollPane scrollPane = new JScrollPane(table);
+		//Agregamos el JScrollPane al contenedor
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		//manejamos la salida
+	
+		
+	
+		
+		
+		
+	
 		
 		
 		
@@ -265,6 +321,36 @@ int cantidad=0;
 		
 	}
 
+//	
+//		public void ordenar(){
+//	ArrayList<UsuarioJugador>ayuda=new ArrayList<UsuarioJugador>();
+//		for(int i=0;i<definitivo.size();i++){
+//		if(definitivo.get(i).getPuntosTotales()>definitivo.get(i+1).getPuntosTotales()){
+//			
+//				ayuda.add(definitivo.get(i));
+//		
+//		}
+//		if(definitivo.get(i).getPuntosTotales()>definitivo.get(i+1).getPuntosTotales()){
+//			
+//			ayuda.add(definitivo.get(i));
+//		definitivo.remove(i);
+//		definitivo.get(i).setIdUsuario(definitivo.get(i+1).getIdUsuario());
+//		definitivo.get(i).setPuntosTotales(definitivo.get(i+1).getPuntosTotales());
+//		definitivo.get(i+1).setIdUsuario(ayuda.get(i).getIdUsuario());
+//		definitivo.get(i).setPuntosTotales(definitivo.get(i).getPuntosTotales());
+//		
+//		}	
+//		
+//			
+//		}
+//			
+//			
+//			
+//		}
+			
+			
+			
+		}
 //		private void printDebugData(JTable table) {
 //	        int numRows = table.getRowCount();
 //	        int numCols = table.getColumnCount();
@@ -413,7 +499,7 @@ int cantidad=0;
 //	
 		
 	
-	}
+	
 	
 //public static ArrayList<String> posicion() {
 //
