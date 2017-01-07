@@ -177,14 +177,9 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 				VentanaAlineacion alineacion =new VentanaAlineacion(b);
 			
 					 
-
+					alineacion.setVisible(true);
 				
 				
-				getContentPane().add(alineacion);
-				lblmanager.add(alineacion);
-				
-				
-				alineacion.setVisible(true);
 				
 				
 			}

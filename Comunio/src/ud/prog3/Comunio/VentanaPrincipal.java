@@ -70,7 +70,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		// Creación de componentes/contenedores de swing
 		
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaUsuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		
 		pBotonera = new JPanel();
 		
@@ -169,7 +169,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		switch(e.getActionCommand())
 		{
 		case "usuario":
-			Usuario vUsuario=new Usuario();
+			VentanaUsuario vUsuario=new VentanaUsuario();
 			vUsuario.setVisible(true);
 			break;
 			

@@ -50,6 +50,8 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 	DefaultListModel modelo;
 	Statement st=null;
 	ArrayList precios;
+	ArrayList<Usuario> dineroUsuarios;
+	Usuario usuario;
 	int i=0;
 	ArrayList mercadoId;
 	private JLabel label_1;
@@ -66,6 +68,7 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 		getContentPane().setLayout(null);
 		precios=new ArrayList();
 		mercadoId=new ArrayList();
+		dineroUsuarios=new ArrayList();
 		
 		btnNewButton = new JButton("Pujar");
 		btnNewButton.setBounds(233, 231, 89, 23);
@@ -119,7 +122,48 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 			cargarMercadoDeFichajes();
 			
 			
+			
 
+	}
+
+
+	private int cargarDineroUsuario(String idUsuario)
+	{
+		String sentencia="select * from usuarios";
+		
+		int dinero=0;
+		st=BasesDeDatos.getStatement();
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			
+			while(rs.next())
+			{
+				usuario=new Usuario();
+				
+				usuario.setId(rs.getString("id"));
+				usuario.setDinero(rs.getInt("dinero"));
+				
+				dineroUsuarios.add(usuario);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<dineroUsuarios.size();i++)
+		{
+			
+			if(idUsuario.equalsIgnoreCase(dineroUsuarios.get(i).getId()))
+			{
+				dinero=dineroUsuarios.get(i).getDinero();
+			}
+		}
+		return dinero;
+		
+		
+		
+		
 	}
 
 
@@ -179,6 +223,11 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 			int p1=Integer.parseInt(textField.getText());
 			int p2=Integer.parseInt(textField_1.getText());
 			
+			if(p2<cargarDineroUsuario((String)label.getText()))
+			{
+				
+			
+			
 			if(p1>p2)
 			{
 				JOptionPane.showMessageDialog(null, "El jugador NO ha aceptado la oferta, es demasiado baja");
@@ -213,6 +262,13 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 				
 			}
 			}
+			
+			else
+			{
+				JOptionPane.showMessageDialog(null,"el usuario no tiene tanto dinero para fichar");
+				
+			}
+			}
 				
 			 catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -220,7 +276,7 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 			}
 			catch(NumberFormatException n)
 			{
-				JOptionPane.showMessageDialog(null, "inserta numeros por favor");
+				JOptionPane.showMessageDialog(null, "inserta numeros lógicos por favor, puede que haya introducido una cantidad muy elevada, o puede que haya introducido texto,en vez de cifras");
 			}
 			
 			}

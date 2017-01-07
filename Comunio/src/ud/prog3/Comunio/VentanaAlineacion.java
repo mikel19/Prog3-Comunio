@@ -9,6 +9,7 @@ import java.awt.RenderingHints;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -40,8 +41,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.awt.Toolkit;
 
-public class VentanaAlineacion extends JInternalFrame {
+public class VentanaAlineacion extends JFrame {
 	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
 	JComboBox<String> Portero;
@@ -64,6 +66,10 @@ public class VentanaAlineacion extends JInternalFrame {
 	static String idjornada;
 	static String puntosjornada2;
 	private JButton btnGuardarAlineacion;
+	Statement st=null;
+	ArrayList<Jugador>listaJugadores;
+	ArrayList<UsuarioJugador>listaUsuarios;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -86,6 +92,7 @@ public class VentanaAlineacion extends JInternalFrame {
 	 * @throws SQLException 
 	 */
 	public VentanaAlineacion(String b)  {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAlineacion.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		idjornada=b;
 		final ArrayList<String>nombrejugadores=new ArrayList<String>();
 		String idactual=b;
@@ -99,7 +106,8 @@ public class VentanaAlineacion extends JInternalFrame {
 //			}
 //		});
 
-		setClosable(true);
+		listaJugadores=new ArrayList<Jugador>();
+		listaUsuarios=new ArrayList<UsuarioJugador>();
 		
 		JLabel campo=new JLabel();
 		
@@ -170,6 +178,18 @@ public class VentanaAlineacion extends JInternalFrame {
 		getContentPane().add(MD);
 		
 		DI = new JComboBox<String>();
+		
+		DI.addItem(buscarDelantero());
+		
+		DI.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) 
+			{
+				
+				
+				
+			}
+		});
 		DI.setToolTipText("DI");
 		DI.setBounds(103, 170, 101, 20);
 		getContentPane().add(DI);
@@ -381,159 +401,160 @@ public class VentanaAlineacion extends JInternalFrame {
 		String jugadores3="";
 		String jugadores4="";
 		
+		cargarJugadoresEnLista(b);
 		
-		ArrayList<String>idusuario=new ArrayList<String>();
-
-		 
-		try {
-			ResultSet	rs4 = st.executeQuery("select idUsuario from usuariojugadores");
-			ResultSetMetaData rsmd4 = rs4.getMetaData();
-			int columnCount4 = rsmd4.getColumnCount();
-			
-			while(rs4.next()){
-				
-				
-				jugadores4=rs4.getString(columnCount4);
-				idusuario.add(jugadores4);
-				
-				
-				
-				
-			}
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		ArrayList<String>idJugador=new ArrayList<String>();
-
-		 
-		try {
-			ResultSet	rs = st.executeQuery("select idJugador from usuariojugadores");
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-			
-			while(rs.next()){
-				
-				
-				jugadores=rs.getString(columnCount);
-				idJugador.add(jugadores);
-				
-				
-				
-				
-			}
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println("idjugadores:"+idJugador);
-		ArrayList<String>idtodojugadores=new ArrayList<String>();
-		try {
-			ResultSet	rs2 = st.executeQuery("select id from jugadores");
-			ResultSetMetaData rsmd2 = rs2.getMetaData();
-			int columnCount2 = rsmd2.getColumnCount();
-			
-			while(rs2.next()){
-			
-			
-				jugadores2=rs2.getString(columnCount2);
-				idtodojugadores.add(jugadores2);
-				
-				
-				
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println("idtodojugadores:"+idtodojugadores);
-		
-		
-
-
-		ArrayList<String>nombre=new ArrayList<String>();
-		
-	
-		Usuario usuario=new Usuario();
-
-for(int z=0;z<idusuario.size();z++){	
-	if(idusuario.get(z).equals(idactual)){
-		
-			
-//			for(int s=0;s<idJugador.size();s++){
-		
-
-		
-				try {
-					ResultSet	rs3 = st.executeQuery("select nombre from jugadores where id='"+idJugador.get(z)+"'");
-					ResultSetMetaData rsmd3 = rs3.getMetaData();
-					int columnCount3 = rsmd3.getColumnCount();
-					
-					
-					
-					
-						jugadores3=rs3.getString(columnCount3);
-						nombrejugadores.add(jugadores3);
-						modelo.addElement(jugadores3);
-						
-//						modelo.addElement(nombre);
-						
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-	
-				}
-			
-				
-				
-				
-			
+//		ArrayList<String>idusuario=new ArrayList<String>();
+//
+//		 
+//		try {
+//			ResultSet	rs4 = st.executeQuery("select idUsuario from usuariojugadores");
+//			ResultSetMetaData rsmd4 = rs4.getMetaData();
+//			int columnCount4 = rsmd4.getColumnCount();
+//			
+//			while(rs4.next()){
+//				
+//				
+//				jugadores4=rs4.getString(columnCount4);
+//				idusuario.add(jugadores4);
+//				
+//				
+//				
+//				
 //			}
-		
-	}
-	
-}
-final ArrayList <Integer>id=new ArrayList<Integer>();
-for(int z=0;z<idusuario.size();z++){	
-	int jugadores5=0;
-	if(idusuario.get(z).equals(idactual)){
-		
-			
-//			for(int s=0;s<idJugador.size();s++){
-		
-
-		
-				try {
-					ResultSet	rs3 = st.executeQuery("select id from jugadores where id='"+idJugador.get(z)+"'");
-					ResultSetMetaData rsmd3 = rs3.getMetaData();
-					int columnCount3 = rsmd3.getColumnCount();
-					
-					
-					
-					
-						jugadores5=rs3.getInt(columnCount3);
-						id.add(jugadores5);
-						
-//						modelo.addElement(nombre);
-						
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-	
-				}
-			
-				
-				
-				
-			
+//			
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		ArrayList<String>idJugador=new ArrayList<String>();
+//
+//		 
+//		try {
+//			ResultSet	rs = st.executeQuery("select idJugador from usuariojugadores");
+//			ResultSetMetaData rsmd = rs.getMetaData();
+//			int columnCount = rsmd.getColumnCount();
+//			
+//			while(rs.next()){
+//				
+//				
+//				jugadores=rs.getString(columnCount);
+//				idJugador.add(jugadores);
+//				
+//				
+//				
+//				
 //			}
-		
-	}
-	
-}
-
+//			
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println("idjugadores:"+idJugador);
+//		ArrayList<String>idtodojugadores=new ArrayList<String>();
+//		try {
+//			ResultSet	rs2 = st.executeQuery("select id from jugadores");
+//			ResultSetMetaData rsmd2 = rs2.getMetaData();
+//			int columnCount2 = rsmd2.getColumnCount();
+//			
+//			while(rs2.next()){
+//			
+//			
+//				jugadores2=rs2.getString(columnCount2);
+//				idtodojugadores.add(jugadores2);
+//				
+//				
+//				
+//			}
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println("idtodojugadores:"+idtodojugadores);
+//		
+//		
+//
+//
+//		ArrayList<String>nombre=new ArrayList<String>();
+//		
+//	
+//		VentanaUsuario usuario=new VentanaUsuario();
+//
+//for(int z=0;z<idusuario.size();z++){	
+//	if(idusuario.get(z).equals(idactual)){
+//		
+//			
+////			for(int s=0;s<idJugador.size();s++){
+//		
+//
+//		
+//				try {
+//					ResultSet	rs3 = st.executeQuery("select nombre from jugadores where id='"+idJugador.get(z)+"'");
+//					ResultSetMetaData rsmd3 = rs3.getMetaData();
+//					int columnCount3 = rsmd3.getColumnCount();
+//					
+//					
+//					
+//					
+//						jugadores3=rs3.getString(columnCount3);
+//						nombrejugadores.add(jugadores3);
+//						modelo.addElement(jugadores3);
+//						
+////						modelo.addElement(nombre);
+//						
+//					
+//				} catch (SQLException e1) {
+//					// TODO Auto-generated catch block
+//	
+//				}
+//			
+//				
+//				
+//				
+//			
+////			}
+//		
+//	}
+//	
+//}
+//final ArrayList <Integer>id=new ArrayList<Integer>();
+//for(int z=0;z<idusuario.size();z++){	
+//	int jugadores5=0;
+//	if(idusuario.get(z).equals(idactual)){
+//		
+//			
+////			for(int s=0;s<idJugador.size();s++){
+//		
+//
+//		
+//				try {
+//					ResultSet	rs3 = st.executeQuery("select id from jugadores where id='"+idJugador.get(z)+"'");
+//					ResultSetMetaData rsmd3 = rs3.getMetaData();
+//					int columnCount3 = rsmd3.getColumnCount();
+//					
+//					
+//					
+//					
+//						jugadores5=rs3.getInt(columnCount3);
+//						id.add(jugadores5);
+//						
+////						modelo.addElement(nombre);
+//						
+//					
+//				} catch (SQLException e1) {
+//					// TODO Auto-generated catch block
+//	
+//				}
+//			
+//				
+//				
+//				
+//			
+////			}
+//		
+//	}
+//	
+//}
+		/**
 	
 	btnGuardarAlineacion.addMouseListener(new MouseAdapter() {
 		@Override
@@ -548,7 +569,9 @@ for(int z=0;z<idusuario.size();z++){
 			
 			
 		}
+		
 		@Override
+		
 		public void mouseClicked(MouseEvent arg0) {
 			int puntos=0;
 			int resultado=0;
@@ -588,12 +611,13 @@ for(int z=0;z<idusuario.size();z++){
 		}
 	});
 
+		
 //		System.out.println("nombre jugadores:"+nombrejugadores);
 //for(int a=0;a<nombrejugadores.size();a++){
 //	modelo.addElement(nombrejugadores);
 //}
 
-		
+	
 	Portero.addItem(nombrejugadores.get(0));
 	Portero.addItem(nombrejugadores.get(1));
 	
@@ -695,5 +719,92 @@ for(int z=0;z<idusuario.size();z++){
 	public static String valor2(){
 		return puntosjornada2;
 	}
-	
+	**/
 	}
+	private String buscarDelantero() {
+		String nombre="";
+		for(int i=0;i<listaUsuarios.size();i++)
+		{
+			for(int e=0;e<listaJugadores.size();e++)
+			{
+				if(listaUsuarios.get(i).getIdJugador().equalsIgnoreCase(listaJugadores.get(e).getId())&&listaJugadores.get(e).getPosicion().equalsIgnoreCase("Delantero"))
+				{
+					nombre=listaJugadores.get(e).getNombre();
+					break;
+				}
+			}
+		}
+		
+		return nombre;
+	}
+	private void cargarJugadoresEnLista(String b) 
+	{
+	Jugador jugador;
+	UsuarioJugador usujug;
+		st=BasesDeDatos.getStatement();
+		String sentencia="select * from usuariojugadores";
+		
+		String sentencia2="select * from jugadores";
+		
+		try {
+			ResultSet rs=st.executeQuery(sentencia);
+			while(rs.next())
+			{
+				usujug=new UsuarioJugador();
+				usujug.setIdUsuario(rs.getString("idUsuario"));
+				usujug.setIdJugador(rs.getString("idJugador"));
+				
+				listaUsuarios.add(usujug);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			ResultSet rs2=st.executeQuery(sentencia2);
+			while(rs2.next())
+			{
+				jugador=new Jugador();
+				jugador.setId(rs2.getString("id"));
+				jugador.setNombre(rs2.getString("nombre"));
+				
+				listaJugadores.add(jugador);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		for(int i=0;i<listaUsuarios.size();i++)
+		{
+			if(b.equalsIgnoreCase(listaUsuarios.get(i).getIdUsuario()))
+					{
+
+					String nombre=chequearNombreJugador(listaUsuarios.get(i).getIdJugador());
+						modelo.addElement(nombre);
+				
+					}
+		}
+		
+		
+	}
+	private String chequearNombreJugador(String idJugador) 
+	{
+		String nombre="";
+		for(int i=0;i<listaJugadores.size();i++)
+		{
+			if(idJugador.equalsIgnoreCase(listaJugadores.get(i).getId()))
+			{
+				nombre=listaJugadores.get(i).getNombre();
+				break;
+			}
+		}
+		return nombre;
+	}
+	}
+

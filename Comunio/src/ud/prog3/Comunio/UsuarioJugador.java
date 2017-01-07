@@ -1,6 +1,6 @@
 package ud.prog3.Comunio;
 
-public class UsuarioJugador
+public class UsuarioJugador implements Comparable<UsuarioJugador>
 {
 	
 	private String idUsuario;
@@ -23,6 +23,22 @@ public class UsuarioJugador
 	}
 	public void setPuntosTotales(int puntosTotales) {
 		this.puntosTotales = puntosTotales;
+	}
+	
+	
+	
+	
+	@Override
+	public int compareTo(UsuarioJugador o) {
+		
+		if(this.getPuntosTotales()>o.getPuntosTotales())
+		{
+			return -1;
+		}
+		else
+		{
+			return 1;
+		}
 	}
 	
 	

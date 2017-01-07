@@ -71,6 +71,7 @@ int cantidad=0;
 		cargarUsuarios();
 		puntosCadaJugador();
 		calcularPuntosTotalesCadaUsuario();
+		Collections.sort(definitivo);
 //		ordenar();
 		
 		
@@ -323,43 +324,44 @@ int cantidad=0;
 	}
 
 	
-		public void ordenar(){
-	ArrayList<UsuarioJugador>ayuda=new ArrayList<UsuarioJugador>();
-		for(int i=0;i<(definitivo.size()-1);i++){
-			for(int z=0;z<definitivo.size();z++){
-		if(definitivo.get(i).getPuntosTotales()>definitivo.get(z).getPuntosTotales()){
-			
-//				ayuda.add(definitivo.get(i));
-		
+//		public void ordenar(){
+//	ArrayList<UsuarioJugador>ayuda=new ArrayList<UsuarioJugador>();
+//		for(int i=0;i<(definitivo.size()-1);i++){
+//			for(int z=0;z<definitivo.size();z++){
+//		if(definitivo.get(i).getPuntosTotales()>definitivo.get(z).getPuntosTotales()){
+//			
+////				ayuda.add(definitivo.get(i));
+//		
+//		}
+//		if(definitivo.get(i).getPuntosTotales()<definitivo.get(z).getPuntosTotales()){
+//			
+//		ayuda.add(i,definitivo.get(i));
+//		definitivo.remove(i);
+//		definitivo.get(i).setIdUsuario(definitivo.get(z).getIdUsuario());
+//		definitivo.get(i).setPuntosTotales(definitivo.get(z).getPuntosTotales());
+//		
+//		
+//		definitivo.get(z).setIdUsuario(ayuda.get(i).getIdUsuario());
+//		definitivo.get(z).setPuntosTotales(ayuda.get(i).getPuntosTotales());
+//		
+//		}	
+//			}
+//			
+//		}
+//			
+//			
+//			
+//		}
+//			
+//		
+//		
+//		
+//		
+//		
+//			
+//			
 		}
-		if(definitivo.get(i).getPuntosTotales()<definitivo.get(z).getPuntosTotales()){
-			
-		ayuda.add(i,definitivo.get(i));
-		definitivo.remove(i);
-		definitivo.get(i).setIdUsuario(definitivo.get(z).getIdUsuario());
-		definitivo.get(i).setPuntosTotales(definitivo.get(z).getPuntosTotales());
 		
-		
-		definitivo.get(z).setIdUsuario(ayuda.get(i).getIdUsuario());
-		definitivo.get(z).setPuntosTotales(ayuda.get(i).getPuntosTotales());
-		
-		}	
-			}
-			
-		}
-			
-			
-			
-		}
-			
-		
-		
-		
-		
-		
-			
-			
-		}
 //		private void printDebugData(JTable table) {
 //	        int numRows = table.getRowCount();
 //	        int numCols = table.getColumnCount();
