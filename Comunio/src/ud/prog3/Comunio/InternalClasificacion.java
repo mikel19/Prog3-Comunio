@@ -71,7 +71,7 @@ int cantidad=0;
 		cargarUsuarios();
 		puntosCadaJugador();
 		calcularPuntosTotalesCadaUsuario();
-		
+//		ordenar();
 		
 		
 		//creamos el arreglo de objetos que contendra el
@@ -101,13 +101,14 @@ int cantidad=0;
 		// insertamos el contenido de las columnas
 //		for(int row = 0; row < definitivo.size(); row++) {
 			for(int i=0;i<definitivo.size();i++){
+		data[0]=i+1;
 		data[1] = definitivo.get(i).getIdUsuario();
-	
+		data[2]=definitivo.get(i).getPuntosTotales();
+		
+		dtm.addRow(data);
 			}
-			for(int z=0;z<definitivo.size();z++){
-				data[2] = definitivo.get(z).getPuntosTotales();
-				dtm.addRow(data);
-					}
+			
+		
 		
 		
 	
@@ -321,33 +322,41 @@ int cantidad=0;
 		
 	}
 
-//	
-//		public void ordenar(){
-//	ArrayList<UsuarioJugador>ayuda=new ArrayList<UsuarioJugador>();
-//		for(int i=0;i<definitivo.size();i++){
-//		if(definitivo.get(i).getPuntosTotales()>definitivo.get(i+1).getPuntosTotales()){
-//			
-//				ayuda.add(definitivo.get(i));
-//		
-//		}
-//		if(definitivo.get(i).getPuntosTotales()>definitivo.get(i+1).getPuntosTotales()){
-//			
-//			ayuda.add(definitivo.get(i));
-//		definitivo.remove(i);
-//		definitivo.get(i).setIdUsuario(definitivo.get(i+1).getIdUsuario());
-//		definitivo.get(i).setPuntosTotales(definitivo.get(i+1).getPuntosTotales());
-//		definitivo.get(i+1).setIdUsuario(ayuda.get(i).getIdUsuario());
-//		definitivo.get(i).setPuntosTotales(definitivo.get(i).getPuntosTotales());
-//		
-//		}	
-//		
-//			
-//		}
-//			
-//			
-//			
-//		}
+	
+		public void ordenar(){
+	ArrayList<UsuarioJugador>ayuda=new ArrayList<UsuarioJugador>();
+		for(int i=0;i<(definitivo.size()-1);i++){
+			for(int z=0;z<definitivo.size();z++){
+		if(definitivo.get(i).getPuntosTotales()>definitivo.get(z).getPuntosTotales()){
 			
+//				ayuda.add(definitivo.get(i));
+		
+		}
+		if(definitivo.get(i).getPuntosTotales()<definitivo.get(z).getPuntosTotales()){
+			
+		ayuda.add(i,definitivo.get(i));
+		definitivo.remove(i);
+		definitivo.get(i).setIdUsuario(definitivo.get(z).getIdUsuario());
+		definitivo.get(i).setPuntosTotales(definitivo.get(z).getPuntosTotales());
+		
+		
+		definitivo.get(z).setIdUsuario(ayuda.get(i).getIdUsuario());
+		definitivo.get(z).setPuntosTotales(ayuda.get(i).getPuntosTotales());
+		
+		}	
+			}
+			
+		}
+			
+			
+			
+		}
+			
+		
+		
+		
+		
+		
 			
 			
 		}
