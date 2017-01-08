@@ -5,25 +5,17 @@ package ud.prog3.Comunio;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+
 
 
 
@@ -56,9 +48,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		 JLabel lMourinho=new JLabel();
 		
 		 
-		 JPanel pBotonera;
-		 ArrayList<JButton> botones;
-		 String[] ficsBotones = new String[] { "Button Mercado", "Button Alineacion", "Button Maximize"}; 
+		
 //		"Button Mercado", "Button Alineacion", "Button Maximize" };
 		 JPanel contentPane=new JPanel();
 		 JButton bUsuario=new JButton();
@@ -72,7 +62,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaUsuario.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		
-		pBotonera = new JPanel();
+		
 		
 		try {
 			lIcono.setIcon((new ImageIcon(VentanaPrincipal.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg"))));
@@ -163,6 +153,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
        
 	}
 	
+	/**
+	 * Dependiendo que botón pulsemos, accederemos a usuario o administrador
+	 */
+	
 	public void actionPerformed(ActionEvent e) 
 	{
 		
@@ -203,7 +197,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, WindowLi
 		
 	}
 	/**
-	 * cuando cerramos la ventana, se cierra la base de datos.
+	 * cuando cerramos la ventana, se cierra la base de datos. Esto es muy importante hacerlo
 	 */
 	@Override
 	public void windowClosing(WindowEvent arg0) {

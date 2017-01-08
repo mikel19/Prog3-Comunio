@@ -126,7 +126,11 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 
 	}
 
-
+/**
+ * metodo para cargar el dinero que dispone el usuario que ha accedido
+ * @param idUsuario
+ * @return dinero: cantidad de dinero que dispone este usuario
+ */
 	private int cargarDineroUsuario(String idUsuario)
 	{
 		String sentencia="select * from usuarios";
@@ -241,23 +245,16 @@ public class MercadoFichajes extends JFrame  implements ListSelectionListener,Ac
 			String sentencia="insert into usuariojugadores values('"+label.getText()+"', '"+mercadoId.get(list.getSelectedIndex())+"')";
 			String sentencia2="delete from mercadodefichajes where idJugador = '"+mercadoId.get(list.getSelectedIndex())+"'";
 			
+			int dinero=cargarDineroUsuario((String)label.getText());
+			int dinero2=dinero-p2;
 			
-				
-//ObjectInputStream oos=new ObjectInputStream(new FileInputStream("el usuario "+label.getText()+" ha fichado a "+modelo.getElementAt(list.getSelectedIndex())));
-//			
-//			
-//			} catch (FileNotFoundException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
+			String sentencia3="update usuarios set dinero ='"+dinero2+"' where id ='"+label.getText()+"'";
 			
+
 			
 				st.executeUpdate(sentencia);
 				st.executeUpdate(sentencia2);
-				
+				st.executeUpdate(sentencia3);
 				dispose();
 				
 			}

@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.awt.Toolkit;
 
 public class InternalClasificacion extends JFrame {
 	/**
@@ -56,6 +57,7 @@ int cantidad=0;
 	 
 	public InternalClasificacion()
 	 {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InternalClasificacion.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 	setBounds(300,300,300,300);
 		
 		jugadores=new ArrayList<Jugador>();

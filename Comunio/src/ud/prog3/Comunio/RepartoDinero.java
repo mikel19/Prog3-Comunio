@@ -131,17 +131,25 @@ public class RepartoDinero extends JFrame implements ActionListener, ListSelecti
 		{
 		case "guardar":
 			
-			st=BasesDeDatos.getStatement();
-			int index=list.getSelectedIndex()+1;
-			int dineroTotal=Integer.parseInt(textField_1.getText())+Integer.parseInt(textField.getText());
-			String sentencia="update usuarios set dinero = '"+dineroTotal+"' where numIdentificador = '"+index+"'";
-			System.out.println(sentencia);
+			
 			try {
+				st=BasesDeDatos.getStatement();
+				int index=list.getSelectedIndex()+1;
+				int dineroTotal=Integer.parseInt(textField_1.getText())+Integer.parseInt(textField.getText());
+				String sentencia="update usuarios set dinero = '"+dineroTotal+"' where numIdentificador = '"+index+"'";
+				System.out.println(sentencia);
 				st.executeUpdate(sentencia);
 				JOptionPane.showMessageDialog(null, "El usuario ahora tiene "+textField_1.getText()+" euros");
 				
 				dispose();
-			} catch (SQLException e) {
+			
+			}
+			catch(NumberFormatException n)
+			{
+				JOptionPane.showMessageDialog(null, "introduce numeros de verdad, por favor");
+				
+			}
+			catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

@@ -45,7 +45,7 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tiempoUso;
+	
 	JMenuBar menuBar;
 	JMenu mnNoticias;
 	JMenuItem mntmLeerNoticias;
@@ -80,25 +80,14 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JInternalNoticias noti=new JInternalNoticias();
-				if(noti.isClosed()==true){
-					mntmLeerNoticias.setEnabled(true);
-				}
-				if(noti.isClosed()==false){
-					mntmLeerNoticias.setEnabled(false);
-					
-				}
+				noti.setVisible(true);
 			}
 		});
 		menuBar.add(mnNoticias);
 		
-		mntmLeerNoticias = new JMenuItem("Escribir");
 	
 		
-	
-		mnNoticias.add(mntmLeerNoticias);
 		
-		JMenu mnClasificacin = new JMenu("Clasificaci\u00F3n");
-		menuBar.add(mnClasificacin);
 		
 		JMenu mnAlineacin = new JMenu("Alineaci\u00F3n");
 		menuBar.add(mnAlineacin);
@@ -185,67 +174,14 @@ public class VentanaJuegoUsuario extends JFrame implements ActionListener
 			}
 		});
 		
-		mntmLeerNoticias.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
 		
-				
-				JInternalNoticias noti=new JInternalNoticias();
+		
 
-				getContentPane().add(noti);
-					noti.setVisible(true);
-				
-			
-			
-				
-			}
-		});
 		
 		
 		
-		
-		
-//		tiempoUso = new JTextField();
-//		tiempoUso.setLocation(60, 24);
-//		tiempoUso.setSize(93, 20);
-//		getContentPane().add(tiempoUso);
-//		tiempoUso.setColumns(10);
-		
-		
-		
-//		Runnable r=new Runnable()
-//		{
-//
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				for(int i=0;i<10;i++)
-//				{
-//				tiempoUso.setText("El tiempo uso: "+i);
-//				if(i==9)
-//				{
-//					tiempoUso.setText("Tiempo de expiracion - La conexión va a finalizar");
-//					try {
-//						Thread.sleep(4000);
-//						dispose();
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				
-//				}
-//			}
-//			
-//		};
-//		Thread mihilo=new Thread(r);
-//		mihilo.start();
-		
+
+
 	
 	}
 

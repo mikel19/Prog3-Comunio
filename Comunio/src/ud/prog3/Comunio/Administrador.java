@@ -177,11 +177,11 @@ JButton btnEliminarUsuarios;
 					
 					
 					String sentencia="update jugadores set puntosJornada='"+puntos.nextInt(15)+"' where id='"+i+"'";
-					String num=""+i;
+					
 					
 				
 					
-					//String PuntosJornada="insert into puntosjornada values ('"+num+"', '"+comprobarJornada()+"', '"+puntos.nextInt(15)+"')";
+				
 					
 
 					
@@ -191,19 +191,7 @@ JButton btnEliminarUsuarios;
 						st.executeUpdate(sentencia);
 						
 						
-						//st.executeUpdate(PuntosJornada);
-//						
-//						ResultSet rs=st.executeQuery("select PuntosJornada1 from puntosjornada");
-//						ResultSetMetaData rsmd1 = rs.getMetaData();
-//						int columnCount1 = rsmd1.getColumnCount();
-//						while(rs.next())
-//						{
-//						puntosEstaJornada=rs.getInt(columnCount1);
-//						
-//						//puntosJornada.add(puntosEstaJornada);
-//						
-//						
-//						}
+
 						}
 						
 					
@@ -215,31 +203,7 @@ JButton btnEliminarUsuarios;
 					
 					
 				}
-				
-//				if(comprobarPuntos(puntosJornada)==true)
-//				{
-//					String alterarTable="alter table puntosjornada add PuntosJornada"+comprobarJornada()+"";
-//					try {
-//						st.executeUpdate(alterarTable);
-//						
-//						for(int i=1;i<75;i++)
-//						{
-//							
-//							
-//							
-//							
-//							String puntosACero="update puntosjornada set PuntosJornada"+comprobarJornada()+"='"+0+"' where "+i+"= '"+null+"'";
-//							st.executeUpdate(puntosACero);
-//						
-//					  }
-//						
-//						
-//						
-//					} catch (SQLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
+
 				
 				JOptionPane.showMessageDialog(null, "Los puntos para esta jornada se han calculado");
 				
@@ -260,9 +224,7 @@ JButton btnEliminarUsuarios;
 				labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward-CL.png")));
 				Statement st=null;
 				st=BasesDeDatos.getStatement();
-				int puntosJornada1=0;
-				int puntosTotales1=0;
-				int suma=0;
+				
 				
 				
 				añadirJugadoresALista();
@@ -271,7 +233,9 @@ JButton btnEliminarUsuarios;
 				
 				for(int i=1;i<listaJ.size();i++)
 				{
-					listaJ.get(i).setPuntosTotales(listaJ.get(i).getPuntosTotales()+listaJ.get(i).getPuntosJornada());
+					int puntos=listaJ.get(i).getPuntosTotales()+listaJ.get(i).getPuntosJornada();
+					
+					listaJ.get(i).setPuntosTotales(puntos);
 					try {
 						st.executeUpdate("update jugadores set puntosTotales = '"+listaJ.get(i).getPuntosTotales()+"' where id = '"+i+"'");
 						st.executeUpdate("update jugadores set puntosJornada = '"+0+"' where id = '"+i+"'");
@@ -285,50 +249,16 @@ JButton btnEliminarUsuarios;
 				}
 				
 					
-//					try {
-//						ResultSet puntosJornada = st.executeQuery("select puntosJornada from jugadores" +" where (id='"+i+"')" );
-//						ResultSetMetaData rsmd1 = puntosJornada.getMetaData();
-//						int columnCount1 = rsmd1.getColumnCount();
-//						
-//						
-//						ResultSet puntosTotales=st.executeQuery("select puntosTotales from jugadores" +" where (id='"+i+"')" );
-//						ResultSetMetaData rsmd2 = puntosJornada.getMetaData();
-//						int columnCount2 = rsmd2.getColumnCount();
-//						
-//						
-//						while(puntosJornada.next())
-//						{
-//							
-//						puntosJornada1=puntosJornada.getInt(columnCount1);
-//						
-//						puntosTotales1=puntosTotales.getInt(columnCount2);
-//						suma=puntosTotales1+puntosJornada1;
-//						
-//						String sentencia="update jugadores set puntosTotales = '"+suma+"' where id = '"+i+"'";
-//						System.out.println(sentencia);
-//						st.executeUpdate(sentencia);
-//						String sentencia1="update jugadores set puntosJornada = '0' where id = '"+i+"'";
-//						st.executeUpdate(sentencia1);
-//						
-//						
-//						
-//						} 
-//						
-//						añadirJugadoresALista();
-//						
-//					} catch (SQLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//					
-//					
-//					
-//				}
-//				
-//				JOptionPane.showMessageDialog(null, "Los puntos de esta jornada ya se han actualizado en los puntos totales de cada jugador");
-//				
-//				dispose();
-//				
+					
+					
+					
+					
+				
+				
+				JOptionPane.showMessageDialog(null, "Los puntos de esta jornada ya se han actualizado en los puntos totales de cada jugador");
+				
+				dispose();
+				
 			}
 		});
 		labelAñadir.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/Button Fast Forward.png")));
@@ -632,6 +562,23 @@ JButton btnEliminarUsuarios;
 		label.setIcon(new ImageIcon(Administrador.class.getResource("/ud/prog3/Comunio/img/dinero.png")));
 		label.setBounds(394, 634, 66, 58);
 		getContentPane().add(label);
+		
+		JLabel lblNoticia = new JLabel("Pulsa este bot\u00F3n si quieres introducir una noticia");
+		lblNoticia.setBounds(663, 652, 332, 14);
+		getContentPane().add(lblNoticia);
+		
+		JButton btnNewButton_1 = new JButton("NUEVA NOTICIA");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				VentanaNuevaNoticia news=new VentanaNuevaNoticia();
+				news.setVisible(true);
+				
+				
+			}
+		});
+		btnNewButton_1.setBounds(1088, 648, 217, 23);
+		getContentPane().add(btnNewButton_1);
 		
 		lblPrecio.setVisible(false);
 		

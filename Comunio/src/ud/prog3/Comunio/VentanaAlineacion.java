@@ -46,17 +46,6 @@ import java.awt.Toolkit;
 public class VentanaAlineacion extends JFrame {
 	VentanaAlineacion alineacion;
 	JLabel lblAlineacion;
-	JComboBox<String> Portero;
-	JComboBox<String> LI;
-	JComboBox<String> DFCI;
-	JComboBox <String>DFCD;
-	JComboBox <String>LD;
-	JComboBox<String> MI;
-	JComboBox <String>MCI;
-	JComboBox <String>MCD;
-	JComboBox <String>MD;
-	JComboBox<String> DI;
-	JComboBox<String> DCD;
 	JComboBox<String> EI;
 	ImageIcon icono;
 	ImageIcon fot; 
@@ -65,7 +54,6 @@ public class VentanaAlineacion extends JFrame {
 	DefaultListModel modelo;
 	static String idjornada;
 	static String puntosjornada2;
-	private JButton btnGuardarAlineacion;
 	Statement st=null;
 	ArrayList<Jugador>listaJugadores;
 	ArrayList<UsuarioJugador>listaUsuarios;
@@ -92,6 +80,7 @@ public class VentanaAlineacion extends JFrame {
 	 * @throws SQLException 
 	 */
 	public VentanaAlineacion(String b)  {
+		getContentPane().setBackground(new Color(0, 128, 0));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAlineacion.class.getResource("/ud/prog3/Comunio/img/comunioIcono.jpg")));
 		idjornada=b;
 		final ArrayList<String>nombrejugadores=new ArrayList<String>();
@@ -116,8 +105,9 @@ public class VentanaAlineacion extends JFrame {
 		getContentPane().setLayout(null);
 		
 		
-		JLabel lblSistemaDeJuego = new JLabel("Sistema de Juego");
-		lblSistemaDeJuego.setBounds(10, 11, 115, 20);
+		JLabel lblSistemaDeJuego = new JLabel("ESTE ES TU EQUIPO ACTUAL");
+		lblSistemaDeJuego.setForeground(new Color(255, 255, 255));
+		lblSistemaDeJuego.setBounds(35, 36, 224, 20);
 		getContentPane().add(lblSistemaDeJuego);
 		
 		
@@ -125,79 +115,6 @@ public class VentanaAlineacion extends JFrame {
 		
 		 fot = new ImageIcon(VentanaAlineacion.class.getResource("/ud/prog3/Comunio/img/Alineacion.jpeg"));
 		this.repaint();
-		
-
-	
-	
-		
-		
-		Portero = new JComboBox<String>();
-		Portero.setToolTipText("Portero");
-		Portero.setBounds(171, 431, 101, 20);
-		getContentPane().add(Portero);
-		
-		
-		LI = new JComboBox<String>();
-		LI.setToolTipText("LI");
-		LI.setBounds(45, 332, 101, 20);
-		getContentPane().add(LI);
-		
-		DFCI = new JComboBox<String>();
-		DFCI.setToolTipText("DFCI");
-		DFCI.setBounds(123, 363, 101, 20);
-		getContentPane().add(DFCI);
-		
-		DFCD = new JComboBox<String>();
-		DFCD.setToolTipText("DFCD");
-		DFCD.setBounds(237, 363, 101, 20);
-		getContentPane().add(DFCD);
-		
-		LD = new JComboBox<String>();
-		LD.setToolTipText("LD");
-		LD.setBounds(299, 332, 101, 20);
-		getContentPane().add(LD);
-		
-		MI = new JComboBox<String>();
-		MI.setToolTipText("MI");
-		MI.setBounds(55, 264, 101, 20);
-		getContentPane().add(MI);
-		
-		MCI = new JComboBox<String>();
-		MCI.setToolTipText("MCI");
-		MCI.setBounds(123, 295, 101, 20);
-		getContentPane().add(MCI);
-		
-		MCD = new JComboBox<String>();
-		MCD.setToolTipText("MCD");
-		MCD.setBounds(237, 295, 101, 20);
-		getContentPane().add(MCD);
-		
-		MD = new JComboBox<String>();
-		MD.setToolTipText("MD");
-		MD.setBounds(299, 264, 101, 20);
-		getContentPane().add(MD);
-		
-		DI = new JComboBox<String>();
-		
-		DI.addItem(buscarDelantero());
-		
-		DI.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) 
-			{
-				
-				
-				
-			}
-		});
-		DI.setToolTipText("DI");
-		DI.setBounds(103, 170, 101, 20);
-		getContentPane().add(DI);
-		
-		DCD = new JComboBox<String>();
-		DCD.setToolTipText("DCD");
-		DCD.setBounds(247, 170, 101, 20);
-		getContentPane().add(DCD);
 		
 
 		
@@ -208,112 +125,6 @@ public class VentanaAlineacion extends JFrame {
 		getContentPane().add(lblAlineacion);
 		 icono = new ImageIcon(fot.getImage().getScaledInstance(lblAlineacion.getWidth(), lblAlineacion.getHeight(), Image.SCALE_DEFAULT));
 		lblAlineacion.setIcon(icono);
-		
-		
-		JButton button = new JButton("4-4-2");		
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Portero.setBounds(171, 431, 101, 20);
-				LI.setBounds(45, 332, 101, 20);
-				DFCI.setBounds(123, 363, 101, 20);
-				DFCD.setBounds(237, 363, 101, 20);
-				LD.setBounds(299, 332, 101, 20);
-				MI.setBounds(55, 264, 101, 20);
-				MCI.setBounds(123, 295, 101, 20);
-				MCD.setBounds(237, 295, 101, 20);
-				MD.setBounds(299, 264, 101, 20);
-				DI.setBounds(103, 170, 101, 20);
-				DCD.setBounds(247, 170, 101, 20);
-				
-			}
-		});
-		button.setBounds(10, 31, 89, 23);
-		getContentPane().add(button);
-		
-		JButton button_1 = new JButton("3-4-3");
-		
-		button_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				if(modelo.size()<13){
-					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
-				}
-				
-			}
-		});
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			LI.setBounds(128, 366, 101, 20);
-			DFCI.setBounds(206, 366, 101, 20);
-			DFCD.setBounds(279, 366, 101, 20);
-			LD.setBounds(206, 167, 101, 20);
-			MI.setBounds(103, 284, 101, 20);
-			MCI.setBounds(160, 250, 101, 20);
-			MCD.setBounds(241, 250, 101, 20);
-			MD.setBounds(302, 284, 101, 20);
-			DI.setBounds(128, 167, 101, 20);
-			DCD.setBounds(289, 167, 101, 20);
-				
-			}
-		});
-		button_1.setBounds(103, 31, 89, 23);
-		getContentPane().add(button_1);
-		
-		JButton button_2 = new JButton("4-3-3");
-		button_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if(modelo.size()<13){
-					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
-				}
-				
-			}
-		});
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			LI.setBounds(60, 352, 28, 20);
-			DFCI.setBounds(150, 365, 28, 20);
-			DFCD.setBounds(266, 365, 28, 20);
-			LD.setBounds(339, 352, 28, 20);
-			MI.setBounds(110, 260, 28, 20);
-			MCI.setBounds(210, 260, 28, 20);
-			MCD.setBounds(310, 260, 28, 20);
-			MD.setBounds(110, 167, 28, 20);
-			DI.setBounds(210, 167, 28, 20);
-			DCD.setBounds(310, 167, 28, 20);
-				
-			}
-		});
-		button_2.setBounds(196, 31, 89, 23);
-		getContentPane().add(button_2);
-		
-		JButton button_3 = new JButton("5-4-1");
-		button_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if(modelo.size()<13){
-					JOptionPane.showMessageDialog(null, "No puedes jugar con esta alineación");
-				}
-				
-			}
-		});
-		button_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			LI.setBounds(65, 366, 28, 20);
-			DFCI.setBounds(135, 366, 28, 20);
-			DFCD.setBounds(205, 366, 28, 20);
-			LD.setBounds(345, 366, 28, 20);
-			MI.setBounds(275, 366, 28, 20);
-			MCI.setBounds(90, 250, 28, 20);
-			MCD.setBounds(170, 250, 28, 20);
-			MD.setBounds(250, 250, 28, 20);
-			DI.setBounds(330, 250, 28, 20);
-			DCD.setBounds(210, 167, 28, 20);
-				
-			}
-		});
-		button_3.setBounds(289, 31, 89, 23);
-		getContentPane().add(button_3);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(431, 74, 166, 431);
@@ -387,10 +198,6 @@ public class VentanaAlineacion extends JFrame {
 		lista.setModel(modelo);
 		
 		scrollPane.setViewportView(lista);
-		
-		btnGuardarAlineacion = new JButton("GUARDAR ALINEACION");
-		btnGuardarAlineacion.setBounds(433, 31, 147, 23);
-		getContentPane().add(btnGuardarAlineacion);
 		
 	
 		
